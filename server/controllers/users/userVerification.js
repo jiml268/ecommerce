@@ -1,3 +1,5 @@
+const pool = require('../../config/db')
+
 const userVerification = async (req, res) => {
     const returnCode = req.params.verificationToken
     try {

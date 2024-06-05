@@ -1,4 +1,6 @@
-  const editAddress= async(req, res) => {
+const pool = require('../../config/db')
+
+const editAddress = async (req, res) => {
     const {
       first_name,
       middle_init,

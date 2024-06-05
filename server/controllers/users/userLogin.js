@@ -1,4 +1,7 @@
- const userLogin = async(req, res) => {
+const pool = require('../../config/db')
+const bcrypt = require('bcrypt');
+
+const userLogin = async (req, res) => {
         const { email, password } = req.body
         
      try {

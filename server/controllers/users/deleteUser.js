@@ -1,3 +1,4 @@
+const pool = require('../../config/db')
 
      const deleteUser= async(req, res) =>{
         const { email, } = req.body

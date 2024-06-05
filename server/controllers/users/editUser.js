@@ -1,4 +1,7 @@
- const editUser = async(req, res) => {
+const pool = require('../../config/db')
+const bcrypt = require('bcrypt');
+
+const editUser = async (req, res) => {
      const salt = 10
      const { email, newEmail, first_name, middle_init, last_name, phone_num, password } = req.body
    

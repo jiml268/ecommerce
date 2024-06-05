@@ -1,4 +1,9 @@
- const resendVarify =async(req, res) =>{
+const pool = require('../../config/db')
+const { v4: uuidv4 } = require('uuid');
+const  emailjs = require('@emailjs/nodejs');
+require("dotenv").config();
+
+const resendVarify = async (req, res) => {
                  const varification_code = uuidv4()
         const { email, } = req.body
         try {

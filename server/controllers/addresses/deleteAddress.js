@@ -1,4 +1,6 @@
-const deleteAddress = async(req, res) => {
+const pool = require('../../config/db')
+
+const deleteAddress = async (req, res) => {
     const { address_type, id_number } = req.body;
 
     let sql = "";

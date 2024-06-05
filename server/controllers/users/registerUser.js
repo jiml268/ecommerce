@@ -1,4 +1,10 @@
-const  registerUser = async(req, res) =>{
+const pool = require('../../config/db')
+const bcrypt = require('bcrypt');
+const { v4: uuidv4 } = require('uuid');
+const  emailjs = require('@emailjs/nodejs');
+require("dotenv").config();
+
+const registerUser = async (req, res) => {
         const salt = 10
         try {
             const { email, first_name, middle_init, last_name, phone_num, password, } = req.body
@@ -39,7 +45,7 @@ const query ='insert into users (email, first_name, middle_init, last_name, phon
                  message: "user created",
             }); 
         } catch (err) {
-           
+           console.log(err)
             return res.status(400).json({
                 code: 400,
                 Massage: err,

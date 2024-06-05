@@ -1,4 +1,6 @@
-const getAllAddress = async(req, res) => {
+const pool = require('../../config/db')
+
+const getAllAddress = async (req, res) => {
     const { address_type } = req.body;
 
     let sql = "";
