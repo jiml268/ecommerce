@@ -2,6 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const usersRoutes = require("./routers/userRouter");
+const addressRoutes = require("./routers/addressRouter");
 const session = require('express-session');
 const sess = {
   secret: process.env.JWT_privateKey,
