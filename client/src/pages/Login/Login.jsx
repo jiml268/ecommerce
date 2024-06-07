@@ -51,7 +51,6 @@ const toastOptions = {
     }
    
     const response = await dispatch(userLogin(loginData));
-    console.log('response', response.payload.data.code)
     
       if (response.payload.data.code === 403 ||response.payload.data.code === 401 ) { 
        const message = response.payload.data.message

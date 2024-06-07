@@ -1,0 +1,1 @@
+export const getID = (state) => state.user.userId;

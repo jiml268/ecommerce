@@ -35,7 +35,8 @@ const userLogin = async (req, res) => {
              req.session.userID = string2[0][0].id
               return res.json({
             status: "logged in",
-            code: 200,
+                  code: 200,
+            id: string2[0][0].id,
                 message: "login successful"
             
         });

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
- import {addAddress, } from './addressOperators'
+ import {addAddress,editAddress, deleteAddress, getAllAddress } from './addressOperators'
  
 
 const initialState = {
@@ -17,20 +17,62 @@ const addressSlice = createSlice({
     },
          extraReducers: builder =>
         builder
-        .addCase(addAddress.pending, (state, action) => {
+        .addCase(addAddress.pending, (state, ) => {
+            state.isloading = true;
+            
+
+                  })
+                  
+                  .addCase(addAddress.fulfilled, (state, ) => {     
+                           state.isloading = false
+        
+      })
+                  .addCase(addAddress.rejected, (state, ) => {
+                      state.isloading = false    
+                  } 
+        )     
+    
+                .addCase(editAddress.pending, (state, ) => {
                           state.isloading = true;
 
                   })
                   
-                  .addCase(addAddress.fulfilled, (state, action) => {     
+                  .addCase(editAddress.fulfilled, (state, ) => {     
                            state.isloading = false
         
       })
-                  .addCase(addAddress.rejected, (state, action) => {
+                  .addCase(editAddress.rejected, (state, ) => {
                       state.isloading = false    
                   } 
-    )
-      
+        ) 
+         
+                .addCase(deleteAddress.pending, (state, ) => {
+                          state.isloading = true;
+
+                  })
+                  
+                  .addCase(deleteAddress.fulfilled, (state, ) => {     
+                           state.isloading = false
+        
+      })
+                  .addCase(deleteAddress.rejected, (state, ) => {
+                      state.isloading = false    
+                  } 
+        ) 
+         
+                .addCase(getAllAddress.pending, (state, ) => {
+                          state.isloading = true;
+
+                  })
+                  
+                  .addCase(getAllAddress.fulfilled, (state, ) => {     
+                           state.isloading = false
+        
+      })
+                  .addCase(getAllAddress.rejected, (state, ) => {
+                      state.isloading = false    
+                  } 
+    ) 
          
 });
          export const { setIsloggedIn  } = addressSlice.actions;

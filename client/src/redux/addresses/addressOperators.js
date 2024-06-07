@@ -6,7 +6,43 @@ export const addAddress = createAsyncThunk(
   "/addAddress",
   async (credentials, thunkAPI) => {
     try {
-      const response = await axios.post(`/addAddress`, credentials);
+      const response = await axios.post(`address/getAllAddress`, credentials);
+    return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const editAddress = createAsyncThunk(
+  "/editAddress",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`address/editAddress`, credentials);
+    return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteAddress = createAsyncThunk(
+  "/deleteAddress",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`address/deleteAddress`, credentials);
+    return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getAllAddress = createAsyncThunk(
+  "/getAllAddress",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`address/getAllAddress`, credentials);
     return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

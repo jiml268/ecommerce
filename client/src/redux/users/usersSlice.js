@@ -4,7 +4,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     isLoggedIn: false,
-    isloading: false
+    isloading: false,
+    userId: null
 };
 
 const usersSlice = createSlice({
@@ -17,30 +18,33 @@ const usersSlice = createSlice({
     },
          extraReducers: builder =>
         builder
-        .addCase(userRegister.pending, (state, action) => {
+        .addCase(userRegister.pending, (state, ) => {
                           state.isloading = true;
 
                   })
                   
-                  .addCase(userRegister.fulfilled, (state, action) => {     
+                  .addCase(userRegister.fulfilled, (state, ) => {     
                            state.isloading = false
         
       })
-                  .addCase(userRegister.rejected, (state, action) => {
+                  .addCase(userRegister.rejected, (state, ) => {
                       state.isloading = false    
                   } 
     )
       
-          .addCase(userLogin.pending, (state, action) => {
+          .addCase(userLogin.pending, (state, ) => {
                           state.isloading = true;
 
                   })
                   
                   .addCase(userLogin.fulfilled, (state, action) => {     
-                           state.isloading = false
+                      state.isloading = false
+                      state.userId = action.payload.data.id
+                    
+
         
       })
-                  .addCase(userLogin.rejected, (state, action) => {
+                  .addCase(userLogin.rejected, (state, ) => {
                       state.isloading = false    
                   } 
     )
