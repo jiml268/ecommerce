@@ -1,0 +1,21 @@
+.listAddresses{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 1040px;
+    justify-content: center
+}
+
+.AddressBlock{
+    padding: 10px;
+    border: 1px solid black;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    
+}
+
+.default{
+    padding-bottom: 10px;
+    border-bottom: 1px solid gray;
+    height: 30px;
+}
