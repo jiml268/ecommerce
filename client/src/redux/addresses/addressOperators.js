@@ -49,3 +49,16 @@ export const getAllAddress = createAsyncThunk(
     }
   }
 );
+
+export const updateDefault = createAsyncThunk(
+  "/updateDefault",
+  async (credentials, thunkAPI) => {
+    try {
+      console.log(credentials)
+      const response = await axios.post(`address/updateDefault`, credentials);
+    return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

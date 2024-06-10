@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
- import {addAddress,editAddress, deleteAddress, getAllAddress } from './addressOperators'
+ import {addAddress,editAddress, deleteAddress, getAllAddress, updateDefault } from './addressOperators'
  
 
 const initialState = {
@@ -70,6 +70,19 @@ const addressSlice = createSlice({
         
       })
                   .addCase(getAllAddress.rejected, (state, ) => {
+                      state.isloading = false    
+                  } 
+        ) 
+          .addCase(updateDefault.pending, (state, ) => {
+                          state.isloading = true;
+
+                  })
+                  
+                  .addCase(updateDefault.fulfilled, (state, ) => {     
+                           state.isloading = false
+        
+      })
+                  .addCase(updateDefault.rejected, (state, ) => {
                       state.isloading = false    
                   } 
     ) 

@@ -16,6 +16,37 @@
 
 .default{
     padding-bottom: 10px;
-    border-bottom: 1px solid gray;
+   
     height: 30px;
+}
+
+.defaultButton{
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.defaultButton:hover {
+background-color: blue;
+color: white;
+}
+
+.defaultBlock{
+    padding-bottom: 10px;
+        border-bottom: 1px solid gray;
+}
+
+.addressButton{
+    padding: 8px;
+    margin-right: 10px;
+    border-radius: 25px;
+    width: 70px;
+}
+
+.addressButton:hover {
+    background-color: blue;
+    color: white;
+}
+
+.buttonGroup{
+   margin: 10px 5px;
 }
