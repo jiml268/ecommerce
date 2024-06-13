@@ -7,7 +7,7 @@ const updateDefault = async (req, res) => {
    user_id
     
     } = req.body;
-console.log( req.body)
+
     let sql = "";
     try {
         if (address_type === 'billing') {
@@ -29,7 +29,7 @@ console.log( req.body)
 
 
 } catch (err) {
-      console.log(err)
+      
       return res.status(400).json({
         code: 400,
         

@@ -7,6 +7,7 @@ import { getID } from "../../redux/users/usersSelectors"
 import { useLocation } from "react-router-dom";
 import styles from "./AllAddresses.module.css"
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 
 function AllAddresses() {
@@ -22,7 +23,7 @@ const toastOptions = {
             theme: "colored",
 
          }
-
+const navigate = useNavigate();  
  const dispatch = useDispatch()
     const userID = useSelector(getID)
     const location = useLocation();
@@ -52,7 +53,7 @@ const toastOptions = {
             user_id: userID
         }
        const response = await dispatch(updateDefault(defaultAddress))
-             console.log(response)
+            
              if (response.payload.data.code === 200) {
                toast.success("Default Address has been updated", 
      toastOptions);  
@@ -64,12 +65,14 @@ const toastOptions = {
     
 
      const addressClicked = async (e) => {
-        const {name, value} = e.target
-         
+         const { name, value } = e.target
+          let currentindex = e.target.getAttribute("data-id")
+                    
+
          if (name === "remove") {
              const recordToDelete = { address_type: data.type, id_number: value }
              const response = await dispatch(deleteAddress(recordToDelete))
-             console.log(response)
+             
              if (response.payload.data.code === 200) {
                toast.success("Address has been deleted", 
      toastOptions);  
@@ -77,6 +80,11 @@ const toastOptions = {
              const getAddtressType = { address_type: data.type, useID: userID }
               const getAdresses = await dispatch(getAllAddress(getAddtressType))
             setShowAddresses(getAdresses.payload.data.data)
+         }
+         if (name === "edit") {
+             const addressInfo = { address: showAddresses[currentindex], address_type: data.type }
+           
+   navigate("/AddressForm", { state: addressInfo });    
          }
          
     }
@@ -87,7 +95,7 @@ const toastOptions = {
             <h1> Your {data.type} Addresses</h1>
         <div className={styles.listAddresses}>
             {showAddresses.length > 0 &&
-                showAddresses.map(function(address) {
+                showAddresses.map(function(address, index) {
       return (
           <div key={address.id}>
               <div className={styles.AddressBlock} style={{ border: "1px solid black" }}>
@@ -104,8 +112,8 @@ const toastOptions = {
                   <h3>Phone number: </h3>
                   <h3>{address.Phone_num}</h3>
                   <div className={styles.buttonGroup}>
-                  <button className={styles.addressButton} onClick={addressClicked} value={address.id} name = 'edit'>edit</button>      
-                  <button  className={styles.addressButton} onClick={addressClicked} value={address.id} name ="remove">remove</button>
+                  <button className={styles.addressButton} onClick={addressClicked} value={address.id} data-id={index} name = 'edit'>edit</button>      
+                  <button  className={styles.addressButton} onClick={addressClicked} value={address.id} data-id={index} name ="remove">remove</button>
                  </div>
 
 </div>
