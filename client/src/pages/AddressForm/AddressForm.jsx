@@ -4,6 +4,10 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 
 import { styled } from '@mui/system';
 import { useLocation } from "react-router-dom";
@@ -13,6 +17,9 @@ import { useDispatch } from 'react-redux';
 import { editAddress, updateDefault } from '../../redux/addresses/addressOperators';
 import { useSelector } from "react-redux"
 import { getID } from "../../redux/users/usersSelectors"
+import allStates from '../../data/allStates.json'
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
@@ -50,6 +57,15 @@ const response = await dispatch(editAddress(updateInfo));
    navigate("/alladdresses", { state: addressType });
         }
   }
+
+  const handleStateChange = (event) => {
+    
+    console.log(event.target.value);
+     setEditCurrentAddress({
+             ...editCurrentAddress,
+           state: event.target.value,
+         });
+  };
   
    const changeHandler = e => {
     
@@ -66,7 +82,8 @@ const response = await dispatch(editAddress(updateInfo));
   };
     
   return (
-    
+     <Container component="main" maxWidth="xs">
+        <CssBaseline />
     <Box component="form"  sx={{ mt: 3 }}>
       {
         Object.keys(editCurrentAddress).length > 0 &&
@@ -135,7 +152,7 @@ const response = await dispatch(editAddress(updateInfo));
               type="address2"
               placeholder="Apartment, suite, unit, etc. (optional)"
               autoComplete="shipping address-line2"
-                required
+                
                 value={editCurrentAddress.address_line2}
                 onChange={changeHandler}
             />
@@ -155,18 +172,25 @@ const response = await dispatch(editAddress(updateInfo));
             />
           </FormGrid>
           <FormGrid item xs={6}>
-           
-              <TextField
-                label="State"
-              id="state"
-              name="state"
-              type="state"
-              placeholder="NY"
-              autoComplete="State"
-                required
-                value={editCurrentAddress.state}
-                onChange={changeHandler}
-            />
+       <FormControl required sx={{  minWidth: 120, maxWidth: 150 }}>     
+        <InputLabel id="demo-simple-select-required-label">State</InputLabel>
+        <Select
+          labelId="demo-simple-select-required-label"
+          id="demo-simple-select-required"
+           value={editCurrentAddress.state}
+                 defaultValue={allStates.state}
+          label="State"
+          onChange={handleStateChange}
+        >
+                {allStates.map(function (state, ) {
+                  return (
+                    <MenuItem key={state.abbreviation} value={state.abbreviation}>{state.name}</MenuItem>
+                  )
+                })
+                }
+        </Select>
+ </FormControl>
+
           </FormGrid>
           <FormGrid item xs={6}>
            
@@ -204,7 +228,6 @@ const response = await dispatch(editAddress(updateInfo));
               type="text"
               placeholder="comments"
               autoComplete="comments"
-                required
                 minRows = "3"
                 value={editCurrentAddress.comments}
                 onChange={changeHandler}
@@ -248,6 +271,6 @@ const response = await dispatch(editAddress(updateInfo));
         </Grid>
       }
         </Box>
-    
+    </Container>
           );
 }
