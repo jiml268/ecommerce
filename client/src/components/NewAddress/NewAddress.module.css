@@ -1,0 +1,18 @@
+.NewAddressBlock {
+    padding: 10px;
+    border: 1px solid black;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 222px;
+    height: 347px;
+    display: flex;
+    background-color: transparent;
+        justify-content: center;
+        align-items: center;
+
+}
+
+.plus{
+    height: 50px;
+    width: 50px;
+}

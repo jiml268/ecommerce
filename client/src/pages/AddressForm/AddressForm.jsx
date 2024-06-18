@@ -14,7 +14,7 @@ import { useLocation } from "react-router-dom";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { editAddress, updateDefault } from '../../redux/addresses/addressOperators';
+import { editAddress, updateDefault, addAddress } from '../../redux/addresses/addressOperators';
 import { useSelector } from "react-redux"
 import { getID } from "../../redux/users/usersSelectors"
 import allStates from '../../data/allStates.json'
@@ -30,7 +30,7 @@ export default function AddressForm() {
   const navigate = useNavigate()
   const location = useLocation();
   const dispatch = useDispatch()
-  const {address, address_type} = location.state;
+  const {address, address_type, newOrUpdate} = location.state;
 const userID = useSelector(getID)
     const [editCurrentAddress, setEditCurrentAddress] = useState(address ? address : [])
   const [checked, setChecked] = useState(address.default_addtress === 0 ? false : true);
@@ -47,9 +47,16 @@ const userID = useSelector(getID)
         }
         await dispatch(updateDefault(defaultAddress))
       }
-      const updateInfo = {address: editCurrentAddress, type: address_type, setTodefault: checked  }
-const response = await dispatch(editAddress(updateInfo));
-      console.log(response)
+      const updateInfo = { address: editCurrentAddress, type: address_type, setTodefault: checked }
+      if (newOrUpdate === "Update") {
+       console.log('update ran')
+        await dispatch(editAddress(updateInfo));
+      } 
+        if (newOrUpdate === "New") {
+       console.log('new ran')
+        await dispatch(addAddress(updateInfo));
+       
+      }
       const addressType = {type: address_type}
    navigate("/alladdresses", { state: addressType });
         } else {
@@ -60,7 +67,7 @@ const response = await dispatch(editAddress(updateInfo));
 
   const handleStateChange = (event) => {
     
-    console.log(event.target.value);
+    
      setEditCurrentAddress({
              ...editCurrentAddress,
            state: event.target.value,
@@ -157,7 +164,7 @@ const response = await dispatch(editAddress(updateInfo));
                 onChange={changeHandler}
             />
           </FormGrid>
-          <FormGrid item xs={6}>
+          <FormGrid item xs={5}>
             
               <TextField
                 label="City"
@@ -171,7 +178,7 @@ const response = await dispatch(editAddress(updateInfo));
                 onChange={changeHandler}
             />
           </FormGrid>
-          <FormGrid item xs={6}>
+          <FormGrid item xs={4}>
        <FormControl required sx={{  minWidth: 120, maxWidth: 150 }}>     
         <InputLabel id="demo-simple-select-required-label">State</InputLabel>
         <Select
@@ -192,10 +199,10 @@ const response = await dispatch(editAddress(updateInfo));
  </FormControl>
 
           </FormGrid>
-          <FormGrid item xs={6}>
+          <FormGrid item xs={3}>
            
               <TextField
-                label="Zip Code"
+                label="Zip"
               id="zip"
               name="zip"
               type="zip"

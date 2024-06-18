@@ -11,6 +11,7 @@
     border: 1px solid black;
     margin-right: 10px;
     margin-bottom: 10px;
+    width: 200px;
     
 }
 
@@ -49,4 +50,17 @@ color: white;
 
 .buttonGroup{
    margin: 10px 5px;
+}
+
+.showAddress{
+    width: 200px;
+    height: 205px;
+    margin-top: 15px;
+}
+
+.addressConainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 10px;
 }

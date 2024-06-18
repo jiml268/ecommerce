@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 import styles from "./AllAddresses.module.css"
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
-
+import NewAddress from '../../components/NewAddress/NewAddress'
 
 function AllAddresses() {
 
@@ -82,7 +82,7 @@ const navigate = useNavigate();
             setShowAddresses(getAdresses.payload.data.data)
          }
          if (name === "edit") {
-             const addressInfo = { address: showAddresses[currentindex], address_type: data.type }
+             const addressInfo = { address: showAddresses[currentindex], address_type: data.type, newOrUpdate: "Update" }
            
    navigate("/AddressForm", { state: addressInfo });    
          }
@@ -93,24 +93,29 @@ const navigate = useNavigate();
     return (
         <div>
             <h1> Your {data.type} Addresses</h1>
-        <div className={styles.listAddresses}>
+            <div className={styles.addressConainer}>
+           
+                <div className={styles.listAddresses}>
+                     <NewAddress taskData={data.type}/>
             {showAddresses.length > 0 &&
                 showAddresses.map(function(address, index) {
       return (
           <div key={address.id}>
-              <div className={styles.AddressBlock} style={{ border: "1px solid black" }}>
+              <div className={styles.AddressBlock} >
                   <div className={styles.defaultBlock}>
               {address.default_addtress === 1 ?
                       <h3 className={styles.default}>Default</h3> :
                       <button className={styles.defaultButton} value={address.id} onClick={defaulClick}>set as default</button>
                       }
-                      </div>
+                  </div>
+                  <div className={styles.showAddress}>
               <h3 style={{fontWeight: 800}}>{address.first_name} {address.middle_init} {address.last_name} </h3>
               <h3>{address.address_line1}</h3>
               <h3>{address.address_line2}</h3>
             <h3>{address.city},{address.state} {address.zip} </h3>
                   <h3>Phone number: </h3>
-                  <h3>{address.Phone_num}</h3>
+                      <h3>{address.Phone_num}</h3>
+                      </div>
                   <div className={styles.buttonGroup}>
                   <button className={styles.addressButton} onClick={addressClicked} value={address.id} data-id={index} name = 'edit'>edit</button>      
                   <button  className={styles.addressButton} onClick={addressClicked} value={address.id} data-id={index} name ="remove">remove</button>
@@ -122,8 +127,10 @@ const navigate = useNavigate();
     })
 
         }
-            </div>
-            </div>
+                </div>
+                </div>
+        </div>
+        
     )
 }
 

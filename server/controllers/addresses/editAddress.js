@@ -2,9 +2,7 @@ const pool = require('../../config/db')
 
 const editAddress = async (req, res) => {
   const { address, type, setTodefault } = req.body
-  console.log('address', address)
-  console.log('type', type)
-  console.log('setTodefault', setTodefault)
+ 
   
     const {id,
       first_name,
@@ -21,7 +19,7 @@ const editAddress = async (req, res) => {
       address_type,
       id_number,
   } = address;
-    console.log('Phone_num', Phone_num)
+    
     let sql = "";
     try {
       if (type === "billing") {

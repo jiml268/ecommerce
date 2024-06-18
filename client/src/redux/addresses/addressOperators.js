@@ -6,9 +6,11 @@ export const addAddress = createAsyncThunk(
   "/addAddress",
   async (credentials, thunkAPI) => {
     try {
-      const response = await axios.post(`address/getAllAddress`, credentials);
+      const response = await axios.post(`address/addAddress`, credentials);
+      console.log(response)
     return response;
     } catch (error) {
+      console.log(error)
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -17,7 +19,7 @@ export const addAddress = createAsyncThunk(
 export const editAddress = createAsyncThunk(
   "/editAddress",
   async (credentials, thunkAPI) => {
-    console.log(credentials)
+   
     try {
       const response = await axios.post(`address/editAddress`, credentials);
       

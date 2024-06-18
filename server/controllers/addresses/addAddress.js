@@ -1,6 +1,8 @@
 const pool = require('../../config/db')
  
 const addAddress = async (req, res) => {
+  console.log(req.body)
+  const { address, type, setTodefault } = req.body
     const {
       first_name,
       middle_init,
@@ -14,11 +16,14 @@ const addAddress = async (req, res) => {
       comments,
       default_addtress,
       address_type,
-    } = req.body;
-
+      user_id,
+    } = address;
+console.log(first_name,
+      middle_init,
+      last_name)
     let sql = "";
     try {
-      if (address_type === "billing") {
+      if (type === "billing") {
         sql =
           "insert into billing (first_name,middle_init,last_name,address_line1,address_line2,city,state,zip,Phone_num,comments,default_addtress, user_id ) VALUES (?,?, ?, ?, ?, ?, ?,?,?, ?, ?, ?)";
       } else {
@@ -37,13 +42,14 @@ const addAddress = async (req, res) => {
         Phone_num,
         comments,
         default_addtress,
-        req.session.userID
+        user_id
       ]);
       return res.status(201).json({
         code: 201,
         Massage: "Address created",
       });
     } catch (err) {
+      console.log(err)
       return res.status(400).json({
         code: 400,
         Massage: err,

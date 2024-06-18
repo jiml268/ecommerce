@@ -17,17 +17,22 @@ const addressSlice = createSlice({
     },
          extraReducers: builder =>
         builder
-        .addCase(addAddress.pending, (state, ) => {
+                 .addCase(addAddress.pending, (state,) => {
+            console.log("pending")
             state.isloading = true;
             
 
                   })
                   
-                  .addCase(addAddress.fulfilled, (state, ) => {     
+                 .addCase(addAddress.fulfilled, (state,) => {
+                                console.log("fulfilled")
+  
                            state.isloading = false
         
       })
-                  .addCase(addAddress.rejected, (state, ) => {
+                 .addCase(addAddress.rejected, (state,) => {
+                     console.log("rejected")
+                    
                       state.isloading = false    
                   } 
         )     
