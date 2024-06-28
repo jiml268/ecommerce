@@ -4,6 +4,8 @@ const cors = require("cors");
 const app = express();
 const usersRoutes = require("./routes/usersRoutes");
 const addressRoutes = require("./routes/AddressesRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
+
 const session = require('express-session');
 const sess = {
   secret: process.env.JWT_privateKey,
@@ -22,6 +24,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api", usersRoutes);
 app.use("/api", addressRoutes);
+app.use("/api", paymentRoutes);
 
 const port = process.env.PORT || 3030;
 app.listen(port, () => {
