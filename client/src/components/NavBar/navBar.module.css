@@ -1,0 +1,6 @@
+.navbar{
+    width: 100%;
+    max-width: 1280px;
+    position: sticky;
+    top: 0;
+}
