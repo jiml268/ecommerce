@@ -12,11 +12,13 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useState } from 'react';
 import css  from './navBar.module.css'
 import { useAuth } from '../../hooks/userHooks';
-
+import { useNavigate } from 'react-router-dom';
 
 
 function NavBar() {
   const { loggedIn } = useAuth();
+  const navigate = useNavigate();  
+
   const pages = !loggedIn?['Sign In', 'Register']:['Sign Out', 'Cart', 'Account'];
      const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -25,8 +27,18 @@ function NavBar() {
   };
  
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (e) => {
     setAnchorElNav(null);
+    console.log(e.target.value)
+switch(e.target.value) {
+  case "Register":
+    navigate("/registration")
+    break;
+ default:
+    navigate("/")
+}
+
+   
   };
 
 
@@ -84,8 +96,9 @@ function NavBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem value={page} key={page} onClick={handleCloseNavMenu} >
                   <Typography textAlign="center">{page}</Typography>
+                  
                 </MenuItem>
               ))}
             </Menu>
@@ -113,6 +126,7 @@ function NavBar() {
             {pages.map((page) => (
               <Button
                 key={page}
+                value={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
