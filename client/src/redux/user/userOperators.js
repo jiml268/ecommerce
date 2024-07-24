@@ -13,3 +13,15 @@ export const userRegister = createAsyncThunk(
     }
   }
 );
+
+export const userVerification = createAsyncThunk(
+  "userVerification",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`/user/verify`, credentials);
+    return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userRegister } from "./userOperators";
+import { userRegister, userVerification } from "./userOperators";
 
 
 const initialState = {
@@ -36,6 +36,19 @@ const userSlice = createSlice({
         
       })
                   .addCase(userRegister.rejected, (state, ) => {
+                      state.isloading = false    
+                  } 
+    )
+  .addCase(userVerification.pending, (state, ) => {
+                          state.isloading = true;
+
+                  })
+                  
+                  .addCase(userVerification.fulfilled, (state, ) => {     
+                           state.isloading = false
+        
+      })
+                  .addCase(userVerification.rejected, (state, ) => {
                       state.isloading = false    
                   } 
     )

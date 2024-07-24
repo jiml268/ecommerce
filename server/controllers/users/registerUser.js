@@ -26,7 +26,7 @@ return res.json({
 const query ='insert into users (email, first_name, middle_init, last_name, phone_num, password, varification_code, varify_sent ) VALUES (?,?, ?, ?, ?, ?, ?,?)'
 
             const newUsers = await pool.query(query, [email, first_name, middle_init, last_name, phone_num, hashedPassword, varification_code, converttime])
-            const templateParams  = {to_email: email, to_first_name: first_name, to_last_name: last_name,   varification_code: varification_code,}
+            const templateParams  = {to_email: email, to_first_name: first_name, to_last_name: last_name,   varification_code: varification_code}
              emailjs
   .send(process.env.EMAILJS_SERVICE,process.env.EMAILJS_TEMPLATE , templateParams, {
     publicKey:process.env.EMAILJS_PUBLIC,
