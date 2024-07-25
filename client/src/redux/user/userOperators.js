@@ -25,3 +25,15 @@ export const userVerification = createAsyncThunk(
     }
   }
 );
+
+export const resendVarify = createAsyncThunk(
+  "resendVarify",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`/user/resendVarify`, credentials);
+    return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

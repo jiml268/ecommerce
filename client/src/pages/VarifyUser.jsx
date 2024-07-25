@@ -1,4 +1,4 @@
-import { userVerification } from "../redux/user/userOperators"
+import { userVerification, resendVarify } from "../redux/user/userOperators"
 import { useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { useState } from "react";
@@ -81,13 +81,20 @@ useEffect(() => {
     .catch(console.error);
 }, [dispatch, navigate ])
         
-  const buttonClick = (e) => {
+  const buttonClick = async (e) => {
     if (e.target.value === "Yes") {
       if (code === 406) {
         navigate("/registration"); 
       } else {
-        console.log("send new varification code")
-      }
+        const resendEmail = {email: returnEmail}
+        const result = await dispatch(resendVarify(resendEmail))
+        if (result.payload.data.code === 200) {
+          toast.success("A new validation code was emailed to you.  Please check you email ", 
+            toastOptions);
+             navigate("/");
+        }
+     
+      } 
       
     } else
     {

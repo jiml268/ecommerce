@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userRegister, userVerification } from "./userOperators";
+import { userRegister, userVerification, resendVarify } from "./userOperators";
 
 
 const initialState = {
@@ -52,6 +52,20 @@ const userSlice = createSlice({
                       state.isloading = false    
                   } 
     )
+  .addCase(resendVarify.pending, (state, ) => {
+                          state.isloading = true;
+
+                  })
+                  
+                  .addCase(resendVarify.fulfilled, (state, ) => {     
+                           state.isloading = false
+        
+      })
+                  .addCase(resendVarify.rejected, (state, ) => {
+                      state.isloading = false    
+                  } 
+    )
+  
 });
 export const { setIsLoggedIn, LoggedOut } = userSlice.actions;
 
