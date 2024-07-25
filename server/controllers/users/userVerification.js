@@ -14,7 +14,7 @@ const sql1 = " SELECT *  FROM `users` WHERE `email` = ?";
 
 
             if (string2[0].length === 0) {
-                message = 'Varification code & emaail not found'
+                message = 'Varification code & email not found'
                 return res.json({
                     code: 406,
                     string2: string2,
@@ -46,11 +46,21 @@ const sql1 = " SELECT *  FROM `users` WHERE `email` = ?";
         } else {
                
             const sql1 = " SELECT *  FROM `users` WHERE `varification_code` = ?";
-            const string2 = await pool.query(sql1, [returnCode])
-            const currentdatetime = new Date()
+            const string2 = await pool.query(sql1, [returnCode]) 
+            console.log('string2', string2)
+            const currentdatetime = new Date();
             const mysqlTime = new Date(string2[0][0].varify_sent).getTime();
-            const timeDifference = currentdatetime - mysqlTime
+            const timeDifference = currentdatetime.getTime() - mysqlTime
+            
+            console.log('mysqlTime', mysqlTime)
+            console.log('currentdatetime', currentdatetime.getTime())
+console.log('string2[0][0].varify_sent', string2[0][0].varify_sent)
+            console.log('currentdatetime', currentdatetime)
+
+
+            console.log('timeDifference', timeDifference)
             if (timeDifference > 24 * 60 * 60 * 1000) {
+           
                 return res.json({
                      code: 410,
                     message: "Verification time has expired. send a new varification code"

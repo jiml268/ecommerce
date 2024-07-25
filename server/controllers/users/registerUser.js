@@ -21,8 +21,12 @@ return res.json({
             }    
             const hashedPassword = await bcrypt.hash(password, salt)
             const varification_code = uuidv4()
-            const currenttime = new Date()
-            const converttime = currenttime.toISOString().slice(0, 19).replace('T', ' ')
+          const currenttime = new Date()
+          console.log('currenttime', currenttime)
+
+          const converttime = currenttime.toString()
+                    console.log('converttime', converttime)
+
 const query ='insert into users (email, first_name, middle_init, last_name, phone_num, password, varification_code, varify_sent ) VALUES (?,?, ?, ?, ?, ?, ?,?)'
 
             const newUsers = await pool.query(query, [email, first_name, middle_init, last_name, phone_num, hashedPassword, varification_code, converttime])

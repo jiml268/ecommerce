@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import NavBar from './components/NavBar/NavBar';
 import Registration from './pages/Registration'
 import VarifyUser from './pages/VarifyUser';
+import SignIn from './pages/SignIn';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
          <Route path="/registration" element={<Registration />} />
           <Route path="/varifyUser" element={<VarifyUser />} />
+          <Route path="/signIn" element={<SignIn />} />
 
      
        </Routes>     
