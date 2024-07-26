@@ -19,6 +19,7 @@ export const userVerification = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const response = await axios.post(`/user/verify`, credentials);
+      console.log(response)
     return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -44,8 +45,10 @@ export const userLogin = createAsyncThunk(
     try {
       const response = await axios.post(`/user/userLogin`, credentials);
       console.log(response)
-    return response;
+      return response;
+      
     } catch (error) {
+
       return thunkAPI.rejectWithValue(error.message);
     }
   }

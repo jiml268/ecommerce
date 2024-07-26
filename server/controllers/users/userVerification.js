@@ -1,5 +1,8 @@
 const pool = require('../../config/db')
+require("dotenv").config();
 
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const userVerification = async (req, res) => {
     const { returnCode, returnEmail } = req.body
 
@@ -60,15 +63,27 @@ const sql1 = " SELECT *  FROM `users` WHERE `email` = ?";
                 });
             }
 
-            const sql2 = " UPDATE `users` Set `varify_sent` = null, `varification_code` = null, `email_varified` = true WHERE `varification_code` = ?";
-            const string3 = await pool.query(sql2, [returnCode])
+            const sqlInfo = "SELECT * FROM users WHERE `varification_code` = ?" 
+            const getInfo = await pool.query(sqlInfo, [returnCode])   
+            const name = getInfo[0][0].first_name + " " + getInfo[0][0].last_name
+            const email = getInfo[0][0].first_name.email
+const customer = await stripe.customers.create({
+  name: name,
+  email: email,
+});
+console.log(customer )
+
+            const sql2 = " UPDATE `users` Set `varify_sent` = null, `varification_code` = null, `email_varified` = true, `stripe_acct` = ? WHERE `varification_code` = ?";
+            const string3 = await pool.query(sql2, [customer.id,returnCode])
             return res.json({
                      code: 200,
-                    message: "Verification complete"
+                message: "Verification complete",
+                  customer: customer  
                 });  
            
         }
     } catch (err) {
+        console.log(err)
         return res.json({
             error: err,
         })
