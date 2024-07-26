@@ -47,18 +47,11 @@ const sql1 = " SELECT *  FROM `users` WHERE `email` = ?";
                
             const sql1 = " SELECT *  FROM `users` WHERE `varification_code` = ?";
             const string2 = await pool.query(sql1, [returnCode]) 
-            console.log('string2', string2)
             const currentdatetime = new Date();
             const mysqlTime = new Date(string2[0][0].varify_sent).getTime();
             const timeDifference = currentdatetime.getTime() - mysqlTime
             
-            console.log('mysqlTime', mysqlTime)
-            console.log('currentdatetime', currentdatetime.getTime())
-console.log('string2[0][0].varify_sent', string2[0][0].varify_sent)
-            console.log('currentdatetime', currentdatetime)
-
-
-            console.log('timeDifference', timeDifference)
+           
             if (timeDifference > 24 * 60 * 60 * 1000) {
            
                 return res.json({
@@ -76,7 +69,6 @@ console.log('string2[0][0].varify_sent', string2[0][0].varify_sent)
            
         }
     } catch (err) {
-          console.log(err) 
         return res.json({
             error: err,
         })

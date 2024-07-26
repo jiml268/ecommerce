@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userRegister, userVerification, resendVarify } from "./userOperators";
+import { userRegister, userVerification, resendVarify, userLogin } from "./userOperators";
 
 
 const initialState = {
@@ -13,14 +13,11 @@ const userSlice = createSlice({
   reducers: {
     setIsLoggedIn: (state, actions) => {
       state.isLoggedIn = actions.payload;
-      console.log('setIsLoggedIn')
-      console.log( state.isLoggedIn)
+
     },
     LoggedOut: (state, actions ) => {
       state.isLoggedIn = actions.payload;
-            console.log('LoggedOut')
-      console.log( state.isLoggedIn)
-
+           
     },
    
   },
@@ -62,6 +59,23 @@ const userSlice = createSlice({
         
       })
                   .addCase(resendVarify.rejected, (state, ) => {
+                      state.isloading = false    
+                  } 
+    )
+  
+         .addCase(userLogin.pending, (state, ) => {
+                          state.isloading = true;
+
+                  })
+                  
+                  .addCase(userLogin.fulfilled, (state, action) => {     
+                      state.isloading = false
+                      state.userId = action.payload.data.id
+                    
+
+        
+      })
+                  .addCase(userLogin.rejected, (state, ) => {
                       state.isloading = false    
                   } 
     )

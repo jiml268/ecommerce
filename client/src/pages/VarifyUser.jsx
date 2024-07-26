@@ -21,8 +21,7 @@ const toastOptions = {
  const queryParams = new URLSearchParams(window.location.search)
   const returnCode = queryParams.get("varification_code")
 const returnEmail = queryParams.get("email")
-console.log(returnCode)
-    console.log(returnEmail)
+
 
 
 function VarifyUser() {
@@ -41,7 +40,6 @@ useEffect(() => {
 
     const response = await dispatch(userVerification(userVarify));
     SetCode(response.payload.data.code)
-    console.log('response.payload.data.code', response.payload.data.code)
     switch (response.payload.data.code) {
       case 200:
          toast.success("You have successfully varified your account ", 

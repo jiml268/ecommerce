@@ -29,10 +29,12 @@ function NavBar() {
 
   const handleCloseNavMenu = (e) => {
     setAnchorElNav(null);
-    console.log(e.target.value)
 switch(e.target.value) {
   case "Register":
     navigate("/registration")
+    break;
+  case "Sign In":
+    navigate("/signIn")
     break;
  default:
     navigate("/")

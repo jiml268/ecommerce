@@ -22,14 +22,12 @@ return res.json({
             const hashedPassword = await bcrypt.hash(password, salt)
             const varification_code = uuidv4()
           const currenttime = new Date()
-          console.log('currenttime', currenttime)
 
           const converttime = currenttime.toString()
-                    console.log('converttime', converttime)
 
-const query ='insert into users (email, first_name, middle_init, last_name, phone_num, password, varification_code, varify_sent ) VALUES (?,?, ?, ?, ?, ?, ?,?)'
+const query ='insert into users (email, first_name, middle_init, last_name, phone_num, password, varification_code, varify_sent, email_varified ) VALUES (?,?, ?, ?, ?, ?, ?,?,?)'
 
-            const newUsers = await pool.query(query, [email, first_name, middle_init, last_name, phone_num, hashedPassword, varification_code, converttime])
+            const newUsers = await pool.query(query, [email, first_name, middle_init, last_name, phone_num, hashedPassword, varification_code, converttime, false])
             const templateParams  = {to_email: email, to_first_name: first_name, to_last_name: last_name,   varification_code: varification_code}
              emailjs
   .send(process.env.EMAILJS_SERVICE,process.env.EMAILJS_TEMPLATE , templateParams, {
@@ -49,7 +47,7 @@ const query ='insert into users (email, first_name, middle_init, last_name, phon
                  message: "user created",
             }); 
         } catch (err) {
-           console.log(err)
+          console.log(err)
             return res.status(400).json({
                 code: 400,
                 Massage: err,

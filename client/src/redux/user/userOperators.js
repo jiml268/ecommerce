@@ -37,3 +37,16 @@ export const resendVarify = createAsyncThunk(
     }
   }
 );
+
+export const userLogin = createAsyncThunk(
+  "userLogin",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`/user/userLogin`, credentials);
+      console.log(response)
+    return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
