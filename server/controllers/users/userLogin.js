@@ -43,10 +43,10 @@ const userLogin = async (req, res) => {
              
               return res.json({
             status: "logged in",
-                  code: 200,
-                string2: string2,  
+            code: 200,
+            email: string2[0][0].email,
             id: string2[0][0].id,
-                message: "login successful"
+            message: "login successful"
             
         });
 

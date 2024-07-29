@@ -3,7 +3,8 @@ const {
   registerUser,
   userVerification,
   resendVarify,
-userLogin,
+  userLogin,
+deleteUser
  
 } = require("../controllers/users");
 
@@ -12,6 +13,7 @@ userRouter.route("/user/registerUser").post(registerUser);
 userRouter.route("/user/verify").post(userVerification);
 userRouter.route("/user/resendVarify").post(resendVarify);
 userRouter.route("/user/userLogin").post(userLogin);
+userRouter.route("/user/deleteUser").post(deleteUser);
 
 
 

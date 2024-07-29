@@ -13,13 +13,16 @@ import { useState } from 'react';
 import css  from './navBar.module.css'
 import { useAuth } from '../../hooks/userHooks';
 import { useNavigate } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
+import { LoggedOut } from '../../redux/user/userSlice'
+import { deleteUser } from '../../redux/user/userOperators';
 
 function NavBar() {
-  const { loggedIn } = useAuth();
+  const dispatch = useDispatch()
+  const { loggedIn, getUserEmail } = useAuth();
   const navigate = useNavigate();  
 
-  const pages = !loggedIn?['Sign In', 'Register']:['Sign Out', 'Cart', 'Account'];
+  const pages = !loggedIn?['Sign In', 'Register']:['Sign Out', 'Cart', 'Account', 'Delete Account'];
      const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -36,6 +39,14 @@ switch(e.target.value) {
   case "Sign In":
     navigate("/signIn")
     break;
+  case "Sign Out":
+    dispatch(LoggedOut(false))
+    break
+  case "Delete Account":
+    dispatch(deleteUser({ email: getUserEmail }))
+    dispatch(LoggedOut(false))
+    navigate('/')
+    break
  default:
     navigate("/")
 }

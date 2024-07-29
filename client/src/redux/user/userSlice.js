@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userRegister, userVerification, resendVarify, userLogin } from "./userOperators";
+import { userRegister, userVerification, resendVarify, userLogin, deleteUser } from "./userOperators";
 
 
 const initialState = {
   isLoggedIn: false,
   isloading: false,
+  userEmail: "",
+  userId: ""
 };
 
 const userSlice = createSlice({
@@ -17,7 +19,9 @@ const userSlice = createSlice({
     },
     LoggedOut: (state, actions ) => {
       state.isLoggedIn = actions.payload;
-           
+      state.userEmail = "";
+      state.userId = "";
+
     },
    
   },
@@ -69,8 +73,10 @@ const userSlice = createSlice({
                   })
                   
                   .addCase(userLogin.fulfilled, (state, action) => {     
-                      state.isloading = false
-                      state.userId = action.payload.data.id
+                    state.isloading = false
+                    state.isLoggedIn =true
+                    state.userId = action.payload.data.id
+                    state.userEmail = action.payload.data.email
                     
 
         
@@ -79,7 +85,22 @@ const userSlice = createSlice({
                       state.isloading = false    
                   } 
     )
-  
+  .addCase(deleteUser.pending, (state, ) => {
+                          state.isloading = true;
+
+                  })
+                  
+                  .addCase(deleteUser.fulfilled, (state, action) => {     
+                      state.isloading = false
+                      state.userId = action.payload.data.id
+                    
+
+        
+      })
+                  .addCase(deleteUser.rejected, (state, ) => {
+                      state.isloading = false    
+                  } 
+    )
 });
 export const { setIsLoggedIn, LoggedOut } = userSlice.actions;
 

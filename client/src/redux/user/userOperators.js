@@ -53,3 +53,15 @@ export const userLogin = createAsyncThunk(
     }
   }
 );
+
+export const deleteUser = createAsyncThunk(
+  "deleteUser",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`/user/deleteUser`, credentials);
+    return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
