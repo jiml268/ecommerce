@@ -47,7 +47,7 @@ const query ='insert into users (email, first_name, middle_init, last_name, phon
                  message: "user created",
             }); 
         } catch (err) {
-          console.log(err)
+         
             return res.status(400).json({
                 code: 400,
                 Massage: err,

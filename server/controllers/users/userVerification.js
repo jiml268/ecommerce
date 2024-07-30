@@ -71,7 +71,6 @@ const customer = await stripe.customers.create({
   name: name,
   email: email,
 });
-console.log(customer )
 
             const sql2 = " UPDATE `users` Set `varify_sent` = null, `varification_code` = null, `email_varified` = true, `stripe_acct` = ? WHERE `varification_code` = ?";
             const string3 = await pool.query(sql2, [customer.id,returnCode])
@@ -83,7 +82,6 @@ console.log(customer )
            
         }
     } catch (err) {
-        console.log(err)
         return res.json({
             error: err,
         })

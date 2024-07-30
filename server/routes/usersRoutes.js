@@ -4,7 +4,8 @@ const {
   userVerification,
   resendVarify,
   userLogin,
-deleteUser
+  deleteUser,
+updatePassWord
  
 } = require("../controllers/users");
 
@@ -14,6 +15,7 @@ userRouter.route("/user/verify").post(userVerification);
 userRouter.route("/user/resendVarify").post(resendVarify);
 userRouter.route("/user/userLogin").post(userLogin);
 userRouter.route("/user/deleteUser").post(deleteUser);
+userRouter.route("/user/updatePassWord").post(updatePassWord);
 
 
 

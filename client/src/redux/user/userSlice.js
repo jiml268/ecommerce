@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userRegister, userVerification, resendVarify, userLogin, deleteUser } from "./userOperators";
+import { userRegister, userVerification, resendVarify, userLogin, deleteUser, updatePassWord } from "./userOperators";
 
 
 const initialState = {
@@ -74,10 +74,16 @@ const userSlice = createSlice({
                   
                   .addCase(userLogin.fulfilled, (state, action) => {     
                     state.isloading = false
-                    state.isLoggedIn =true
-                    state.userId = action.payload.data.id
-                    state.userEmail = action.payload.data.email
-                    
+                    if (action.payload.data.code === 200) {
+                      console.log(action.payload)
+                      state.isLoggedIn = true
+                      state.userId = action.payload.data.id
+                      state.userEmail = action.payload.data.email
+                      console.log("isLoggedIn", state.isLoggedIn)
+                      console.log("state.userId", state.userId)
+                      console.log(" state.userEmail",  state.userEmail)
+
+                    }
 
         
       })
@@ -100,6 +106,25 @@ const userSlice = createSlice({
                   .addCase(deleteUser.rejected, (state, ) => {
                       state.isloading = false    
                   } 
+                    
+                    
+    )
+   .addCase(updatePassWord.pending, (state, ) => {
+                          state.isloading = true;
+
+                  })
+                  
+                  .addCase(updatePassWord.fulfilled, (state, ) => {     
+                      state.isloading = false
+                    
+
+        
+      })
+                  .addCase(updatePassWord.rejected, (state, ) => {
+                      state.isloading = false    
+                  } 
+                    
+                    
     )
 });
 export const { setIsLoggedIn, LoggedOut } = userSlice.actions;

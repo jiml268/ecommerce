@@ -22,7 +22,7 @@ function NavBar() {
   const { loggedIn, getUserEmail } = useAuth();
   const navigate = useNavigate();  
 
-  const pages = !loggedIn?['Sign In', 'Register']:['Sign Out', 'Cart', 'Account', 'Delete Account'];
+  const pages = !loggedIn?['Sign In', 'Register']:['Sign Out', 'Cart', 'Account', 'Delete Account', "Change Password"];
      const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -43,9 +43,14 @@ switch(e.target.value) {
     dispatch(LoggedOut(false))
     break
   case "Delete Account":
-    dispatch(deleteUser({ email: getUserEmail }))
-    dispatch(LoggedOut(false))
-    navigate('/')
+    if (loggedIn) {
+      dispatch(deleteUser({ email: getUserEmail }))
+      dispatch(LoggedOut(false))
+      navigate('/')
+    }
+    break
+  case "Change Password":
+    navigate("/changepassword")
     break
  default:
     navigate("/")

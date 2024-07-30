@@ -19,7 +19,6 @@ export const userVerification = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const response = await axios.post(`/user/verify`, credentials);
-      console.log(response)
     return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -44,7 +43,6 @@ export const userLogin = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const response = await axios.post(`/user/userLogin`, credentials);
-      console.log(response)
       return response;
       
     } catch (error) {
@@ -59,6 +57,18 @@ export const deleteUser = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const response = await axios.post(`/user/deleteUser`, credentials);
+    return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updatePassWord = createAsyncThunk(
+  "updatePassWord",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`/user/updatePassWord`, credentials);
     return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
