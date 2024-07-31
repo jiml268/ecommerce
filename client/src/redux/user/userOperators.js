@@ -75,3 +75,17 @@ export const updatePassWord = createAsyncThunk(
     }
   }
 );
+
+
+
+export const resetPassword = createAsyncThunk(
+  "resetPassword",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`/user/resetPassword`, credentials);
+    return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

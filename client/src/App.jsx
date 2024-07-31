@@ -12,7 +12,8 @@ const Registration = lazy(() => import('./pages/Registration'));
 const VarifyUser = lazy(() => import('./pages/VarifyUser'));
 const SignIn = lazy(() => import('./pages/SignIn'));
 const ChangePassword = lazy(() => import('./pages/ChangePassword'));
-const Page404 = lazy(() => import('./pages/Page404/Page404'));
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
+const Page404 = lazy(() => import('./pages/ForgotPassword'));
 
 
 function App() {
@@ -28,7 +29,8 @@ function App() {
          <Route path="/varifyUser" element={< PublicRoute ><VarifyUser /></PublicRoute>} />
          <Route path="/signIn" element={<PublicRoute><SignIn /></PublicRoute>} />
             <Route path="/changepassword" element={<PrivateRoute><ChangePassword /></PrivateRoute>} />
-   
+            <Route path="/forgotpassword" element={< PublicRoute ><ForgotPassword /></PublicRoute>} />
+
          <Route path="*" element={<PublicRoute><Page404 /></PublicRoute>} />
      
          </Routes>   

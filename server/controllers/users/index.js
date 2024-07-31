@@ -4,6 +4,7 @@ const resendVarify = require("./resendVarify");
 const userLogin = require("./userLogin");
 const deleteUser = require('./deleteUser')
 const updatePassWord = require('./updatePassWord')
+const resetPassword = require('./resetPassword')
 
 
 
@@ -13,5 +14,6 @@ module.exports = {
     resendVarify,
     userLogin,
     deleteUser,
-   updatePassWord
+    updatePassWord,
+   resetPassword
 };

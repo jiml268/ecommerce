@@ -134,11 +134,17 @@ const toastOptions = {
             >
               LogIn
             </Button>
-            <Grid container justifyContent="flex-end">
+            <Grid container justifyContent="space-between">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="ForgotPassword" variant="body2">
+                  Forgot Password
+              </Link>
+            </Grid>
+            <Grid item>
+                <Link href="/registration" variant="body2">
                   Do not have an account? Sign Up
-                </Link>
+              </Link>
+              
               </Grid>
             </Grid>
           </Box>
