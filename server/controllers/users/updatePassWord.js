@@ -25,7 +25,7 @@ const updatePassWord = async (req, res) => {
                 console.log(email)
 
          const sql2 = "UPDATE `users` Set `password` = ? WHERE `email` = ?";
-            const string3 = await pool.query(sql2, [hashedPassword,email])
+            await pool.query(sql2, [hashedPassword,email])
             return res.json({
                      code: 200,
                 message: "Password has been updated",  

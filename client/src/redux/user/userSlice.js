@@ -1,5 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userRegister, userVerification, resendVarify, userLogin, deleteUser, updatePassWord, resetPassword } from "./userOperators";
+import {
+  userRegister,
+  userVerification,
+  resendVarify,
+  userLogin,
+  deleteUser, 
+  retreiveProfile,
+  updateProfile,
+  updatePassWord,
+  resetPassword,
+} from "./userOperators";
 
 
 const initialState = {
@@ -139,6 +149,33 @@ const userSlice = createSlice({
                       state.isloading = false    
                   } 
     )
+    .addCase(updateProfile.pending, (state, ) => {
+                          state.isloading = true;
+
+                  })
+                  
+                  .addCase(updateProfile.fulfilled, (state, ) => {     
+                           state.isloading = false
+        
+      })
+                  .addCase(updateProfile.rejected, (state, ) => {
+                      state.isloading = false    
+                  } 
+    )
+  .addCase(retreiveProfile.pending, (state, ) => {
+                          state.isloading = true;
+
+                  })
+                  
+                  .addCase(retreiveProfile.fulfilled, (state, ) => {     
+                           state.isloading = false
+        
+      })
+                  .addCase(retreiveProfile.rejected, (state, ) => {
+                      state.isloading = false    
+                  } 
+    )
+  
 });
 export const { setIsLoggedIn, LoggedOut } = userSlice.actions;
 

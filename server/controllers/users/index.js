@@ -5,7 +5,8 @@ const userLogin = require("./userLogin");
 const deleteUser = require('./deleteUser')
 const updatePassWord = require('./updatePassWord')
 const resetPassword = require('./resetPassword')
-
+const retreiveProfile = require('./retreiveProfile')
+const updateProfile = require('./updateProfile')
 
 
 module.exports = {
@@ -15,5 +16,7 @@ module.exports = {
     userLogin,
     deleteUser,
     updatePassWord,
-   resetPassword
+    resetPassword,
+   retreiveProfile,
+updateProfile
 };

@@ -89,3 +89,27 @@ export const resetPassword = createAsyncThunk(
     }
   }
 );
+
+export const retreiveProfile = createAsyncThunk(
+  "retreiveProfile",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`/user/retreiveProfile`, credentials);
+    return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateProfile = createAsyncThunk(
+  "updateProfile",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`/user/updateProfile`, credentials);
+    return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

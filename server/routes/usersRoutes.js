@@ -6,7 +6,9 @@ const {
   userLogin,
   deleteUser,
   updatePassWord,
-resetPassword
+  resetPassword,
+  updateProfile,
+retreiveProfile
  
 } = require("../controllers/users");
 
@@ -19,6 +21,8 @@ userRouter.route("/user/deleteUser").post(deleteUser);
 userRouter.route("/user/updatePassWord").post(updatePassWord);
 userRouter.route("/user/updatePassWord").post(updatePassWord);
 userRouter.route("/user/resetPassword").post(resetPassword);
+userRouter.route("/user/updateProfile").post(updateProfile);
+userRouter.route("/user/retreiveProfile").post(retreiveProfile);
 
 
 

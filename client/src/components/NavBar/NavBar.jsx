@@ -22,7 +22,7 @@ function NavBar() {
   const { loggedIn, getUserEmail } = useAuth();
   const navigate = useNavigate();  
 
-  const pages = !loggedIn?['Sign In', 'Register']:['Sign Out', 'Cart', 'Account', 'Delete Account', "Change Password"];
+  const pages = !loggedIn?['Sign In', 'Register']:['Sign Out', 'Cart', 'Account', 'Delete Account', "Change Password", "Update Profile"];
      const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -32,7 +32,9 @@ function NavBar() {
 
   const handleCloseNavMenu = (e) => {
     setAnchorElNav(null);
-switch(e.target.value) {
+     const { myValue } = e.currentTarget.dataset;
+    console.log(myValue)
+switch(myValue) {
   case "Register":
     navigate("/registration")
     break;
@@ -52,6 +54,9 @@ switch(e.target.value) {
   case "Change Password":
     navigate("/changepassword")
     break
+   case "Update Profile":
+    navigate("/userprofile")
+    break;
  default:
     navigate("/")
 }
@@ -114,7 +119,7 @@ switch(e.target.value) {
               }}
             >
               {pages.map((page) => (
-                <MenuItem value={page} key={page} onClick={handleCloseNavMenu} >
+                <MenuItem data-my-value={page} key={page} onClick={handleCloseNavMenu} >
                   <Typography textAlign="center">{page}</Typography>
                   
                 </MenuItem>
@@ -144,6 +149,7 @@ switch(e.target.value) {
             {pages.map((page) => (
               <Button
                 key={page}
+                data-my-value={page}
                 value={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}

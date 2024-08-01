@@ -14,6 +14,7 @@ const SignIn = lazy(() => import('./pages/SignIn'));
 const ChangePassword = lazy(() => import('./pages/ChangePassword'));
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
 const Page404 = lazy(() => import('./pages/ForgotPassword'));
+const UserProfile = lazy(() => import('./pages/UserProfile'));
 
 
 function App() {
@@ -30,6 +31,8 @@ function App() {
          <Route path="/signIn" element={<PublicRoute><SignIn /></PublicRoute>} />
             <Route path="/changepassword" element={<PrivateRoute><ChangePassword /></PrivateRoute>} />
             <Route path="/forgotpassword" element={< PublicRoute ><ForgotPassword /></PublicRoute>} />
+            <Route path="/changepassword" element={<PrivateRoute><ChangePassword /></PrivateRoute>} />
+            <Route path="/userprofile" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
 
          <Route path="*" element={<PublicRoute><Page404 /></PublicRoute>} />
      
