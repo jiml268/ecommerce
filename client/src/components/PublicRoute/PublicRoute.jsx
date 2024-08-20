@@ -6,7 +6,10 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/userHooks';
 
 const PublicRoute = ({ children }) => {
-    const {loggedIn} = useAuth();
+    const { loggedIn } = useAuth();
+    console.log(loggedIn)
+        console.log(children)
+
     return (
         <>
             {!loggedIn ? children : <Navigate to="/diary" replace/>}

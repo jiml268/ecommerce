@@ -12,9 +12,11 @@ import { toast } from 'react-toastify';
 import validator  from 'email-validator'
 import { useAuth } from '../hooks/userHooks';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function UserProfile() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const nav = useNavigate()
     const { getUserId } = useAuth();
 
     const [profileData, setProfileData] = useState(null)
@@ -60,7 +62,8 @@ const toastOptions = {
       e.preventDefault();
       
       if (e.target.value === "canc") {
-          setProfileData(currentData)
+        setProfileData(currentData)
+        nav('/')
           return
 }
 
@@ -87,7 +90,7 @@ const toastOptions = {
    if (response.payload.data.code === 200) { 
  toast.success("User Profile has been updated.", 
    toastOptions);
-     
+      nav('/')
      return
     }
     if (response.payload.data.code === 400) { 
@@ -113,7 +116,7 @@ const toastOptions = {
           <Typography component="h1" variant="h5">
            Profile information for User {profileData.first_name}
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box  sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -167,7 +170,8 @@ const toastOptions = {
               </Grid>
             </Grid>
             <Button
-              type="submit"
+            type="button"
+            onClick={handleSubmit}
               value="update"
               variant="contained"
               sx={{ mt: 3, mb: 2, mr: 10 }}
@@ -175,7 +179,8 @@ const toastOptions = {
               Update Profile
             </Button>
             <Button
-              type="submit"
+              type="button"
+            onClick={handleSubmit}
               value="canc"
               variant="contained"
               sx={{ mt: 3, mb: 2 }}

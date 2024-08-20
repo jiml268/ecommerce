@@ -10,11 +10,12 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 
 function SignIn() {
     const dispatch = useDispatch();
-
+ const nav = useNavigate()
 const toastOptions = {
             position: "top-center",
             autoClose: 5000,
@@ -71,7 +72,8 @@ const toastOptions = {
        const message = response.payload.data.message
  toast.success(message, 
      toastOptions);
-        resetData();
+      resetData();
+       nav('/')
         return
     }
   }
