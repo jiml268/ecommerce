@@ -14,7 +14,7 @@ const ChangePassword = lazy(() => import('./pages/ChangePassword'));
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
 const Page404 = lazy(() => import('./pages/Page404/Page404'));
 const UserProfile = lazy(() => import('./pages/UserProfile'));
-
+const CategoryMenu= lazy(() => import('./components/CategoryMenu/CategoryMenu'));
 
 function App() {
 
@@ -22,6 +22,7 @@ function App() {
     <div className="App">
        <ToastContainer position="top-center" autoClose={3000} hideProgressBar />
          < NavBar />
+         <CategoryMenu />
          <Suspense fallback={<Loader />}>
       <Routes>
                <Route path="/" element={<Home />} />
