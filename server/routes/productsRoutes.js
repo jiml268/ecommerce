@@ -4,7 +4,8 @@ const {
     getSubcategories,
     productsByCat_Subcat,
     getSingleProduct,
-     getCat_Subcat
+    getCat_Subcat,
+     newProducts
  
 } = require("../controllers/products");
 
@@ -14,6 +15,7 @@ productRouter.route("/products/getSubcategories").post(getSubcategories);
 productRouter.route("/products/getAllProds").post(productsByCat_Subcat);
 productRouter.route("/products/getSingleProduct").post(getSingleProduct);
 productRouter.route("/products/catmenu").get(getCat_Subcat);
+productRouter.route("/products/newProducts").get(newProducts);
 
 
 module.exports = productRouter;
