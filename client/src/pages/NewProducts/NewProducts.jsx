@@ -31,10 +31,13 @@ function NewProducts() {
     };
     
 // eslint-disable-next-line react/prop-types
-const MyCard = ({ id, title, content, onClick }) => {
+const MyCard = ({ id, title, content, price, onClick }) => {
   const prodimage = images.filter((image) => image.ProductID === id)
   console.log(prodimage)
   console.log(prodimage[0].imageName)
+  const showimage = window.location.origin + `/images/${prodimage[0].imageName}`
+    console.log(showimage)
+
   return(
     <Box sx={{ width: 400 }}>
       <Card>
@@ -46,11 +49,15 @@ const MyCard = ({ id, title, content, onClick }) => {
             <CardMedia
               component="img"
               height="194"
-              image={window.location.origin+`/${prodimage[0].imageName}`}
-              alt="Paella dish"
+              image={showimage}
+              alt="New Product"
+              sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}
             />
             <Typography variant="body2" color="text.secondary">
               {content}
+            </Typography>
+             <Typography variant="body2" color="text.secondary">
+              ${price}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -60,14 +67,15 @@ const MyCard = ({ id, title, content, onClick }) => {
 };
 
     return (
-       <Box sx={{ display: "flex", flexDirection: 'row', flexWrap: "wrap" }}>
+       <Box sx={{ display: "flex", flexDirection: 'row', flexWrap: "wrap", justifyContent: 'center'}}>
             {products &&
                products.map((product) => (
                  <MyCard
           key={product.ProductID}
           id={product.ProductID}
           title={product.ProductName}
-          content={product.Description}
+                   content={product.Description} 
+          price=     {product.Price}     
           onClick={handleCardClick}
         />
                    
