@@ -7,8 +7,7 @@ import { useAuth } from '../../hooks/userHooks';
 
 const PublicRoute = ({ children }) => {
     const { loggedIn } = useAuth();
-    console.log(loggedIn)
-        console.log(children)
+   
 
     return (
         <>

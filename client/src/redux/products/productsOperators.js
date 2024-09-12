@@ -7,7 +7,7 @@ export const catmenu = createAsyncThunk(
   async (__, thunkAPI) => {
     try {
         const response = await axios.get(`/products/catmenu`);
-        console.log(response)
+       
     return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -20,7 +20,7 @@ export const getNewItems = createAsyncThunk(
   async (__, thunkAPI) => {
     try {
         const response = await axios.get(`/products/newProducts`);
-        console.log(response)
+        
     return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

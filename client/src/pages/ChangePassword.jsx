@@ -15,9 +15,8 @@ import { useNavigate } from 'react-router-dom';
 
 function ChangePassword() {
   const navigate = useNavigate()
-  const { loggedIn, getUserEmail } = useAuth();
-  console.log("loggedIn", loggedIn)
-    console.log("getUserEmail", getUserEmail)
+  const {  getUserEmail } = useAuth();
+ 
 
     const dispatch = useDispatch();
 const toastOptions = {
@@ -55,11 +54,10 @@ const [newPassword, setNewPassword] = useState({oldPassword: "", newPassword: ""
             toastOptions);
         return
       }
-      console.log(' useAuth',  useAuth)
-      console.log(' getUserEmail', { getUserEmail })
+     
     
       const result = await dispatch(updatePassWord(newPassword))
-      console.log(result)
+    
       if (result.payload.data.code === 200) {
         toast.success("Password has been successfully changed.  Please log in with with the New Password.", 
           toastOptions);

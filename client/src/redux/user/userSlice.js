@@ -85,13 +85,11 @@ const userSlice = createSlice({
                   .addCase(userLogin.fulfilled, (state, action) => {     
                     state.isloading = false
                     if (action.payload.data.code === 200) {
-                      console.log(action.payload)
+                   
                       state.isLoggedIn = true
                       state.userId = action.payload.data.id
                       state.userEmail = action.payload.data.email
-                      console.log("isLoggedIn", state.isLoggedIn)
-                      console.log("state.userId", state.userId)
-                      console.log(" state.userEmail",  state.userEmail)
+                      
 
                     }
 

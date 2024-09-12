@@ -6,7 +6,7 @@ const retreiveProfile = async (req, res) => {
     try {
          const sql = "SELECT id, email, first_name, last_name, phone_num FROM `users` WHERE `id` = ? ";
              const string2 = await pool.query(sql, [id])  
-        console.log(string2)
+        
          return res.json({
              code: 200,
              data: string2,
@@ -14,7 +14,7 @@ const retreiveProfile = async (req, res) => {
                 });  
 
          } catch (err) {
-         console.log(err)
+        
             return res.status(400).json({
                 code: 400,
                 Massage: err,

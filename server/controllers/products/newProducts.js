@@ -3,7 +3,7 @@ const pool = require('../../config/db')
 const newProducts = async (req, res) => {
 
     let date = new Date();
-    const day = date.getTime() - (7* 24 * 60 * 60 * 1000);
+    const day = date.getTime() - (21* 24 * 60 * 60 * 1000);
 
          date.setTime(day);
 const isoString = date.toISOString();
@@ -24,7 +24,7 @@ const isoString = date.toISOString();
                  result1: result1[0],
             });          
  } catch (err) {
-     console.log(err)
+    
             return res.status(400).json({
                 code: 400,
                 Massage: err,

@@ -11,7 +11,7 @@ const getCategories = async (req, res) => {
                 categories: categories[0],
             });          
  } catch (err) {
-     console.log(err)
+     
             return res.status(400).json({
                 code: 400,
                 Massage: err,

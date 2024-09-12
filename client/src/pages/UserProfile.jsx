@@ -24,10 +24,10 @@ function UserProfile() {
     useEffect(() => {
         const getProfile = async () => {
           const result = await dispatch(retreiveProfile({ id: getUserId }))
-          console.log(result)
+         
             if (result.payload.data.code === 200){
               const getData = result.payload.data.data[0][0]
-              console.log('getData', getData)
+             
                 setProfileData({id: getData.id, email: getData.email, first_name:  getData.first_name, last_name:  getData.last_name,phone_num:  getData.phone_num})
                 setCurrentData({id: getData.id,email: getData.email, first_name:  getData.first_name, last_name:  getData.last_name,phone_num:  getData.phone_num})
             }

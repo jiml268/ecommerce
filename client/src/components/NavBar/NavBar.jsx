@@ -40,7 +40,7 @@ const settings = ['Update Profile', 'Change Password', 'Delete Account'];
   const handleCloseNavMenu = (e) => {
     setAnchorElNav(null);
      const { myValue } = e.currentTarget.dataset;
-    console.log(myValue)
+   
 switch(myValue) {
   case "Register":
     nav("/registration")
@@ -60,7 +60,7 @@ switch(myValue) {
   const handleCloseUserMenu = (event) => {
     setAnchorElUser(null);
  const { myValue } = event.currentTarget.dataset;
-        console.log(myValue)
+       
         switch (myValue) {
             case "Delete Account":
                 if (loggedIn) {

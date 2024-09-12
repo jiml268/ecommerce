@@ -14,7 +14,7 @@ const getCat_Subcat = async (req, res) => {
                 subcatList: subcatList[0]
             });          
  } catch (err) {
-     console.log(err)
+    
             return res.status(400).json({
                 code: 400,
                 Massage: err,

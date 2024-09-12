@@ -14,7 +14,7 @@ const NestedDropdown = () => {
      
         const getCategories = async () => {
             const result = await dispatch(catmenu())
-            console.log(result)
+          
             if (result.payload.data.code === 200) {
                 setAllCats(result.payload.data.catList)
                 setAllSubcats(result.payload.data.subcatList)

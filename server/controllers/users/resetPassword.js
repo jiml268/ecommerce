@@ -43,14 +43,14 @@ const mailOptions = {
         const string3 = await pool.query(sql2, [hashedPassword,email])
          transporter.sendMail(mailOptions, function(error, info){
   if (error) {
-      console.log(error);
+     
        return res.json({
            code: 204,
            error: error,
                 message: "An error has occurred",  
                 }); 
   } else {
-      console.log('Email sent: ' + info.response);
+      
        return res.json({
                      code: 200,
                 message: "Password has been changed",  
@@ -65,7 +65,7 @@ const mailOptions = {
 
         }
          } catch (err) {
-         console.log(err)
+        
             return res.status(400).json({
                 code: 400,
                 Massage: err,
