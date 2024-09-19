@@ -16,7 +16,7 @@ function NewProducts() {
   
   const clickCarousel = () =>
   {
-    console.log('clicked')
+   
 SetShowCarousel(false)
   }
 
@@ -37,8 +37,7 @@ SetShowCarousel(false)
 return (
   <>
     <h3>New Arrivals</h3>
-    {console.log(products)}
-        {console.log(images)}
+
     {products && !showCarousel &&
       < ProductList items={products} itemImages={images} />
     }

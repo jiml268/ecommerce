@@ -4,21 +4,23 @@ import { Box, Card, CardActionArea, CardContent, Typography } from '@mui/materia
 import CardMedia from '@mui/material/CardMedia';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import { useNavigate } from 'react-router-dom';
 
 function ProductCarousel({ items, itemImages, clickCarousel }) {
-  console.log(items)
-    console.log(itemImages)
+ 
+  const nav = useNavigate();
   
  const [products, setProducts] = useState(items)
     const [images, setImages] = useState(itemImages)
-console.log(items)
+
   useEffect(() => {
         setProducts(items)
         setImages(itemImages)
         }, [items,itemImages ])
     
   const handleCardClick = (id) => {
-    console.log(`Card with id ${id} clicked`);
+    nav('/showProduct',{state:{productID:id }});
+
   };
 
  

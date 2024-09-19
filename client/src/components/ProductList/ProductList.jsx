@@ -3,11 +3,13 @@ import { useState } from "react"
 import { Box, Card, CardActionArea, CardContent, Typography } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 
 
 function ProductList({ items, itemImages }) {
-   
+    const nav = useNavigate();
+ 
 
  const [products, setProducts] = useState(items)
     const [images, setImages] = useState(itemImages)
@@ -19,7 +21,8 @@ function ProductList({ items, itemImages }) {
         }, [items,itemImages ])
     
     const handleCardClick = (id) => {
-    console.log(`Card with id ${id} clicked`);
+     
+        nav('/showProduct',{state:{productID:id }});
     };
     
 // eslint-disable-next-line react/prop-types
@@ -57,9 +60,6 @@ const MyCard = ({ id, title, content, price, onClick }) => {
 
 return (
   <Box sx={{ display: "flex", flexDirection: 'row', flexWrap: "wrap", justifyContent: 'center', alignItems: 'stretch' }}>
-    {console.log(products)}
-        {console.log(images)}
-
     {products &&
       products.map((product) => (
        

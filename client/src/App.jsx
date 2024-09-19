@@ -14,7 +14,8 @@ const ChangePassword = lazy(() => import('./pages/ChangePassword'));
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
 const Page404 = lazy(() => import('./pages/Page404/Page404'));
 const UserProfile = lazy(() => import('./pages/UserProfile'));
-const CategoryMenu= lazy(() => import('./components/CategoryMenu/CategoryMenu'));
+const CategoryMenu = lazy(() => import('./components/CategoryMenu/CategoryMenu'));
+const Product = lazy(()=> import('./pages/Product'))
 
 function App() {
 
@@ -26,20 +27,15 @@ function App() {
          <Suspense fallback={<Loader />}>
       <Routes>
                <Route path="/" element={<Home />} />
- <Route path="/registration" element={<Registration />} />
+               <Route path="/registration" element={<Registration />} />
+                <Route path="/showProduct" element={<Product />} />
+
          <Route path="/varifyUser" element={<VarifyUser />} />
          <Route path="/signIn" element={<SignIn />} />
  <Route path="/forgotpassword" element={<ForgotPassword />} />
-                       {/* <Route path="/" element={<PublicRoute><Home /></PublicRoute>} /> */}
-
-         {/* <Route path="/registration" element={<PublicRoute><Registration /></PublicRoute>} />
-         <Route path="/varifyUser" element={< PublicRoute ><VarifyUser /></PublicRoute>} />
-         <Route path="/signIn" element={<PublicRoute><SignIn /></PublicRoute>} /> */}
             <Route path="/changepassword" element={<PrivateRoute><ChangePassword /></PrivateRoute>} />
-            {/* <Route path="/forgotpassword" element={< PublicRoute ><ForgotPassword /></PublicRoute>} /> */}
             <Route path="/changepassword" element={<PrivateRoute><ChangePassword /></PrivateRoute>} />
             <Route path="/userprofile" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
-         {/* <Route path="*" element={<PublicRoute><Page404 /></PublicRoute>} /> */}
 
          <Route path="*" element={<Page404 />} />
      

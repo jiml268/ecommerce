@@ -27,3 +27,17 @@ export const getNewItems = createAsyncThunk(
     }
   }
 );
+
+
+export const singleProduct = createAsyncThunk(
+  "getSingleProduct",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`/products/getSingleProduct`, credentials);
+    return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+

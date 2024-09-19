@@ -3,7 +3,7 @@ const pool = require('../../config/db')
 const newProducts = async (req, res) => {
 
     let date = new Date();
-    const day = date.getTime() - (21* 24 * 60 * 60 * 1000);
+    const day = date.getTime() - (60* 24 * 60 * 60 * 1000);
 
          date.setTime(day);
 const isoString = date.toISOString();
