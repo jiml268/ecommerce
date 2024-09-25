@@ -44,7 +44,6 @@ return (
     { products && showCarousel &&
       < ProductCarousel items={products} itemImages={images} clickCarousel={clickCarousel} />
     } 
-    {console.log('showCarousel', showCarousel)}
   </>
 
 );
