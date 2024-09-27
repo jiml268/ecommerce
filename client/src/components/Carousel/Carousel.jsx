@@ -4,12 +4,12 @@ import "./Carousel.css";
 import PropTypes from 'prop-types';
 
 function Carousel({ images }) {
-  console.log(images)
+ 
    
     const [slide, setSlide] = useState(0);
     
   const nextSlide = () => {
-      console.log(slide)
+   
     setSlide(slide === images.length - 1 ? 0 : slide + 1);
   };
 
@@ -19,9 +19,9 @@ function Carousel({ images }) {
 
 
     return (
-      
-            <div className="carousel"   key="carousel">
-                <BsArrowLeftCircleFill onClick={prevSlide}className="arrow arrow-left"   key="leftArrow"/>
+      <div className="carouselDiv">
+            <div className="carousel" >
+                <BsArrowLeftCircleFill onClick={prevSlide}className="arrow arrow-left"   />
       {images.map((item, idx) => {
           return (
            
@@ -36,22 +36,24 @@ function Carousel({ images }) {
         );
       })}
         <BsArrowRightCircleFill
-           key="rightArrow"
+          
                     onClick={nextSlide}
                      className="arrow arrow-right"
-      />
+          />
+          </div> 
        <span className="indicators">
         {images.map((item, idx) => {
             return (
                 <button
                     key={idx}
-            className={slide === idx ? "buttonnactive" : ""}
+            className={slide === idx ? "button buttonnactive" : "button"}
                 onClick={() => setSlide(idx)}
               >
                 <img
             src={window.location.origin + `/images/${item.imageName}`}
             alt="Product Image"
-            key={idx}
+                  key={idx}
+                  className="buttonImage"
                   width="25px"
                   height="25px"
               />
@@ -59,7 +61,8 @@ function Carousel({ images }) {
           );
         })}
       </span>
-    </div>
+       
+        </div>
        
     )
 }

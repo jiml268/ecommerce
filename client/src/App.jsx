@@ -15,7 +15,7 @@ const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
 const Page404 = lazy(() => import('./pages/Page404/Page404'));
 const UserProfile = lazy(() => import('./pages/UserProfile'));
 const CategoryMenu = lazy(() => import('./components/CategoryMenu/CategoryMenu'));
-const Product = lazy(()=> import('./pages/Product'))
+const Product = lazy(()=> import('./pages/Product/Product'))
 
 function App() {
 

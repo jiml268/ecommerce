@@ -1,0 +1,13 @@
+.colorSection, .sizeSection
+{margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+.colorButton, .sizeButton{
+margin-right: 5px;
+border-radius: 50px;
+
+}
