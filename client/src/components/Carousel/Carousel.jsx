@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 function Carousel({ images }) {
  
-   
     const [slide, setSlide] = useState(0);
     
   const nextSlide = () => {

@@ -1,17 +1,26 @@
 
 import PropTypes from 'prop-types';
 import css from './ProductInfo.module.css'
-
+import { useProduct } from '../../hooks/productHooks';
+import { useDispatch } from 'react-redux';
+import { setCurrentColor, setCurrentSize } from '../../redux/products/productsSlice';
 
 
 export default function ProductInfo({ currentItem, uniqueColor, uniqueSize, arraySize }) {
+  const dispatch = useDispatch()
+  const { getCurrentColor, getCurrentSize } = useProduct();
+
+
+  
   const colorClick = e => {
-    console.log(e.target.value)
+   
+    dispatch(setCurrentColor(e.target.value))
   }
 
 
   const sizeClick = e => {
-    console.log(e.target.value)
+  
+    dispatch(setCurrentSize(e.target.value))
   }
 
   return (
@@ -41,7 +50,7 @@ export default function ProductInfo({ currentItem, uniqueColor, uniqueSize, arra
           {uniqueColor.map((item, index) => (
             <div key={index}>
               {item.colorName !== null &&
-                <button className={css.colorButton}  key={index} value={item.colorName} onClick={colorClick}>
+                <button className={`${css.colorButton} ${item.colorID === getCurrentColor ? css.buttonactive : ''}`}  key={index} value={item.colorID} onClick={colorClick}>
                             
                   {item.colorName}
                 </button>
@@ -53,13 +62,23 @@ export default function ProductInfo({ currentItem, uniqueColor, uniqueSize, arra
           }
         </div>
         }
+      
+        {console.log('currentItem', currentItem)}
+        {console.log('getCurrentColor', getCurrentColor)}
+        {console.log('getCurrentColor', getCurrentColor)}
+        {console.log('uniqueSize', uniqueSize)}
+                
 
+
+        
           {uniqueSize.length > 0 && <div className={css.sizeSection}>
           {uniqueSize.map((item, index) => (
             <div key={index}>
               {item.sizeName !== null &&
-                <button className={css.sizeButton} key={index} value={item.sizeName} onClick={sizeClick}>
-                            
+                <button className={`${css.sizeButton} ${item.sizeName === getCurrentSize ? css.buttonactive : ''}`} key={index} value={item.sizeName} onClick={sizeClick}
+                disabled= {currentItem.findIndex(iteminfo => iteminfo.colorID === getCurrentColor && iteminfo.sizeName ===item.sizeName &&iteminfo.stock)<0}
+                >
+                  {console.log(currentItem.findIndex(iteminfo => iteminfo.colorID === getCurrentColor && iteminfo.sizeName ===item.sizeName &&iteminfo.stock))}          
                   {item.sizeName}
                 </button>
               }

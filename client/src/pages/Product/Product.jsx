@@ -7,7 +7,9 @@ import { useLocation } from 'react-router-dom';
 import Carousel from '../../components/Carousel/Carousel';
 import css from './Product.module.css'
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
-
+import { setCurrentColor } from '../../redux/products/productsSlice';
+import { setCurrentSize } from '../../redux/products/productsSlice';
+import { useProduct } from '../../hooks/productHooks';
 
 export default function Product() {
     const dispatch = useDispatch()
@@ -18,8 +20,10 @@ export default function Product() {
 const [arraySize, setArraySize] = useState(0)
    const location = useLocation();
   const productID = location.state.productID
-  
+  const { getCurrentColor, } = useProduct();
 
+
+  
   useEffect(() => {
        
       const getItem = async () => {
@@ -27,12 +31,16 @@ const [arraySize, setArraySize] = useState(0)
              const getproduct = {productID: productID }
 
         const result = await dispatch(singleProduct(getproduct))
-        console.log(result)
+        
         SetCurrentItem(result.payload.data.product)
         SetCurrentImages(result.payload.data.image)
         setUniqueColor(result.payload.data.colors)
         setUniqueSize(result.payload.data.sizes)
-      setArraySize(result.payload.data.image.length)
+        setArraySize(result.payload.data.image.length)
+    
+
+        dispatch(setCurrentColor(result.payload.data.colors.length > 0?result.payload.data.colors[0].colorID:""))
+        dispatch(setCurrentSize(result.payload.data.sizes.length > 0?result.payload.data.sizes[0].sizeName:""))
         }
 
       getItem()
@@ -47,7 +55,9 @@ const [arraySize, setArraySize] = useState(0)
    
         {arraySize > 0 &&
           <>
-          <Carousel images={currentImages} />
+        
+
+          <Carousel images={currentImages.filter((image) => image.colorID === getCurrentColor)} />
           < ProductInfo currentItem={currentItem} uniqueColor={uniqueColor} uniqueSize={uniqueSize} arraySize={arraySize} />
           </>
       }

@@ -11,3 +11,11 @@ margin-right: 5px;
 border-radius: 50px;
 
 }
+.buttonactive{
+    
+            background-color: blue;
+            border: orangered;
+            color: white;
+        
+}
+

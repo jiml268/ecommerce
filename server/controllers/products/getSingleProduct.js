@@ -10,12 +10,12 @@ const getSingleProduct = async (req, res) => {
  const sql1 = "SELECT p.ProductID, i.imageName,i.colorID From products as p left join images as i on p.ProductID = i.ProductID WHERE p.ProductID = ?;"
                 const result1 = await pool.query(sql1, [productID])
 
-    const sql2 = "select  c.colorID,c.colorName from products as p left JOIN productvariants as pv ON p.ProductID= pv.ProductID  left JOIN  color as c on pv.colorID = c.colorID  where p.ProductID = ? Group by c.colorName; ";
-                const color = await pool.query(sql2, [productID])
+        const sql2 = "select  c.colorID, c.colorName from productvariants as pv left JOIN  color as c on pv.colorID = c.colorID  where pv.ProductID = ? group by c.colorID;"
+        const color = await pool.query(sql2, [productID])
        
-     const sql3 = "select  s.sizeName from products as p left JOIN productvariants as pv ON p.ProductID= pv.ProductID  left JOIN  size as s on pv.sizeID = s.sizeID  where p.ProductID = ? Group by s.sizeName; ";
+     const sql3 = "select  s.sizeName from productvariants as pv left JOIN  size as s on pv.sizeID = s.sizeID  where pv.ProductID = ? Group by s.sizeName; ";
                 const size = await pool.query(sql3, [productID])   
-        
+       
           return res.status(200).json({
                 code: 200,
               product: product[0],
