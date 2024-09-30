@@ -8,7 +8,6 @@ import Carousel from '../../components/Carousel/Carousel';
 import css from './Product.module.css'
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
 import { setCurrentColor } from '../../redux/products/productsSlice';
-import { setCurrentSize } from '../../redux/products/productsSlice';
 import { useProduct } from '../../hooks/productHooks';
 
 export default function Product() {
@@ -40,7 +39,7 @@ const [arraySize, setArraySize] = useState(0)
     
 
         dispatch(setCurrentColor(result.payload.data.colors.length > 0?result.payload.data.colors[0].colorID:""))
-        dispatch(setCurrentSize(result.payload.data.sizes.length > 0?result.payload.data.sizes[0].sizeName:""))
+     
         }
 
       getItem()

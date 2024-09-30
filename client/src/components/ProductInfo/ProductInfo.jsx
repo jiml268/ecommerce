@@ -50,7 +50,9 @@ export default function ProductInfo({ currentItem, uniqueColor, uniqueSize, arra
           {uniqueColor.map((item, index) => (
             <div key={index}>
               {item.colorName !== null &&
-                <button className={`${css.colorButton} ${item.colorID === getCurrentColor ? css.buttonactive : ''}`}  key={index} value={item.colorID} onClick={colorClick}>
+                <button className={`${css.colorButton} ${item.colorID === getCurrentColor ? css.buttonactive : ''}`} key={index} value={item.colorID} onClick={colorClick}
+                disabled= {currentItem.findIndex(iteminfo => iteminfo.colorID === item.colorID && iteminfo.sizeName ===getCurrentSize &&iteminfo.stock)<0}
+                >
                             
                   {item.colorName}
                 </button>
