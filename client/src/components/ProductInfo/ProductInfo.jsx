@@ -63,16 +63,7 @@ export default function ProductInfo({ currentItem, uniqueColor, uniqueSize, arra
           )
           }
         </div>
-        }
-      
-        {console.log('currentItem', currentItem)}
-        {console.log('getCurrentColor', getCurrentColor)}
-        {console.log('getCurrentColor', getCurrentColor)}
-        {console.log('uniqueSize', uniqueSize)}
-                
-
-
-        
+        }        
           {uniqueSize.length > 0 && <div className={css.sizeSection}>
           {uniqueSize.map((item, index) => (
             <div key={index}>
@@ -80,7 +71,6 @@ export default function ProductInfo({ currentItem, uniqueColor, uniqueSize, arra
                 <button className={`${css.sizeButton} ${item.sizeName === getCurrentSize ? css.buttonactive : ''}`} key={index} value={item.sizeName} onClick={sizeClick}
                 disabled= {currentItem.findIndex(iteminfo => iteminfo.colorID === getCurrentColor && iteminfo.sizeName ===item.sizeName &&iteminfo.stock)<0}
                 >
-                  {console.log(currentItem.findIndex(iteminfo => iteminfo.colorID === getCurrentColor && iteminfo.sizeName ===item.sizeName &&iteminfo.stock))}          
                   {item.sizeName}
                 </button>
               }

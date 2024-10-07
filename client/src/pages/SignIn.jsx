@@ -11,11 +11,16 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-
+import { useCart } from '../hooks/cartHooks';
+import { updateIDs } from '../redux/cart/cartOperators';
+import { getCartByID } from '../redux/cart/cartOperators'
 
 function SignIn() {
     const dispatch = useDispatch();
- const nav = useNavigate()
+  const nav = useNavigate()
+  const { getCartID } = useCart();
+
+ 
 const toastOptions = {
             position: "top-center",
             autoClose: 5000,
@@ -43,7 +48,8 @@ const toastOptions = {
     }
 
   const handleSubmit = async (e) => {
-        e.preventDefault();
+    e.preventDefault();
+    
     if (loginData.email === "" || loginData.password === '' )
       {
        toast.warning("All fields must be filled out", 
@@ -53,6 +59,9 @@ const toastOptions = {
    
     const response = await dispatch(userLogin(loginData));
     
+   
+
+
       if (response.payload.data.code === 403 ||response.payload.data.code === 401 ) { 
        const message = response.payload.data.message
  toast.success(message, 
@@ -69,10 +78,20 @@ const toastOptions = {
 
       
     if (response.payload.data.code === 200) { 
+     
+
        const message = response.payload.data.message
  toast.success(message, 
      toastOptions);
       resetData();
+      
+      if (getCartID !== "") {
+        const cartIDs = { id: response.payload.data.id, cartID: getCartID }
+        dispatch(updateIDs(cartIDs))
+      } 
+       const cartIDs = { id: response.payload.data.id, cartID: getCartID }
+        dispatch(getCartByID(cartIDs))
+
        nav('/')
         return
     }

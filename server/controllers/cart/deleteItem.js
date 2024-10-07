@@ -14,7 +14,6 @@ const deleteItem = async (req, res) => {
                 
             });          
  } catch (err) {
-    console.log(err)
             return res.status(400).json({
                 code: 400,
                 Massage: err,

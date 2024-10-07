@@ -1,13 +1,14 @@
 const pool = require('../../config/db')
 
-const addToCart = async (req, res) => {
+const getCartByID = async (req, res) => {
          
- try { const { sku, cartID, id } = req.body
-     const sql = "insert into cart (cartNun, sku, quantity,id) value (?,?,1,?)";
-     const catList = await pool.query(sql, [cartID, sku,id])
+ try { const { id } = req.body
+     const sql = "SELECT * FROM cart WHERE id = ?";
+     const cart = await pool.query(sql, [id])
           return res.status(200).json({
                 code: 200,
-              message: "Item added"
+              message: "cart retrieved",
+              cart: cart[0]
                 
             });          
  } catch (err) {
@@ -20,4 +21,4 @@ const addToCart = async (req, res) => {
 
 }
 
-module.exports = addToCart;
+module.exports = getCartByID;
