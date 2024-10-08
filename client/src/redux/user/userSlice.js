@@ -16,7 +16,7 @@ const initialState = {
   isLoggedIn: false,
   isloading: false,
   userEmail: "",
-  userId: ""
+  userId: null
 };
 
 const userSlice = createSlice({

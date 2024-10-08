@@ -28,3 +28,71 @@ export const getCartByID = createAsyncThunk(
   }
 );
 
+
+export const getCartByCartID = createAsyncThunk(
+  "getCartByCartID",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`/cart/getCartByCartID`, credentials); 
+    return response;
+    } catch (error) {
+     
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const addtocart = createAsyncThunk(
+  "addtocart",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`/cart/addtocart`, credentials); 
+    return response;
+    } catch (error) {
+     
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const decreasequantity = createAsyncThunk(
+  "decreasequantity",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`/cart/decreasequantity`, credentials); 
+    return response;
+    } catch (error) {
+     
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const addquantity = createAsyncThunk(
+  "addquantity",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`/cart/addquantity`, credentials); 
+    return response;
+    } catch (error) {
+     
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteItem = createAsyncThunk(
+  "deleteItem",
+  async (credentials, thunkAPI) => {
+    try {
+      console.log(credentials)
+      const response = await axios.post(`/cart/deleteItem`, credentials); 
+      console.log(response)
+      return response;
+    } catch (error) {
+           console.log(error)
+
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

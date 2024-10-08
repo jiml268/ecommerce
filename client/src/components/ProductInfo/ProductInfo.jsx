@@ -4,13 +4,34 @@ import css from './ProductInfo.module.css'
 import { useProduct } from '../../hooks/productHooks';
 import { useDispatch } from 'react-redux';
 import { setCurrentColor, setCurrentSize } from '../../redux/products/productsSlice';
-
+import { addquantity, addtocart, decreasequantity, getCartByCartID } from '../../redux/cart/cartOperators';
+import { useAuth } from '../../hooks/userHooks';
+import { useCart } from '../../hooks/cartHooks' 
+import { nanoid } from 'nanoid';
+import { setCartID } from '../../redux/cart/cartSlice';
 
 export default function ProductInfo({ currentItem, uniqueColor, uniqueSize, arraySize }) {
   const dispatch = useDispatch()
   const { getCurrentColor, getCurrentSize } = useProduct();
+    const { getUserId } = useAuth();
+  const { getCartID, getCurrentCart } = useCart()
+  let currentQty = 0
+  let maxQty = currentItem[0].stock
+  
+  if (getCurrentCart) {
 
+    const findInCart = getCurrentCart.findIndex(item => item.sku === currentItem[0].sku)
+    if (findInCart >= 0) {
+      currentQty = getCurrentCart[findInCart].quantity
+    }
+  else {
+currentQty = 0
+  
+     }
+  } else {
+    currentQty = 0
 
+  }
   
   const colorClick = e => {
    
@@ -23,10 +44,57 @@ export default function ProductInfo({ currentItem, uniqueColor, uniqueSize, arra
     dispatch(setCurrentSize(e.target.value))
   }
 
+  const addClicked = async e => {
+    let holdCartID = ""
+    if (getCartID === "") {
+      holdCartID = nanoid(10)
+    } else {
+      holdCartID = getCartID
+    }
+      
+    const additem = {sku: e.target.value, cartID: holdCartID, id: getUserId}
+  await dispatch(addtocart(additem))
+  await dispatch(setCartID(holdCartID)) 
+  await dispatch(getCartByCartID(additem))
+  }
+
+  const changeClicked = async e => {
+    const changeQty = {sku: e.target.value, cartID: getCartID, id: getUserId}
+    if (e.target.name === "increase") {
+      await dispatch(addquantity(changeQty))
+    }
+    if (e.target.name === "decrease") {
+      await dispatch(decreasequantity(changeQty))
+      console.log('decreasequantity done')
+    }
+          console.log('getCartByCartID started')
+
+      console.log(await dispatch(getCartByCartID(changeQty)))
+      console.log('getCartByCartID done')
+
+  }
+
   return (
    
     <div>
+      {console.log('arraySize', arraySize)}
+            {console.log('currentQty', currentQty)}
+            {console.log('maxQty', maxQty)}
+            {console.log('currentItem', currentItem)}
+            {console.log('getCurrentCart', getCurrentCart)}
+
       {arraySize > 0 && <>
+        <div className={css.cartButtons}>
+           <button type='button' onClick={changeClicked} value={currentItem[0].sku} name='decrease' className={`${css.changeQnty} ${currentQty === 0?css.hideButton:""}`}> -
+          </button >
+        <button type='button' onClick={addClicked} value={currentItem[0].sku} className={`${css.addtocart} ${currentQty>0?css.incart:""}`}>{
+          currentQty === 0 ?
+            "Add to Cart" : currentQty
+        }
+          </button >
+          <button type='button' onClick={changeClicked} value={currentItem[0].sku} name='increase' className={`${css.changeQnty} ${currentQty === 0 || currentQty >=maxQty  ?css.hideButton:""}`}> +
+          </button >
+          </div>
         <h2> {currentItem[0].ProductName}</h2>
         <h3>{currentItem[0].Description}</h3>
         {currentItem.length > 0 && <ul>

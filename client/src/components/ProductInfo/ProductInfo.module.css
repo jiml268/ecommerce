@@ -19,3 +19,36 @@ border-radius: 50px;
         
 }
 
+
+.addtocart{
+    padding: 10px 20px;
+    border: none;
+    background-color: blue;
+    color: azure;
+    width: 225px;
+}
+
+.incart{
+pointer-events: none;
+}
+
+.cartButtons{
+    display: flex;
+    flex-direction: row;
+    background-color: blue;
+    border: 5px solid blue;
+    width: 225px;
+        margin: 0 auto;
+}
+
+.changeQnty{
+    padding: 10px;
+        border: none;
+        background-color: blue;
+        color: azure;
+        font-size: 30px;
+}
+
+.hideButton{
+    display: none;
+}

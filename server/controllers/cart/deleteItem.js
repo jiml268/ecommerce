@@ -1,19 +1,19 @@
+const pool = require('../../config/db')
+
 const deleteItem = async (req, res) => {
          
     try {
         const { sku, cartID } = req.body
         let message = ""
-       
                        const sql1 = "delete from cart WHERE cartNun = ? and sku = ?;";
             await pool.query(sql1, [cartID, sku])
                         message = "item deleted"      
           return res.status(200).json({
               code: 200,
-              result: result[0][0].quantity,
               message: message
                 
             });          
- } catch (err) {
+    } catch (err) {
             return res.status(400).json({
                 code: 400,
                 Massage: err,

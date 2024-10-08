@@ -2,9 +2,10 @@ const pool = require('../../config/db')
 
 const getCartByCartID = async (req, res) => {
          
- try { const { cartNun } = req.body
+  try {
+    const { cartID } = req.body
      const sql = "SELECT * FROM cart WHERE cartNun = ?";
-     const cart = await pool.query(sql, [id])
+     const cart = await pool.query(sql, [cartID])
           return res.status(200).json({
                 code: 200,
               message: "cart retrieved",
