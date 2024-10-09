@@ -85,12 +85,12 @@ export const deleteItem = createAsyncThunk(
   "deleteItem",
   async (credentials, thunkAPI) => {
     try {
-      console.log(credentials)
+    
       const response = await axios.post(`/cart/deleteItem`, credentials); 
-      console.log(response)
+      
       return response;
     } catch (error) {
-           console.log(error)
+           
 
       return thunkAPI.rejectWithValue(error.message);
     }

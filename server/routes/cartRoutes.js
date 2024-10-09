@@ -6,7 +6,9 @@ const {
    deleteItem,
    getCartByID,
    getCartByCartID,
-   updateIDs
+   updateIDs,
+   emptyCart,
+   getCart
  
 } = require("../controllers/cart");
 
@@ -18,6 +20,8 @@ cartRouter.route("/cart/deleteItem").post(deleteItem);
 cartRouter.route("/cart/getCartByID").post(getCartByID);
 cartRouter.route("/cart/getCartByCartID").post(getCartByCartID);
 cartRouter.route("/cart/updateIDs").post(updateIDs);
+cartRouter.route("/cart/emptyCart").post(emptyCart);
+cartRouter.route("/cart/getCart").post(getCart);
 
 
 

@@ -51,11 +51,19 @@ currentQty = 0
     } else {
       holdCartID = getCartID
     }
-      
+    console.log(e.target.value)
+    console.log(holdCartID)
+    console.log(getUserId)
+        console.log(currentItem)
+
+    
+
     const additem = {sku: e.target.value, cartID: holdCartID, id: getUserId}
   await dispatch(addtocart(additem))
   await dispatch(setCartID(holdCartID)) 
-  await dispatch(getCartByCartID(additem))
+    await dispatch(getCartByCartID(additem))
+    await dispatch(setCurrentSize(""))
+    await dispatch(setCurrentColor(""))
   }
 
   const changeClicked = async e => {
@@ -65,23 +73,15 @@ currentQty = 0
     }
     if (e.target.name === "decrease") {
       await dispatch(decreasequantity(changeQty))
-      console.log('decreasequantity done')
     }
-          console.log('getCartByCartID started')
-
-      console.log(await dispatch(getCartByCartID(changeQty)))
-      console.log('getCartByCartID done')
+          
 
   }
 
   return (
    
     <div>
-      {console.log('arraySize', arraySize)}
-            {console.log('currentQty', currentQty)}
-            {console.log('maxQty', maxQty)}
-            {console.log('currentItem', currentItem)}
-            {console.log('getCurrentCart', getCurrentCart)}
+     
 
       {arraySize > 0 && <>
         <div className={css.cartButtons}>

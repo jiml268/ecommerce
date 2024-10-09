@@ -21,7 +21,7 @@ const [arraySize, setArraySize] = useState(0)
   const productID = location.state.productID
   const { getCurrentColor, } = useProduct();
 
-
+console.log(productID)
   
   useEffect(() => {
        
@@ -30,7 +30,7 @@ const [arraySize, setArraySize] = useState(0)
              const getproduct = {productID: productID }
 
         const result = await dispatch(singleProduct(getproduct))
-        
+        console.log(result)
         SetCurrentItem(result.payload.data.product)
         SetCurrentImages(result.payload.data.image)
         setUniqueColor(result.payload.data.colors)

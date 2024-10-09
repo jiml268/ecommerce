@@ -20,7 +20,6 @@ const quantityDecrease = async (req, res) => {
 const sql2 = "select * from cart where cartNun = ? and sku = ?";
         const result2 = await pool.query(sql2, [cartID, sku])
 
-            console.log(result2[0])
           return res.status(200).json({
               code: 200,
               cart: result2[0],
@@ -29,7 +28,6 @@ const sql2 = "select * from cart where cartNun = ? and sku = ?";
                 
             });          
     } catch (err) {
-        console.log(err)
             return res.status(400).json({
                 code: 400,
                 Massage: err,
