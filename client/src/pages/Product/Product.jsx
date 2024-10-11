@@ -9,6 +9,7 @@ import css from './Product.module.css'
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
 import { setCurrentColor } from '../../redux/products/productsSlice';
 import { useProduct } from '../../hooks/productHooks';
+import ProductDetail from '../../components/Sample/ProductDetail';
 
 export default function Product() {
     const dispatch = useDispatch()
@@ -21,7 +22,7 @@ const [arraySize, setArraySize] = useState(0)
   const productID = location.state.productID
   const { getCurrentColor, } = useProduct();
 
-console.log(productID)
+
   
   useEffect(() => {
        
@@ -30,7 +31,6 @@ console.log(productID)
              const getproduct = {productID: productID }
 
         const result = await dispatch(singleProduct(getproduct))
-        console.log(result)
         SetCurrentItem(result.payload.data.product)
         SetCurrentImages(result.payload.data.image)
         setUniqueColor(result.payload.data.colors)
@@ -57,8 +57,9 @@ console.log(productID)
         
 
           <Carousel images={currentImages.filter((image) => image.colorID === getCurrentColor)} />
-          < ProductInfo currentItem={currentItem} uniqueColor={uniqueColor} uniqueSize={uniqueSize} arraySize={arraySize} />
-          </>
+          {/* < ProductInfo currentItem={currentItem} uniqueColor={uniqueColor} uniqueSize={uniqueSize} arraySize={arraySize} /> */}
+ < ProductDetail currentItem={currentItem} /> 
+        </>
       }
       
         </div>

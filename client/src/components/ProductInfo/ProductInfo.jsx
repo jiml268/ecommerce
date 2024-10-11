@@ -9,18 +9,49 @@ import { useAuth } from '../../hooks/userHooks';
 import { useCart } from '../../hooks/cartHooks' 
 import { nanoid } from 'nanoid';
 import { setCartID } from '../../redux/cart/cartSlice';
+import { toast } from 'react-toastify';
 
 export default function ProductInfo({ currentItem, uniqueColor, uniqueSize, arraySize }) {
+  const toastOptions = {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+
+         }
   const dispatch = useDispatch()
   const { getCurrentColor, getCurrentSize } = useProduct();
     const { getUserId } = useAuth();
   const { getCartID, getCurrentCart } = useCart()
   let currentQty = 0
   let maxQty = currentItem[0].stock
-  
+  console.log(getCurrentCart)
   if (getCurrentCart) {
 
-    const findInCart = getCurrentCart.findIndex(item => item.sku === currentItem[0].sku)
+    let getSKU = null
+    console.log('getCurrentColor', getCurrentColor)
+    console.log('getCurrentSize', getCurrentSize)
+    console.log('currentItem', currentItem)
+
+    
+    if (uniqueColor[0].colorID!== null || uniqueSize[0].sizeName !==null) {
+      getSKU = currentItem.findIndex(item => item.colorID === getCurrentColor && item.sizeName === getCurrentSize)
+    }
+console.log('getSKU', getSKU)
+
+const currentSku = getSKU!==null?currentItem[getSKU].sku:currentItem[0].sku
+console.log('currentSku', currentSku)
+
+
+
+    const findInCart = getCurrentCart.findIndex(item => item.sku === currentSku)
+    console.log('findInCart', findInCart)
+        console.log('getCurrentCart', getCurrentCart)
+
     if (findInCart >= 0) {
       currentQty = getCurrentCart[findInCart].quantity
     }
@@ -33,32 +64,41 @@ currentQty = 0
 
   }
   
-  const colorClick = e => {
-   
-    dispatch(setCurrentColor(e.target.value))
+  const colorClick =async  e => {
+   console.log(e.target.value)
+    await dispatch(setCurrentColor(e.target.value))
+          console.log(getCurrentColor)
+
   }
 
 
-  const sizeClick = e => {
-  
-    dispatch(setCurrentSize(e.target.value))
+  const sizeClick = async e => {
+  console.log(e.target.value)
+    await dispatch(setCurrentSize(e.target.value))
+      console.log(getCurrentSize)
+
   }
 
-  const addClicked = async e => {
+  const addClicked = async () => {
+    if ((uniqueColor[0].colorID!== null && getCurrentColor === "") || (uniqueSize[0].sizeName !==null && getCurrentSize === "")) {
+      toast.warning("Please choose a color and size", 
+            toastOptions);
+        return
+    }
+
+let getSKU = null
+    if (uniqueColor[0].colorID!== null || uniqueSize[0].sizeName !==null) {
+      getSKU = currentItem.findIndex(item => item.colorID === getCurrentColor && item.sizeName === getCurrentSize)
+    }
+
     let holdCartID = ""
     if (getCartID === "") {
       holdCartID = nanoid(10)
     } else {
       holdCartID = getCartID
     }
-    console.log(e.target.value)
-    console.log(holdCartID)
-    console.log(getUserId)
-        console.log(currentItem)
+    const additem = { sku: getSKU > 0 ? currentItem[getSKU].sku : currentItem[0].sku, cartID: holdCartID, id: getUserId }
 
-    
-
-    const additem = {sku: e.target.value, cartID: holdCartID, id: getUserId}
   await dispatch(addtocart(additem))
   await dispatch(setCartID(holdCartID)) 
     await dispatch(getCartByCartID(additem))
@@ -67,14 +107,20 @@ currentQty = 0
   }
 
   const changeClicked = async e => {
-    const changeQty = {sku: e.target.value, cartID: getCartID, id: getUserId}
+
+let getSKU = null
+    if (uniqueColor[0].colorID!== null || uniqueSize[0].sizeName !==null) {
+      getSKU = currentItem.findIndex(item => item.colorID === getCurrentColor && item.sizeName === getCurrentSize)
+    }
+
+    const changeQty = {sku:getSKU > 0 ? currentItem[getSKU].sku : currentItem[0].sku, cartID: getCartID, id: getUserId}
     if (e.target.name === "increase") {
       await dispatch(addquantity(changeQty))
     }
     if (e.target.name === "decrease") {
       await dispatch(decreasequantity(changeQty))
     }
-          
+    await dispatch(getCartByCartID(changeQty))
 
   }
 
@@ -97,7 +143,9 @@ currentQty = 0
           </div>
         <h2> {currentItem[0].ProductName}</h2>
         <h3>{currentItem[0].Description}</h3>
-        {currentItem.length > 0 && <ul>
+        {currentItem.length > 0 &&
+        
+          <ul>
             
           {currentItem.map((item, index) => (
             <div key={index}>

@@ -7,8 +7,7 @@ import 'react-multi-carousel/lib/styles.css';
 import { useNavigate } from 'react-router-dom';
 
 function ProductCarousel({ items, itemImages, clickCarousel }) {
-  console.log(items)
-   console.log(itemImages)
+
 
   const nav = useNavigate();
   
@@ -21,7 +20,7 @@ function ProductCarousel({ items, itemImages, clickCarousel }) {
         }, [items,itemImages ])
     
   const handleCardClick = (id) => {
-    console.log(id)
+   
     nav('/showProduct',{state:{productID:id }});
 
   };
