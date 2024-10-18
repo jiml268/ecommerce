@@ -96,3 +96,19 @@ export const deleteItem = createAsyncThunk(
     }
   }
 );
+
+export const getCart = createAsyncThunk(
+  "getCart",
+  async (credentials, thunkAPI) => {
+    try {
+    
+      const response = await axios.post(`/cart/getCart`, credentials); 
+      
+      return response;
+    } catch (error) {
+           
+
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

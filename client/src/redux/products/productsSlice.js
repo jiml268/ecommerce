@@ -5,8 +5,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    currentColor: "",
-    currentSize: ""
+    currentColor: null,
+    currentSize: null
 };
 
 const productSlice = createSlice({

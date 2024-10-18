@@ -15,7 +15,9 @@ const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
 const Page404 = lazy(() => import('./pages/Page404/Page404'));
 const UserProfile = lazy(() => import('./pages/UserProfile'));
 const CategoryMenu = lazy(() => import('./components/CategoryMenu/CategoryMenu'));
-const Product = lazy(()=> import('./pages/Product/Product'))
+const Product = lazy(() => import('./pages/Product/Product'))
+const Cart = lazy(()=> import('./pages/GetCart/GetCart'))
+
 
 function App() {
 
@@ -36,7 +38,7 @@ function App() {
             <Route path="/changepassword" element={<PrivateRoute><ChangePassword /></PrivateRoute>} />
             <Route path="/changepassword" element={<PrivateRoute><ChangePassword /></PrivateRoute>} />
             <Route path="/userprofile" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
-
+ <Route path="/cart" element={<Cart />} />
          <Route path="*" element={<Page404 />} />
      
          </Routes>   
