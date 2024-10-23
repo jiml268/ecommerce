@@ -10,94 +10,156 @@ import { useCart } from '../../hooks/cartHooks'
 import { nanoid } from 'nanoid';
 import { setCartID } from '../../redux/cart/cartSlice';
 import { toast } from 'react-toastify';
+import { useState, useEffect } from 'react';
 
-export default function ProductInfo({ currentItem, uniqueColor, uniqueSize, arraySize }) {
+export default function ProductInfo({ currentItem, }) {
   const toastOptions = {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-
-         }
-  const dispatch = useDispatch()
-  const { getCurrentColor, getCurrentSize } = useProduct();
-    const { getUserId } = useAuth();
-  const { getCartID, getCurrentCart } = useCart()
-  let currentQty = 0
-  let maxQty = currentItem[0].stock
-  console.log(getCurrentCart)
-  if (getCurrentCart) {
-
-    let getSKU = null
-    console.log('getCurrentColor', getCurrentColor)
-    console.log('getCurrentSize', getCurrentSize)
-    console.log('currentItem', currentItem)
-
-    
-    if (uniqueColor[0].colorID!== null || uniqueSize[0].sizeName !==null) {
-      getSKU = currentItem.findIndex(item => item.colorID === getCurrentColor && item.sizeName === getCurrentSize)
-    }
-console.log('getSKU', getSKU)
-
-const currentSku = getSKU!==null?currentItem[getSKU].sku:currentItem[0].sku
-console.log('currentSku', currentSku)
-
-
-
-    const findInCart = getCurrentCart.findIndex(item => item.sku === currentSku)
-    console.log('findInCart', findInCart)
-        console.log('getCurrentCart', getCurrentCart)
-
-    if (findInCart >= 0) {
-      currentQty = getCurrentCart[findInCart].quantity
-    }
-  else {
-currentQty = 0
-  
-     }
-  } else {
-    currentQty = 0
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
 
   }
+  const dispatch = useDispatch()
+  const { getCurrentColor, getCurrentSize } = useProduct();
+  const { getUserId } = useAuth();
+  const { getCartID, getCurrentCart } = useCart()  
+const [uniqueColors, setUniqueColors] = useState(null)
+  const [uniqueSizes, setUniqueSizes] = useState(null)
+  const [uniqueSpecs, setUniqueSpecs] = useState(null)
   
-  const colorClick =async  e => {
-   console.log(e.target.value)
+   useEffect(() => {
+      const colors = [...new Set(currentItem.filter(item => item.colorID !== null).map(item => `${item.colorID}-${item.colorName}`))]
+setUniqueColors(colors.map(combination => {
+  const [colorID, colorName] = combination.split('-');
+  return { colorID, colorName };
+}))
+     
+     setUniqueSizes([...new Set(currentItem.map(item => item.sizeName).filter(sizeName => sizeName !== null))]);
+     
+     const specs = [...new Set(currentItem.filter(item => item.SpecName !== null).map(item => `${item.SpecName}-${item.SpecValue}`))]
+setUniqueSpecs(specs.map(combination => {
+  const [SpecName, SpecValue] = combination.split('-');
+  return { SpecName, SpecValue };
+}));
+     
+    }, [currentItem]
+    )
+
+
+
+  
+  const colorClick = async e => {
     await dispatch(setCurrentColor(e.target.value))
-          console.log(getCurrentColor)
 
   }
 
 
   const sizeClick = async e => {
-  console.log(e.target.value)
     await dispatch(setCurrentSize(e.target.value))
-      console.log(getCurrentSize)
 
   }
 
-  const addClicked = async () => {
-    if ((uniqueColor[0].colorID!== null && getCurrentColor === "") || (uniqueSize[0].sizeName !==null && getCurrentSize === "")) {
+  const createColorButtons = () => {
+    return (
+      <div className={css.colorSection}>
+           
+
+
+      {uniqueColors.map((item, index) => {
+        let quant = 0
+           
+
+        if (getCurrentSize === null) {
+          quant = currentItem.reduce((sum, cur) => {
+           
+
+            if (cur.colorID === +item.colorID) {
+              return sum + cur.stock;
+            }
+                          
+
+            return sum;
+          }, 0);
+        } else {
+          
+
+
+          const findindex = currentItem.findIndex(iteminfo => iteminfo.colorID === +item.colorID && iteminfo.sizeName === getCurrentSize)
+                       
+                
+
+          if (findindex !== -1) {
+            quant = currentItem[findindex].stock
+          }
+        }
+           return (
+          <div key={index}>
+                                      
+
+
+            <button className={`${css.colorButton} ${+item.colorID === getCurrentColor ? css.buttonactive : ''} ${quant===0? css.button_out_of_stock:""}`} key={index} value={item.colorID} onClick={colorClick}>
+              {item.colorName}
+            </button>
+          </div>
+        )
+      }
+    )
+        }</div>      
+    )
+      }
+      
+  const createSizeButtons = () => {
+           
+ return (
+      <div className={css.sizeSection}>
+      {uniqueSizes.map((item, index) => {
+        let quant = 0
+        if (getCurrentColor === null) {
+          quant = currentItem.reduce((sum, cur) => {
+            if (cur.sizeName === item) {
+              return sum + cur.stock;
+            }
+            return sum;
+          }, 0);
+        } else {
+          const findindex = currentItem.findIndex(iteminfo => iteminfo.sizeName === item && iteminfo.colorID === getCurrentColor)
+if (findindex !== -1) {
+            quant = currentItem[findindex].stock
+          }
+        }
+        return (
+          <div key={index}>
+              <button className={`${css.sizeButton} ${item === getCurrentSize ? css.buttonactive : ''} ${quant===0? css.button_out_of_stock:""}`} key={index} value={item} onClick={sizeClick}>
+              {item}
+            </button>
+          </div>
+        )
+      }
+    )
+        }</div>      
+    )
+  }
+
+ const addClicked = async e => {
+    if ((uniqueColors.length > 0 && getCurrentColor === "") || (uniqueSizes.length > 0 && getCurrentSize === "")) {
       toast.warning("Please choose a color and size", 
             toastOptions);
         return
     }
 
-let getSKU = null
-    if (uniqueColor[0].colorID!== null || uniqueSize[0].sizeName !==null) {
-      getSKU = currentItem.findIndex(item => item.colorID === getCurrentColor && item.sizeName === getCurrentSize)
-    }
-
+const getSKU = e.target.value
     let holdCartID = ""
     if (getCartID === "") {
       holdCartID = nanoid(10)
     } else {
       holdCartID = getCartID
     }
-    const additem = { sku: getSKU > 0 ? currentItem[getSKU].sku : currentItem[0].sku, cartID: holdCartID, id: getUserId }
+    const additem = { sku: getSKU, cartID: holdCartID, id: getUserId }
 
   await dispatch(addtocart(additem))
   await dispatch(setCartID(holdCartID)) 
@@ -108,12 +170,10 @@ let getSKU = null
 
   const changeClicked = async e => {
 
-let getSKU = null
-    if (uniqueColor[0].colorID!== null || uniqueSize[0].sizeName !==null) {
-      getSKU = currentItem.findIndex(item => item.colorID === getCurrentColor && item.sizeName === getCurrentSize)
-    }
+const getSKU = e.target.value
+    
 
-    const changeQty = {sku:getSKU > 0 ? currentItem[getSKU].sku : currentItem[0].sku, cartID: getCartID, id: getUserId}
+  const changeQty = {sku:getSKU, cartID: getCartID, id: getUserId}
     if (e.target.name === "increase") {
       await dispatch(addquantity(changeQty))
     }
@@ -124,76 +184,93 @@ let getSKU = null
 
   }
 
+  const createCartButtons = () => {
+    let sku = ""
+    let inStock = 0
+    let cartQnt = 0
+    { console.log(getCurrentSize) }
+         {console.log(getCurrentColor)}
+
+    const getsku = currentItem.findIndex(iteminfo => iteminfo.sizeName === getCurrentSize && iteminfo.colorID === getCurrentColor)
+            {console.log(getsku)}
+
+    if (getsku >= 0) {
+      sku = currentItem[getsku].sku
+      inStock = currentItem[getsku].stock
+    } else {
+       sku = currentItem[0].sku
+      inStock = currentItem[0].stock
+    }
+    if (getCurrentCart) {
+      const inCart = getCurrentCart.findIndex(iteminfo => iteminfo.sku === sku)
+      if (inCart >= 0) {
+        cartQnt = getCurrentCart[inCart].quantity
+      }
+    }
+    return (
+      <div className={css.cartButtons}>
+        
+        {console.log(sku)}
+        {console.log(cartQnt)}
+        {console.log(inStock)}
+
+
+           <button type='button' onClick={changeClicked} value={sku} name='decrease' className={`${css.changeQnty} ${cartQnt === 0?css.hideButton:""}`}> -
+          </button >
+        <button type='button' onClick={addClicked} value={sku} className={`${css.addtocart} ${cartQnt>0?css.incart:""}`}>{
+          cartQnt === 0 ?
+            "Add to Cart" : cartQnt
+        }
+          </button >
+          <button type='button' onClick={changeClicked} value={sku} name='increase' className={`${css.changeQnty} ${cartQnt === 0 ||cartQnt>=inStock?css.hideButton:""}`}> +
+          </button >
+          </div>
+     )
+  }
+
   return (
    
     <div>
      
+      {currentItem.length > 0 && <>
+        {createCartButtons()}
 
-      {arraySize > 0 && <>
-        <div className={css.cartButtons}>
-           <button type='button' onClick={changeClicked} value={currentItem[0].sku} name='decrease' className={`${css.changeQnty} ${currentQty === 0?css.hideButton:""}`}> -
-          </button >
-        <button type='button' onClick={addClicked} value={currentItem[0].sku} className={`${css.addtocart} ${currentQty>0?css.incart:""}`}>{
-          currentQty === 0 ?
-            "Add to Cart" : currentQty
-        }
-          </button >
-          <button type='button' onClick={changeClicked} value={currentItem[0].sku} name='increase' className={`${css.changeQnty} ${currentQty === 0 || currentQty >=maxQty  ?css.hideButton:""}`}> +
-          </button >
-          </div>
         <h2> {currentItem[0].ProductName}</h2>
         <h3>{currentItem[0].Description}</h3>
         {currentItem.length > 0 &&
         
           <ul>
-            
-          {currentItem.map((item, index) => (
-            <div key={index}>
-              {item.SpecName !== null &&
-                <li key={index}>
+            {uniqueSpecs && uniqueSpecs.length > 0 &&<div>
+
+              {uniqueSpecs.map((item, index) => (
+                <div key={index}>
+                  {item.SpecName !== null &&
+                    <li key={index}>
                             
-                  {item.SpecName}  {item.SpecValue}
-                </li>
+                      {item.SpecName}  {item.SpecValue}
+                    </li>
+                  }
+                </div>
+              )
+              )
               }
             </div>
-          )
-          )
-          }
+            }
                 
         </ul>}
-        {uniqueColor.length > 0 && <div className={css.colorSection}>
+        {uniqueColors  && uniqueColors.length>0 && <div className={css.colorSection}>
             
-          {uniqueColor.map((item, index) => (
-            <div key={index}>
-              {item.colorName !== null &&
-                <button className={`${css.colorButton} ${item.colorID === getCurrentColor ? css.buttonactive : ''}`} key={index} value={item.colorID} onClick={colorClick}
-                disabled= {currentItem.findIndex(iteminfo => iteminfo.colorID === item.colorID && iteminfo.sizeName ===getCurrentSize &&iteminfo.stock)<0}
-                >
-                            
-                  {item.colorName}
-                </button>
-              }
-            </div>
-          )
-                  
-          )
-          }
+          
+          {createColorButtons()}
         </div>
-        }        
-          {uniqueSize.length > 0 && <div className={css.sizeSection}>
-          {uniqueSize.map((item, index) => (
-            <div key={index}>
-              {item.sizeName !== null &&
-                <button className={`${css.sizeButton} ${item.sizeName === getCurrentSize ? css.buttonactive : ''}`} key={index} value={item.sizeName} onClick={sizeClick}
-                disabled= {currentItem.findIndex(iteminfo => iteminfo.colorID === getCurrentColor && iteminfo.sizeName ===item.sizeName &&iteminfo.stock)<0}
-                >
-                  {item.sizeName}
-                </button>
-              }
-            </div>
-          )
-          )
-          }
+        }  
+        
+        {uniqueSizes && uniqueSizes.length>0  && <div className={css.sizeSection}>
+         
+
+          {createSizeButtons()}
+
+
          </div>
           }            
       </>
@@ -203,109 +280,6 @@ let getSKU = null
 }
     
     
-//     <Paper
-//       sx={(theme) => ({
-//         p: 2,
-//         margin: 'auto',
-//         maxWidth: 500,
-//         flexGrow: 1,
-//         backgroundColor: '#fff',
-//         ...theme.applyStyles('dark', {
-//           backgroundColor: '#1A2027',
-//         }),
-//       })}
-//     >
-    
-
-//       {arraySize > 0 &&
-   
-//         <>
-//           <Grid item xs={12} sm container>
-//             <Grid item xs container direction="column" spacing={2}>
-//               <Grid item xs>
-//                 <Typography gutterBottom variant="subtitle1" component="div">
-//                  {currentItem[0].ProductName}
-//                 </Typography>
-//                  <Typography gutterBottom variant="subtitle1" component="div">
-//                  {currentItem[0].Description}
-//                 </Typography>
-//                 <Typography variant="body2" gutterBottom>
-//                   <List
-//    sx={{
-//         listStyleType: 'disc',
-//         listStylePosition: 'inside'
-//       }}
-//                   >{currentItem.length > 0 &&
-//                       currentItem.map((item, index) => (
-//                         <div key={index}>
-//                           {item.SpecName !== null &&
-//                             <ListItem sx={{ display: 'list-item' }} key={index}>
-                            
-//                               {item.SpecName}  {item.SpecValue}
-//                             </ListItem>
-//                           }
-//                         </div>
-//                     )
-//                   )
-//                   }
-// </List>
-//                 </Typography>
-//                  <Typography variant="body2" gutterBottom>
-//                   <List
-//    sx={{
-//         listStyleType: 'disc',
-//         listStylePosition: 'inside'
-//       }}
-//                   >{uniqueColor.length > 0 &&
-//                       uniqueColor.map((item, index) => (
-//                         <div key={index}>
-//                           {item.colorName !== null &&
-//                             <ListItem sx={{ display: 'list-item' }} key={index}>
-                            
-//                               {item.colorName}
-//                             </ListItem>
-//                           }
-//                         </div>
-//                     )
-//                   )
-//                   }
-// </List>
-//                 </Typography>
-//                   <Typography variant="body2" gutterBottom>
-//                   <List
-//    sx={{
-//         listStyleType: 'disc',
-//         listStylePosition: 'inside'
-//       }}
-//                   >{uniqueSize.length > 0 &&
-//                       uniqueSize.map((item, index) => (
-//                         <div key={index}>
-//                           {item.sizeName !== null &&
-//                             <ListItem sx={{ display: 'list-item' }} key={index}>
-                            
-//                               {item.sizeName}
-//                             </ListItem>
-//                           }
-//                         </div>
-//                     )
-//                   )
-//                   }
-// </List>
-//                 </Typography>
-//               </Grid>
-              
-//             </Grid>
-//             <Grid item>
-//               <Typography variant="subtitle1" component="div">
-//                 ${currentItem[0].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-//               </Typography>
-//             </Grid>
-//           </Grid>
-//               </>
-//           }
-//    </Paper>
-//   );
-// }
 
 ProductInfo.propTypes = {
   currentItem: PropTypes.array,

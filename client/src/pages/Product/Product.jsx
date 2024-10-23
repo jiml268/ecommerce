@@ -7,16 +7,14 @@ import { useLocation } from 'react-router-dom';
 import Carousel from '../../components/Carousel/Carousel';
 import css from './Product.module.css'
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
-import { setCurrentColor } from '../../redux/products/productsSlice';
+import { setCurrentColor, setCurrentSize } from '../../redux/products/productsSlice';
 import { useProduct } from '../../hooks/productHooks';
-import ProductDetail from '../../components/Sample/ProductDetail';
 
 export default function Product() {
     const dispatch = useDispatch()
   const [currentItem, SetCurrentItem] = useState({})
   const [currentImages, SetCurrentImages] = useState({})
-  const [uniqueColor, setUniqueColor] = useState({})
-  const [uniqueSize, setUniqueSize] = useState({})
+  
 const [arraySize, setArraySize] = useState(0)
    const location = useLocation();
   const productID = location.state.productID
@@ -33,13 +31,13 @@ const [arraySize, setArraySize] = useState(0)
         const result = await dispatch(singleProduct(getproduct))
         SetCurrentItem(result.payload.data.product)
         SetCurrentImages(result.payload.data.image)
-        setUniqueColor(result.payload.data.colors)
-        setUniqueSize(result.payload.data.sizes)
         setArraySize(result.payload.data.image.length)
     
 
-        dispatch(setCurrentColor(result.payload.data.colors.length > 0?result.payload.data.colors[0].colorID:""))
-     
+        dispatch(setCurrentColor(result.payload.data.colors.length > 0 ? result.payload.data.colors[0].colorID : null))
+        console.log(result.payload.data.sizes)
+        dispatch(setCurrentSize(result.payload.data.sizes.length > 0?result.payload.data.sizes[0].sizeName:null))
+
         }
 
       getItem()
@@ -57,8 +55,8 @@ const [arraySize, setArraySize] = useState(0)
         
 
           <Carousel images={currentImages.filter((image) => image.colorID === getCurrentColor)} />
-          {/* < ProductInfo currentItem={currentItem} uniqueColor={uniqueColor} uniqueSize={uniqueSize} arraySize={arraySize} /> */}
- < ProductDetail currentItem={currentItem} /> 
+          < ProductInfo currentItem={currentItem}  />
+ {/* < ProductDetail currentItem={currentItem} />  */}
         </>
       }
       

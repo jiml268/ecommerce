@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import {
- 
-// } from "./userOperators";
+import {
+  singleProduct
+} from "./productsOperators";
 
 
 const initialState = {
@@ -27,10 +27,16 @@ const productSlice = createSlice({
 
     },
     },
-     extraReducers: (builder) =>
+  extraReducers: (builder) =>
     builder
-     
-});
+      .addCase(singleProduct.fulfilled, (state) => {
+          state.currentColor = null
+          state.currentSize = null
+
+        
+      }
+    )
+     });
      
 export const { setCurrentColor, setCurrentSize } = productSlice.actions;
 
