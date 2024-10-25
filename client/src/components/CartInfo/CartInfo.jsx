@@ -20,9 +20,9 @@ return (<>
 <img src={showimage} alt='product image' className={css.productImage} />
                     </div>
                     <div className={css.infoSection}>
-                        <h3>{item.ProductName}</h3>
-                        {item.colorName && <p>{item.colorName}</p>}
-                         {item.sizeName && <p>{item.sizeName}</p>}
+                        <h3 className={css.infoText}>{item.ProductName}</h3>
+                        {item.colorName && <p className={css.infoText}>Color: {item.colorName}</p>}
+                         {item.sizeName && <p className={css.infoText}>Size: {item.sizeName}</p>}
                     </div>
                     <div className={css.priceSection}>
                         <h4>${!item.salepercent ? (item.price * item.quantity).toLocaleString('en-US') : ((item.price-(item.price * item.salepercent).toFixed(2)) * item.quantity).toLocaleString('en-US')}</h4>
