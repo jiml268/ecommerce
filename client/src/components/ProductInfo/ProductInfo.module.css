@@ -28,6 +28,18 @@ border-radius: 50px;
     width: 225px;
 }
 
+.notAvailable{
+    
+            padding: 15px 20px;
+            border: none;
+            background-color: blue;
+        
+            width: 225px;
+            color: white;
+            margin: 0 auto;
+        }
+
+
 .incart{
 pointer-events: none;
 }
@@ -75,7 +87,3 @@ pointer-events: none;
     pointer-events: none;
 }
 
-.disabled {
-    pointer-events: none;
-    cursor: not-allowed;
-}

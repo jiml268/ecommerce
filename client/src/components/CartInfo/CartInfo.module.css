@@ -1,0 +1,53 @@
+.imageSection{
+    width: 72px;
+}
+
+
+.productImage{
+    width: 72px;
+    height: 72px;  
+}
+
+.sale{
+    text-decoration: line-through;
+}
+
+.saveText{
+    border: 1px solid gold;
+    background-color: aqua;
+    color: white;
+}
+
+.productInfo{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 1280px;
+    margin: 0 16px;
+   ;
+}
+
+.infoSection{
+width: 60% ;
+}
+.priceSection{
+    display: flex;
+    flex-direction: column;
+    min-width: 130px;
+        align-items: flex-end;
+   
+    
+}
+
+.produceSection{
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.itemSection{
+    padding: 0 16px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}

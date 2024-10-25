@@ -164,8 +164,8 @@ const getSKU = e.target.value
   await dispatch(addtocart(additem))
   await dispatch(setCartID(holdCartID)) 
     await dispatch(getCartByCartID(additem))
-    await dispatch(setCurrentSize(""))
-    await dispatch(setCurrentColor(""))
+    await dispatch(setCurrentSize(null))
+    await dispatch(setCurrentColor(null))
   }
 
   const changeClicked = async e => {
@@ -188,17 +188,20 @@ const getSKU = e.target.value
     let sku = ""
     let inStock = 0
     let cartQnt = 0
-    { console.log(getCurrentSize) }
-         {console.log(getCurrentColor)}
+    let getsku = null
+          console.log(currentItem)
+          console.log(getCurrentSize)
+          console.log(getCurrentColor)
 
-    const getsku = currentItem.findIndex(iteminfo => iteminfo.sizeName === getCurrentSize && iteminfo.colorID === getCurrentColor)
-            {console.log(getsku)}
+
+    getsku = currentItem.findIndex(iteminfo => iteminfo.sizeName === getCurrentSize && iteminfo.colorID === getCurrentColor)
+   
 
     if (getsku >= 0) {
       sku = currentItem[getsku].sku
       inStock = currentItem[getsku].stock
     } else {
-       sku = currentItem[0].sku
+      sku = currentItem[0].sku
       inStock = currentItem[0].stock
     }
     if (getCurrentCart) {
@@ -207,25 +210,39 @@ const getSKU = e.target.value
         cartQnt = getCurrentCart[inCart].quantity
       }
     }
-    return (
-      <div className={css.cartButtons}>
-        
-        {console.log(sku)}
-        {console.log(cartQnt)}
-        {console.log(inStock)}
+    {
+      console.log(getsku)
+            console.log(inStock)
 
-
-           <button type='button' onClick={changeClicked} value={sku} name='decrease' className={`${css.changeQnty} ${cartQnt === 0?css.hideButton:""}`}> -
-          </button >
-        <button type='button' onClick={addClicked} value={sku} className={`${css.addtocart} ${cartQnt>0?css.incart:""}`}>{
-          cartQnt === 0 ?
-            "Add to Cart" : cartQnt
-        }
-          </button >
-          <button type='button' onClick={changeClicked} value={sku} name='increase' className={`${css.changeQnty} ${cartQnt === 0 ||cartQnt>=inStock?css.hideButton:""}`}> +
-          </button >
+      if (getsku < 0 ||inStock ===0 ) {
+        return (
+          <div>
+            <p className={css.notAvailable}>Item is unavalable</p>
           </div>
-     )
+        )
+      } else {
+        return (
+     
+
+
+          <div className={css.cartButtons}>
+        
+           
+
+
+            <button type='button' onClick={changeClicked} value={sku} name='decrease' className={`${css.changeQnty} ${cartQnt === 0 ? css.hideButton : ""}`}> -
+            </button >
+            <button type='button' onClick={addClicked} value={sku} className={`${css.addtocart} ${cartQnt > 0 ? css.incart : ""}`}>{
+              cartQnt === 0 ?
+                "Add to Cart" : cartQnt
+            }
+            </button >
+            <button type='button' onClick={changeClicked} value={sku} name='increase' className={`${css.changeQnty} ${cartQnt === 0 || cartQnt >= inStock ? css.hideButton : ""}`}> +
+            </button >
+          </div>
+        )
+      }
+    }
   }
 
   return (

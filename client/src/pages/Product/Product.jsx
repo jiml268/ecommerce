@@ -35,7 +35,7 @@ const [arraySize, setArraySize] = useState(0)
     
 
         dispatch(setCurrentColor(result.payload.data.colors.length > 0 ? result.payload.data.colors[0].colorID : null))
-        console.log(result.payload.data.sizes)
+       
         dispatch(setCurrentSize(result.payload.data.sizes.length > 0?result.payload.data.sizes[0].sizeName:null))
 
         }

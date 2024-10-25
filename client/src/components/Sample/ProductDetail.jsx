@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 // eslint-disable-next-line react/prop-types
 const ProductDetail = ({ currentItem, }) => {
-  console.log(currentItem)
+
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
 
