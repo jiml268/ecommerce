@@ -4,6 +4,7 @@ const deleteItem = async (req, res) => {
          
     try {
         const { sku, cartID } = req.body
+        console.log('deleteItem',req.body ) 
         let message = ""
                        const sql1 = "delete from cart WHERE cartNun = ? and sku = ?;";
             await pool.query(sql1, [cartID, sku])

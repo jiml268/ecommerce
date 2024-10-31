@@ -8,7 +8,8 @@ const {
    getCartByCartID,
    updateIDs,
    emptyCart,
-   getCart
+   getCart,
+   saveForLater
  
 } = require("../controllers/cart");
 
@@ -22,6 +23,7 @@ cartRouter.route("/cart/getCartByCartID").post(getCartByCartID);
 cartRouter.route("/cart/updateIDs").post(updateIDs);
 cartRouter.route("/cart/emptyCart").post(emptyCart);
 cartRouter.route("/cart/getCart").post(getCart);
+cartRouter.route("/cart/saveForLater").post(saveForLater);
 
 
 

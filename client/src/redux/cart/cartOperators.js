@@ -112,3 +112,19 @@ export const getCart = createAsyncThunk(
     }
   }
 );
+
+export const saveForLater = createAsyncThunk(
+  "saveForLater",
+  async (credentials, thunkAPI) => {
+    try {
+    
+      const response = await axios.post(`/cart/saveForLater`, credentials); 
+      
+      return response;
+    } catch (error) {
+           
+
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

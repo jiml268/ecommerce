@@ -189,9 +189,7 @@ const getSKU = e.target.value
     let inStock = 0
     let cartQnt = 0
     let getsku = null
-          console.log(currentItem)
-          console.log(getCurrentSize)
-          console.log(getCurrentColor)
+          
 
 
     getsku = currentItem.findIndex(iteminfo => iteminfo.sizeName === getCurrentSize && iteminfo.colorID === getCurrentColor)
@@ -211,8 +209,6 @@ const getSKU = e.target.value
       }
     }
     {
-      console.log(getsku)
-            console.log(inStock)
 
       if (getsku < 0 ||inStock ===0 ) {
         return (
