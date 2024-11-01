@@ -1,0 +1,37 @@
+.cartAmts{
+    font-weight: 200;
+}
+
+.totalGroup{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.discount{
+text-decoration: line-through;
+}
+
+.totalSection{
+        max-width: 1280px;
+        margin: 0 auto;
+}
+.totalInfo{
+    display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        max-width: 1280px;
+        margin: 0 16px;
+        padding: 25px;
+}
+
+.itemGroup{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+        }
+
+
+.numOfItems{
+    margin-left: 5px;
+}

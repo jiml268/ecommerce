@@ -1,35 +1,31 @@
-import PropTypes from 'prop-types';
 import css from './CartInfo.module.css';
 import { useAuth } from '../../hooks/userHooks';
 import { useCart } from '../../hooks/cartHooks';
 
-import { useEffect, useState } from 'react';
+
 import { useDispatch } from 'react-redux';
 import { deleteItem, getCart, saveForLater, addquantity, decreasequantity } from '../../redux/cart/cartOperators';
 
 
-export default function CartInfo({ currentCart, cartImages }) {
+export default function CartInfo() {
      const dispatch = useDispatch()
     const { loggedIn, getUserId } = useAuth();
-        const { getCartID,  } = useCart();
+        const { getCartID,  getAllCartItems, getAllCartImages } = useCart();
 
-    const [cartItems, setCartItems] = useState(null)
+    
 
-    useEffect(() => {
-          setCartItems(currentCart) 
-        }, [currentCart, ])
+   
     
     const SaveClicked = async e => {
  const saveInfo = { sku: e.target.value, userID: getUserId, cartID: getCartID }
         await dispatch(saveForLater(saveInfo))
         await dispatch(deleteItem(saveInfo))
-        const response = await dispatch(getCart(saveInfo))
-        setCartItems(response.payload.data.cart)
+       await dispatch(getCart(saveInfo))
+       
        
     }
 
      const changeClicked = async e => {
-         console.log(e.target.value)
          const getSKU = e.target.value
     
 
@@ -40,24 +36,24 @@ export default function CartInfo({ currentCart, cartImages }) {
     if (e.target.name === "decrease") {
       await dispatch(decreasequantity(changeQty))
     }
-        const response = await dispatch(getCart(changeQty))
-        setCartItems(response.payload.data.cart)
+       await dispatch(getCart(changeQty))
+       
     }
 
 const removeClicked = async e => {
         const info = { sku: e.target.value, userID: getUserId, cartID: getCartID }
         await dispatch(deleteItem(info))
-        const response = await dispatch(getCart(info))
-        setCartItems(response.payload.data.cart)
+        await dispatch(getCart(info))
+        
     }
     
 return (<>
    
-    {cartItems &&
+    {getAllCartItems &&
         <div>
-            {cartItems.map((item, index) => {
-                const imageindex = cartImages.findIndex(iteminfo => iteminfo.ProductID === item.ProductID && iteminfo.colorID === item.colorID)
-                const showimage = imageindex >= 0 ? window.location.origin + `/images/${cartImages[imageindex].imageName}` : `/images/Image-Coming-Soon.png}`
+            {getAllCartItems.map((item, index) => {
+                const imageindex = getAllCartImages.findIndex(iteminfo => iteminfo.ProductID === item.ProductID && iteminfo.colorID === item.colorID)
+                const showimage = imageindex >= 0 ? window.location.origin + `/images/${getAllCartImages[imageindex].imageName}` : `/images/Image-Coming-Soon.png}`
             
                 return (
                     <div className={css.produceSection} key={index}>
@@ -115,7 +111,3 @@ return (<>
 
 
 
-CartInfo.propTypes = {
-  currentCart: PropTypes.array,
-    cartImages: PropTypes.array,
-};

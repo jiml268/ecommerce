@@ -4,7 +4,7 @@ const getCart = async (req, res) => {
          
     try {
         const { cartID } = req.body
-             console.log('getCart',req.body ) 
+         
 
      const sql = "select cart.cartNun, cart.quantity,pv.Stock,pv.price,pv.sku,pv.colorID, pv.ProductID, p.ProductName, c.colorName, size.sizeName, sales.salepercent from cart left JOIN productvariants as pv on cart.sku = pv.sku  left JOIN products as p on pv.ProductID = p.ProductID left JOIN  color as c on pv.colorID = c.colorID left JOIN  size  on pv.sizeID = size.sizeID left JOIN sales on p.salesID = sales.salesID where cart.cartNun = ?;"
      const cart = await pool.query(sql, [cartID])

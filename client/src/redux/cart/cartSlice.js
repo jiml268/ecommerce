@@ -2,13 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   getCartByID,
   getCartByCartID,
-  decreasequantity
+  decreasequantity,
+  getCart
 } from "./cartOperators";
 
 
 const initialState = {
   cartID: "",
-  currentCart: null
+  currentCart: null,
+  allCartItems: null,
+  allCartImages: null
     
 };
 
@@ -35,6 +38,14 @@ const cartSlice = createSlice({
            if (action.payload.data.cart.length > 0) {
            state.currentCart = action.payload.data.cart
 
+           }
+           
+     })
+         
+          .addCase(getCart.fulfilled, (state, action) => { 
+           if (action.payload.data.cart.length > 0) {
+           state.allCartItems = action.payload.data.cart
+state.allCartImages =action.payload.data.images
            }
            
      })

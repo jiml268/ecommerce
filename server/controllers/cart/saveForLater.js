@@ -4,7 +4,7 @@ const saveForLater = async (req, res) => {
         
     try {
         const { sku, userID } = req.body
-    console.log('saveForLater',req.body ) 
+
 
      const sql = "insert into saveitem (userID, sku) value (?,?);";
      await pool.query(sql, [userID, sku])
