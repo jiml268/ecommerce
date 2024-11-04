@@ -17,9 +17,10 @@ export const catmenu = createAsyncThunk(
 
 export const getNewItems = createAsyncThunk(
   "getNewItems",
-  async (__, thunkAPI) => {
+  async (credentials, thunkAPI) => {
+    
     try {
-        const response = await axios.get(`/products/newProducts`);
+        const response = await axios.post(`/products/newProducts`, credentials);
         
     return response;
     } catch (error) {

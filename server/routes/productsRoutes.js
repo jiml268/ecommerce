@@ -15,7 +15,7 @@ productRouter.route("/products/getSubcategories").post(getSubcategories);
 productRouter.route("/products/getAllProds").post(productsByCat_Subcat);
 productRouter.route("/products/getSingleProduct").post(getSingleProduct);
 productRouter.route("/products/catmenu").get(getCat_Subcat);
-productRouter.route("/products/newProducts").get(newProducts);
+productRouter.route("/products/newProducts").post(newProducts);
 
 
 module.exports = productRouter;
