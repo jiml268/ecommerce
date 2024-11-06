@@ -34,12 +34,12 @@ function ProductCarousel({ items, itemImages, clickCarousel }) {
       slidesToSlide: 3, // optional, default to 1
     },
     tablet: {
-      breakpoint: { max: 1241, min: 825 },
+      breakpoint: { max: 1241, min: 800 },
       items: 2,
       slidesToSlide: 2, // optional, default to 1
     },
     mobile: {
-      breakpoint: { max: 825, min: 0 },
+      breakpoint: { max: 799, min: 0 },
       items: 1,
       slidesToSlide: 1, // optional, default to 1
     },

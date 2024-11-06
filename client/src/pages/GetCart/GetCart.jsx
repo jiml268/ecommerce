@@ -4,6 +4,8 @@ import { useCart } from '../../hooks/cartHooks'
 import { getCart } from '../../redux/cart/cartOperators';
 import CartInfo from '../../components/CartInfo/CartInfo';
 import CartTotals from '../../components/CartTotals/CartTotals';
+import css from './GetCart.module.css';
+
 
 export default function GetCart() {
     const dispatch = useDispatch()
@@ -33,10 +35,10 @@ export default function GetCart() {
     <>
        
             {getAllCartItems &&
-                <>
+                <div className={css.cartSection}>
                 < CartInfo />
                 <CartTotals />
-                </>
+                </div>
             }
         </>
     

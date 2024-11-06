@@ -18,16 +18,17 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { LoggedOut } from '../../redux/user/userSlice'
 import { deleteUser } from '../../redux/user/userOperators';
-
+import { useCart } from '../../hooks/cartHooks';
 
 function NavBar() {
    const dispatch = useDispatch()
   const { loggedIn, getUserEmail } = useAuth();
+  const { getCurrentCart } = useCart()  
   const nav = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const pages = !loggedIn?['Sign In', 'Register']:['Sign Out', 'Cart'];
+  const pages = !loggedIn?['Sign In', 'Register', 'Cart']:['Sign Out', 'Cart'];
 const settings = ['Update Profile', 'Change Password', 'Delete Account'];
 
   const handleOpenNavMenu = (event) => {
@@ -51,8 +52,12 @@ switch(myValue) {
   case "Sign Out":
     dispatch(LoggedOut(false))
     break
-   case "Cart":
-    nav("/cart")
+  case "Cart":
+    {
+      getCurrentCart ?
+        nav("/cart") :
+        nav("/emptyCart") 
+    } 
     break
  default:
     nav("/")

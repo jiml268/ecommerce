@@ -127,4 +127,24 @@ export const saveForLater = createAsyncThunk(
       return thunkAPI.rejectWithValue(error.message);
     }
   }
+
+  
+);
+
+export const emptyCart = createAsyncThunk(
+  "emptyCart",
+  async (credentials, thunkAPI) => {
+    try {
+    
+      const response = await axios.post(`/cart/emptyCart`, credentials); 
+      
+      return response;
+    } catch (error) {
+           
+
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+
+  
 );

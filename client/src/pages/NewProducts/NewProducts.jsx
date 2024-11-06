@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 
 function NewProducts({ type, categoryCode, CategoryName }) {
-  console.log(categoryCode)
+ 
  const [products, setProducts] = useState(null)
   const [images, setImages] = useState(null)
   const [showCarousel, SetShowCarousel] = useState(true)
@@ -24,13 +24,13 @@ SetShowCarousel(false)
   }
 
   useEffect(() => {
-              console.log("use effect")
+          
 
       const getNewProducts = async () => {
         const response = await dispatch(getNewItems({ type: type, categoryCode: categoryCode }))
-                  console.log('type', type)
+                 
 
-          console.log('response', response)
+          
                 setProducts(response.payload.data.result)
           setImages(response.payload.data.result1)
           SetShowCarousel(true)
@@ -54,9 +54,9 @@ SetShowCarousel(false)
 }
 
 return (
-  <>
+  <> {products &&
     <h3>{itemtype}</h3>
-
+  }
     {products && !showCarousel &&
       < ProductList items={products} itemImages={images} />
     }

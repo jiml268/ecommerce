@@ -26,10 +26,10 @@ function Home() {
 
   return (
     <>
-      {console.log(allCats)}
+  
       < NewProducts type = "New" />
       < NewProducts type="Sale" />
-      {allCats.map((cats) => (
+      {allCats && allCats.map((cats) => (
       < NewProducts key={cats.CategoryID} type="Department" categoryCode={cats.CategoryID} CategoryName={cats.CategoryName} />
       ))}
 </>

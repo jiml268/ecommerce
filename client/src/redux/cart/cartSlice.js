@@ -3,7 +3,8 @@ import {
   getCartByID,
   getCartByCartID,
   decreasequantity,
-  getCart
+  getCart, 
+  emptyCart
 } from "./cartOperators";
 
 
@@ -58,8 +59,15 @@ state.allCartImages =action.payload.data.images
 
        }
            
-      })
+     })
+     
+         .addCase(emptyCart.fulfilled, (state, ) => { 
+          
+           state.currentCart = null
+      state.cartID = ""
+         })
 });
+
      
 export const { setCartID,  } = cartSlice.actions;
 

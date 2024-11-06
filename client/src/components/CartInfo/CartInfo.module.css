@@ -106,3 +106,22 @@ background-color: lightgrey;
     font-size: 10px;
     margin-right: 5px;
 }
+
+.cartOption {
+    display: flex;
+    flex-direction: row;
+    margin: 15px auto;
+    flex-wrap: wrap;
+}
+
+@media screen and (min-width: 825px) {
+.produceSection {
+    width: 65%;
+    margin: 0;
+    } 
+
+  .cartOption {
+      display: none;
+  }
+}
+

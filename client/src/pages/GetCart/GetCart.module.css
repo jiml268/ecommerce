@@ -1,0 +1,12 @@
+.cartSection{
+  max-width: 1080px;
+  margin: 0 auto;  
+}
+
+@media screen and (min-width: 825px) {
+    .cartSection {
+       display: flex;
+    flex-direction: row;
+    flex-wrap: wrap
+    } ;
+}

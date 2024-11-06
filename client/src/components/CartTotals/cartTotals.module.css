@@ -35,3 +35,20 @@ text-decoration: line-through;
 .numOfItems{
     margin-left: 5px;
 }
+
+.cartOption {
+    display: none;
+}
+
+@media screen and (min-width: 825px) {
+    .totalSection {
+        width: 35%;
+    }
+           .cartOption {
+               display: flex;
+               flex-direction: row;
+               margin: 15px auto;
+               flex-wrap: wrap;
+           }
+}
+

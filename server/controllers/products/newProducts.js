@@ -2,14 +2,14 @@ const pool = require('../../config/db')
 
 const newProducts = async (req, res) => {
     const { type, categoryCode } = req.body
-    console.log(req.body)
+    
     let sql = null
     let sql1 = null
     let sqlParam = null
     switch(type) {
   case "New":
    let date = new Date();
-    const day = date.getTime() - (120* 24 * 60 * 60 * 1000);
+    const day = date.getTime() - (20* 24 * 60 * 60 * 1000);
 
          date.setTime(day);
             sqlParam = date.toISOString();
@@ -19,7 +19,7 @@ const newProducts = async (req, res) => {
             break;
         case "Sale":
             sqlParam = 1 
-            console.log("in Sales", sqlParam)
+          
            sql = "SELECT * FROM products  WHERE salesID >= ?;"
             sql1 = "SELECT p.ProductID, i.imageName,i.colorID From products as p left join images as i on p.ProductID = i.ProductID WHERE p.salesID >= ?;"  
              break;
@@ -33,13 +33,12 @@ default:
 }
          
     try {
-        console.log(sql)
-        console.log('sqlParam', sqlParam)
+       
+       
 
         const result = await pool.query(sql, [sqlParam]) 
         const result1 = await pool.query(sql1, [sqlParam])
-console.log('result', result)
-console.log('result1', result1)
+
 
 
      

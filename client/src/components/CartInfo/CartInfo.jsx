@@ -1,7 +1,7 @@
 import css from './CartInfo.module.css';
 import { useAuth } from '../../hooks/userHooks';
 import { useCart } from '../../hooks/cartHooks';
-
+import CartButtons from '../CartButtons/CartButtons';
 
 import { useDispatch } from 'react-redux';
 import { deleteItem, getCart, saveForLater, addquantity, decreasequantity } from '../../redux/cart/cartOperators';
@@ -50,13 +50,16 @@ const removeClicked = async e => {
 return (<>
    
     {getAllCartItems &&
-        <div>
+        <div className={css.produceSection}>
+             <div className={css.cartOption}>
+              <CartButtons />
+            </div>
             {getAllCartItems.map((item, index) => {
                 const imageindex = getAllCartImages.findIndex(iteminfo => iteminfo.ProductID === item.ProductID && iteminfo.colorID === item.colorID)
                 const showimage = imageindex >= 0 ? window.location.origin + `/images/${getAllCartImages[imageindex].imageName}` : `/images/Image-Coming-Soon.png}`
             
                 return (
-                    <div className={css.produceSection} key={index}>
+                    <div  key={index}>
                         <div key={index} className={css.productInfo}>
                             <div className={css.itemSection} >
    

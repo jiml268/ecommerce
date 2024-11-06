@@ -1,6 +1,6 @@
 import css from './cartTotals.module.css';
 import { useCart } from '../../hooks/cartHooks';
-
+import CartButtons from '../CartButtons/CartButtons';
 
 //import { useDispatch } from 'react-redux';
 
@@ -26,10 +26,15 @@ export default function CartTotals() {
         }
         totalDue = totalDue +  ((element.price * element.quantity) - (element.price * element.salepercent* element.quantity).toFixed(2))
     });
-    totalDue<35?shipping = 6.99:shipping = 0
+    totalDue < 35 ? shipping = 6.99 : shipping = 0
+    
+  
     
     return (
         <div className={css.totalSection}>
+            <div className={css.cartOption}>
+              <CartButtons />
+            </div>
             <div className={css.totalInfo}>
                 <div className={css.totalGroup}>
                     <div className={css.itemGroup}>
@@ -55,7 +60,7 @@ export default function CartTotals() {
             <h3>Shipping</h3>
                 <h3 className={css.cartAmts}>{shipping === 0 ? "free" : "$6.99"}</h3>
                 </div>
-            {totalDue < 35 && <p>${35 - totalDue} needed for free shipping</p>}
+            {totalDue < 35 && <p>${(35 - totalDue).toFixed(2)} needed for free shipping</p>}
             <div className={css.totalGroup}>
                 <h3>Estimated total</h3>
                 <h3 className={css.cartAmts}>${(totalDue + shipping).toLocaleString('en-US')}</h3>
