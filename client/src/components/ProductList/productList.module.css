@@ -1,0 +1,38 @@
+.productSection{
+    margin: 0 20px;
+}
+
+.gridcontainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* Creates 3 equal columns */
+    gap: 20px 10px;;
+    /* Adds a gap between the grid items */
+    margin: 0 auto;
+}
+
+.grid-item {
+    background-color: lightblue;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+@media screen and (min-width: 850px) {
+.gridcontainer {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+       
+        gap: 20px 10px;
+       
+    }
+
+}
+
+@media screen and (min-width: 1250px) {
+    .gridcontainer {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px 10px;;
+    }
+
+}

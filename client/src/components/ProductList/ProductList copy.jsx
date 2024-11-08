@@ -4,7 +4,7 @@ import { Box, Card, CardActionArea, CardContent, Typography } from '@mui/materia
 import CardMedia from '@mui/material/CardMedia';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import  css from './productList.module.css'
+
 
 
 function ProductList({ items, itemImages }) {
@@ -25,7 +25,7 @@ function ProductList({ items, itemImages }) {
         nav('/showProduct',{state:{productID:id }});
     };
     
-
+// eslint-disable-next-line react/prop-types
 const MyCard = ({ id, title, content, price, onClick }) => {
   const prodimage = images.filter((image) => image.ProductID === id)
   const showimage = window.location.origin + `/images/${prodimage[0].imageName}`
@@ -58,12 +58,9 @@ const MyCard = ({ id, title, content, price, onClick }) => {
   );
 };
 
-  return (
-  
-  // <Box sx={{ display: "flex", flexDirection: 'row', flexWrap: "wrap", justifyContent: 'center', alignItems: 'stretch' }}>
-<div className={css.productSection}>
-    <div className={css.gridcontainer}> 
-    { products &&
+return (
+  <Box sx={{ display: "flex", flexDirection: 'row', flexWrap: "wrap", justifyContent: 'center', alignItems: 'stretch' }}>
+    {products &&
       products.map((product) => (
        
         <MyCard
@@ -75,23 +72,14 @@ const MyCard = ({ id, title, content, price, onClick }) => {
           onClick={handleCardClick}
         />
       ))}
-      {/* </Box> */}
-      </div>
-      </div>
+  </Box>
 );
 }
 
 
 ProductList.propTypes = {
   items: PropTypes.array,
-  itemImages: PropTypes.array,
-  id: PropTypes.number,
-  title: PropTypes.string,
-  content: PropTypes.string,
-  price: PropTypes.number,
-   onClick: PropTypes.func,
+  itemImages: PropTypes.array
 };
-
-
 
 export default ProductList

@@ -3,6 +3,7 @@ import { catmenu } from '../redux/products/productsOperators'
 import { useEffect } from 'react';
 import { useState } from 'react';
 
+
 import NewProducts from "./NewProducts/NewProducts";
 
 
@@ -26,7 +27,7 @@ function Home() {
 
   return (
     <>
-  
+   {/* <h1>{import.meta.env.VITE_STRIPE_PUBLIC_KEY}</h1> */}
       < NewProducts type = "New" />
       < NewProducts type="Sale" />
       {allCats && allCats.map((cats) => (

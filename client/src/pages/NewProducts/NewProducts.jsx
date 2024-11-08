@@ -53,14 +53,16 @@ SetShowCarousel(false)
     break
 }
 
-return (
-  <> {products &&
+  return (
+    <>
+      {console.log('products',type,products)}
+      {products&&products.length > 0  &&
     <h3>{itemtype}</h3>
   }
-    {products && !showCarousel &&
+    {products && products.length > 0 && !showCarousel &&
       < ProductList items={products} itemImages={images} />
     }
-    { products && showCarousel &&
+    { products &&products.length > 0  && showCarousel &&
       < ProductCarousel items={products} itemImages={images} clickCarousel={clickCarousel} />
     } 
   </>

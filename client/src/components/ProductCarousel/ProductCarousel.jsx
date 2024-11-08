@@ -82,7 +82,7 @@ function ProductCarousel({ items, itemImages, clickCarousel }) {
     
 
   return (
-      <>
+      <div style={{ marginLeft: "20px" }}>
       <Carousel arrows
   autoPlaySpeed={3000} responsive={responsive}>
  {products &&
@@ -99,7 +99,8 @@ function ProductCarousel({ items, itemImages, clickCarousel }) {
       ))}
       </Carousel>
       <button type='button' onClick={clickCarousel} >Show all</button>
-      </>
+    </div>
+    
     )
 }
 
