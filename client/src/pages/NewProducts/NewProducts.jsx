@@ -55,7 +55,7 @@ SetShowCarousel(false)
 
   return (
     <>
-      {console.log('products',type,products)}
+     
       {products&&products.length > 0  &&
     <h3>{itemtype}</h3>
   }

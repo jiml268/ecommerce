@@ -18,11 +18,16 @@ const CategoryMenu = lazy(() => import('./components/CategoryMenu/CategoryMenu')
 const Product = lazy(() => import('./pages/Product/Product'))
 const Cart = lazy(()=> import('./pages/GetCart/GetCart'))
 const EmptyCart = lazy(()=> import('./pages/EmptyCart/EmptyCart'))
+const CkeckOut = lazy(()=> import('./pages/CkeckOut/CkeckOut'))
 
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 function App() {
 
-   return (
+  return (
+      <Elements stripe={stripePromise}>
     <div className="App">
        <ToastContainer position="top-center" autoClose={3000} hideProgressBar />
          < NavBar />
@@ -31,7 +36,8 @@ function App() {
       <Routes>
                <Route path="/" element={<Home />} />
                <Route path="/registration" element={<Registration />} />
-                <Route path="/showProduct" element={<Product />} />
+            <Route path="/showProduct" element={<Product />} />
+            <Route path="/CkeckOut" element={<CkeckOut />} />
 
          <Route path="/varifyUser" element={<VarifyUser />} />
          <Route path="/signIn" element={<SignIn />} />
@@ -40,12 +46,14 @@ function App() {
             <Route path="/changepassword" element={<PrivateRoute><ChangePassword /></PrivateRoute>} />
             <Route path="/userprofile" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
            <Route path="/cart" element={<Cart />} />
-           <Route path="/emptyCart" element={<EmptyCart />} />
+            <Route path="/emptyCart" element={<EmptyCart />} />
+            
          <Route path="*" element={<Page404 />} />
      
          </Routes>   
        </Suspense>  
-    </div>
+      </div>
+      </Elements>
   );
 }
 

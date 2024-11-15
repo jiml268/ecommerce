@@ -2,7 +2,7 @@ const pool = require('../../config/db')
 
 const paymentIntent = async (req, res) => {
 
-
+const message = []
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
     const { cartNun, } = req.body;
     let amount = 0
@@ -11,22 +11,35 @@ const paymentIntent = async (req, res) => {
         const cart = await pool.query(sql, [cartNun])
         if (cart[0].length > 0) {
             for (const item of cart[0]) {
-                amount += parseFloat(item.totalAmt);;
+                if (item.quantity <= item.Stock) {
+                    amount += parseFloat(item.totalAmt);
+                } else {
+                    newAmount = Math.round((item.price - item.Stock)*100)/100
+                amount += newAmount
+message.push({sku: item.sku, quantity: item.quantity, instock: item.Stock, itemName: item.ProductName})
+                }
             }
         }
         if (amount > 0 && amount < 35) {
             amount += 6.99
         }
         amount = amount.toFixed(2)
-        console.log(amount)
+       
         try {
             const paymentIntent = await stripe.paymentIntents.create({
                 amount: Math.round(+amount*100),
                 currency: "USD",
                 payment_method_types: ['card'],
+                 metadata: {integration_check: 'accept_a_payment'},
             });
 
-            res.send({ clientSecret: paymentIntent.client_secret });
+             return res.status(200).json({
+                 clientSecret: paymentIntent.client_secret,
+                 message: message,
+                 amount: amount
+                
+            });
+
         } catch (error) {
             console.error(error);
             res.status(500).send({ error: 'Payment failed' });
