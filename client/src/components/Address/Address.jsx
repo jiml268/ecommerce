@@ -11,7 +11,6 @@ export default function Address({ shippingAddress, billingAddress, updateAddress
           <Grid container spacing={2}>
              {page === 'bill' && 
               <Grid item xs={12}>
-                {console.log('billingAddress.sameAddress', billingAddress.sameAddress)}
  <FormControlLabel control={<Checkbox checked={billingAddress.sameAddress}
                 onChange={updateAddress}
                   name="sameAddress"

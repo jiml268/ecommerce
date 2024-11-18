@@ -3,6 +3,7 @@ import Payment from "../../components/Payment/Payment"
 import Address from "../../components/Address/Address"
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useCart } from '../../hooks/cartHooks';
 
 
 const toastOptions = {
@@ -19,7 +20,7 @@ const toastOptions = {
 
 export default function CkeckOut() {
     const nav = useNavigate()
-
+ const { getCartID,  } = useCart();
 
 
    
@@ -80,8 +81,7 @@ export default function CkeckOut() {
 
 
     const updateAddress = e => {
-        console.log(e.target.name)
-                console.log(e.target.value)
+     
 
         const { name, value } = e.target;
         if (e.target.name === 'sameAddress') {
@@ -127,7 +127,7 @@ export default function CkeckOut() {
                 <Address billingAddress = {billingAddress} updateAddress={updateAddress} page={page} buttonClick= {buttonClick} />
             }
              {page === 'pay' &&
-                <Payment buttonClick= {buttonClick} />
+                <Payment buttonClick={buttonClick} shippingAddress={shippingAddress} billingAddress={billingAddress} cartNun={getCartID} />
             }
             
         </>

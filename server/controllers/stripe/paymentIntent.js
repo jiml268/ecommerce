@@ -1,10 +1,12 @@
 const pool = require('../../config/db')
 
 const paymentIntent = async (req, res) => {
+    console.log("paymentIntent")
+        console.log(req.body)
 
 const message = []
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-    const { cartNun, } = req.body;
+    const {billing, shipping, cartNun, } = req.body;
     let amount = 0
     try {
         const sql = "select cart.cartNun, cart.quantity,pv.Stock,pv.price,pv.sku,pv.colorID, pv.ProductID, p.ProductName, c.colorName, size.sizeName, sales.salepercent, ROUND(pv.price * sales.salepercent, 2)  as discount,IF(sales.salepercent IS NULL,(pv.price)*cart.quantity,((pv.price-ROUND(pv.price * sales.salepercent, 2))*cart.quantity))  as totalAmt  from cart left JOIN productvariants as pv on cart.sku = pv.sku  left JOIN products as p on pv.ProductID = p.ProductID left JOIN  color as c on pv.colorID = c.colorID left JOIN  size  on pv.sizeID = size.sizeID left JOIN sales on p.salesID = sales.salesID where cart.cartNun = ?;"
@@ -32,6 +34,8 @@ message.push({sku: item.sku, quantity: item.quantity, instock: item.Stock, itemN
                 payment_method_types: ['card'],
                  metadata: {integration_check: 'accept_a_payment'},
             });
+            console.log('paymentIntent')
+            console.log(paymentIntent)
 
              return res.status(200).json({
                  clientSecret: paymentIntent.client_secret,
