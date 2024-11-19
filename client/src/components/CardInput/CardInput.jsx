@@ -1,25 +1,32 @@
-import {CardElement} from '@stripe/react-stripe-js';
+import { CardCvcElement, CardExpiryElement, CardNumberElement, AddressElement} from '@stripe/react-stripe-js';
+import PropTypes from "prop-types"
 
-const CARD_ELEMENT_OPTIONS = {
-  style: {
-    base: {
-      'color': '#32325d',
-      'fontFamily': '"Helvetica Neue", Helvetica, sans-serif',
-      'fontSmoothing': 'antialiased',
-      'fontSize': '16px',
-      '::placeholder': {
-        color: '#aab7c4',
-      },
-    },
-    invalid: {
-      color: '#fa755a',
-      iconColor: '#fa755a',
-    },
-  },
-};
 
-export default function CardInput() {
+export default function CardInput({handleChange }) {
+
+ 
+
   return (
-    <CardElement options={CARD_ELEMENT_OPTIONS} />
+    <>
+      
+
+      <h3>Shipping</h3>
+  <AddressElement options={{ mode: 'shipping', allowedCountries: ['US']  }} onChange={handleChange} />
+      {/* <AddressElement options={{ mode: 'shipping', allowedCountries: ['US'], }} /> */}
+      <h3>Billing</h3>
+        <AddressElement options={{ mode: 'billing', allowedCountries: ['US']  }} onChange={handleChange} />
+       <h3>Card number</h3>
+      <CardNumberElement onChange={handleChange} />
+       <h3>Expiration date</h3>
+      <CardExpiryElement onChange={handleChange}/>
+       <h3>cvc code</h3>
+      <CardCvcElement onChange={handleChange}/>
+    </>
   );
 }
+
+CardInput.propTypes = {
+    handleChange: PropTypes.func,
+   
+   
+};
