@@ -6,7 +6,8 @@ import {
 
 const initialState = {
     currentColor: null,
-    currentSize: null
+  currentSize: null,
+    searchResults: null
 };
 
 const productSlice = createSlice({
@@ -25,7 +26,11 @@ const productSlice = createSlice({
          setCurrentSize:  (state, actions) => {
       state.currentSize = actions.payload;
 
-    },
+      },
+         setSearchResults: (state, actions) => {
+      state.searchResults = actions.payload;
+
+      },
     },
   extraReducers: (builder) =>
     builder
@@ -38,7 +43,7 @@ const productSlice = createSlice({
     )
      });
      
-export const { setCurrentColor, setCurrentSize } = productSlice.actions;
+export const { setCurrentColor, setCurrentSize, setSearchResults } = productSlice.actions;
 
 
 export const procuctReducer = productSlice.reducer;

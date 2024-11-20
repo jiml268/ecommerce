@@ -16,7 +16,7 @@ export default function Payment({ buttonClick, cartNun }) {
    const [cvcCode, setCvcCode] = useState(null);
 
   const handleChange = (event) => {  
-    console.log(event)
+    
     switch(event.elementType) {
       case "address":
         if (event.elementMode === "shipping") {
@@ -51,7 +51,7 @@ export default function Payment({ buttonClick, cartNun }) {
         }
   
 const res = await dispatch(paymentIntent({ cartNun}))
-       console.log(res)
+       
       const clientSecret = res.payload.data.clientSecret;
        const result = await stripe.confirmCardPayment(clientSecret, {
          payment_method: {
@@ -81,15 +81,11 @@ const res = await dispatch(paymentIntent({ cartNun}))
 
     return (
       <form>
-        {console.log(billAddress)}
+       
       <CardInput handleChange= {handleChange}  />
      
         <div >
-          {console.log(billAddress)}
-          {console.log(shipAddress)}
-          {console.log(cardNum)}
-          {console.log(expires)}
-          {console.log(cvcCode)}
+      
 
           <Button variant="contained" color="primary"  onClick={handleSubmit} disabled = {!billAddress || !shipAddress || !cardNum || !expires || !cvcCode }>
             Pay

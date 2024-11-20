@@ -1,8 +1,6 @@
 const pool = require('../../config/db')
 
 const paymentIntent = async (req, res) => {
-    console.log("paymentIntent")
-        console.log(req.body)
 
 const message = []
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -16,12 +14,13 @@ const message = []
                 if (item.quantity <= item.Stock) {
                     amount += parseFloat(item.totalAmt);
                 } else {
-                    newAmount = Math.round((item.price - item.Stock)*100)/100
+                    newAmount = Math.round((item.price - item.discount)*item.Stock*100)/100
                 amount += newAmount
 message.push({sku: item.sku, quantity: item.quantity, instock: item.Stock, itemName: item.ProductName})
                 }
             }
         }
+        
         if (amount > 0 && amount < 35) {
             amount += 6.99
         }
@@ -34,8 +33,7 @@ message.push({sku: item.sku, quantity: item.quantity, instock: item.Stock, itemN
                 payment_method_types: ['card'],
                  metadata: {integration_check: 'accept_a_payment'},
             });
-            console.log('paymentIntent')
-            console.log(paymentIntent)
+            
 
              return res.status(200).json({
                  clientSecret: paymentIntent.client_secret,

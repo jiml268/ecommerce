@@ -23,4 +23,4 @@ const paymentSlice = createSlice({
 // export const {  } = paymentSlice.actions;
 
 
-export const playmentReducer = paymentSlice.reducer;
+export const paymentReducer = paymentSlice.reducer;

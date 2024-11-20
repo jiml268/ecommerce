@@ -24,14 +24,9 @@ SetShowCarousel(false)
   }
 
   useEffect(() => {
-          
-
       const getNewProducts = async () => {
         const response = await dispatch(getNewItems({ type: type, categoryCode: categoryCode }))
-                 
-
-          
-                setProducts(response.payload.data.result)
+          setProducts(response.payload.data.result)
           setImages(response.payload.data.result1)
           SetShowCarousel(true)
         }

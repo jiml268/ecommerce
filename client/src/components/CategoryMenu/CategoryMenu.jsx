@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { catmenu } from '../../redux/products/productsOperators'
 import { useEffect } from 'react';
+import { setSearchResults } from '../../redux/products/productsSlice';
 
 const NestedDropdown = () => {
 
@@ -24,14 +25,14 @@ const NestedDropdown = () => {
     }, [dispatch, setAllCats,setAllSubcats]
     )
 
-    const handleOptionChange = (event) => {
+    const handleOptionChange = async (event) => {
         setSelectedOption(event.target.value);
 
-const selectedOption = event.target.options[event.target.selectedIndex];
-    const dataInfo = selectedOption.getAttribute('data-info');
+      
 
-        console.log(event.target.value)
-        console.log(dataInfo)
+        const selectedOption = event.target.options[event.target.selectedIndex];
+        const dataInfo = selectedOption.getAttribute('data-info');
+        dispatch(setSearchResults({ type:  dataInfo, categoryCode:event.target.value, CategoryName:"AAA" }))
 
     };
 

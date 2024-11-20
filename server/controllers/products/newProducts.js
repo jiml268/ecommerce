@@ -3,6 +3,7 @@ const pool = require('../../config/db')
 const newProducts = async (req, res) => {
     const { type, categoryCode } = req.body
     
+    
     let sql = null
     let sql1 = null
     let sqlParam = null
@@ -27,15 +28,22 @@ const newProducts = async (req, res) => {
            sql = "SELECT p.*,cat.CategoryName  FROM products as p left JOIN  productcategories as pc on p.ProductID = pc.ProductID left JOIN  categories as cat on pc.CategoryID = cat.CategoryID WHERE pc.CategoryID = ?;"
             sql1 = "SELECT p.ProductID, i.imageName,i.colorID From products as p left join images as i on p.ProductID = i.ProductID left JOIN  productcategories as pc on p.ProductID = pc.ProductID WHERE pc.CategoryID = ?;"  
             sqlParam = categoryCode
-             break;
+            break;
+        case "cat":
+             sql = "SELECT p.*,cat.CategoryName  FROM products as p left JOIN  productcategories as pc on p.ProductID = pc.ProductID left JOIN  categories as cat on pc.CategoryID = cat.CategoryID WHERE pc.CategoryID = ?;"
+            sql1 = "SELECT p.ProductID, i.imageName,i.colorID From products as p left join images as i on p.ProductID = i.ProductID left JOIN  productcategories as pc on p.ProductID = pc.ProductID WHERE pc.CategoryID = ?;"  
+            sqlParam = +categoryCode
+            break;
+         case "sub":
+             sql = "SELECT p.*,subcat.SubcategoryName as CategoryName  FROM products as p left JOIN  productcategories as pc on p.ProductID = pc.ProductID left JOIN  subcategories as subcat on pc.SubcategoryID = subcat.SubcategoryID WHERE pc.SubcategoryID = ?;"
+            sql1 = "SELECT p.ProductID, i.imageName,i.colorID From products as p left join images as i on p.ProductID = i.ProductID left JOIN  productcategories as pc on p.ProductID = pc.ProductID WHERE pc.SubcategoryID = ?;"  
+            sqlParam = +categoryCode
+            break;
 default:
     break
 }
          
     try {
-       
-       
-
         const result = await pool.query(sql, [sqlParam]) 
         const result1 = await pool.query(sql1, [sqlParam])
 
@@ -48,7 +56,6 @@ default:
                  result1: result1[0],
             });          
  } catch (err) {
-    
             return res.status(400).json({
                 code: 400,
                 Massage: err,

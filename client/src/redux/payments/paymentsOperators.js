@@ -9,11 +9,11 @@ export const paymentIntent = createAsyncThunk(
     try {
     
       const response = await axios.post(`stripe/paymentIntent`, credentials); 
-      console.log(response)
+    
       return response;
     } catch (error) {
            
- console.log(error)
+
       return thunkAPI.rejectWithValue(error.message);
     }
   }
