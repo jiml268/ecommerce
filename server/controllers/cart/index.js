@@ -8,8 +8,8 @@ const updateIDs = require("./updateIDs");
 const emptyCart = require("./emptyCart");
 const getCart = require("./getCart");
 const saveForLater = require("./saveForLater");
+const addToOrders = require("./addToOrders");
 
-saveForLater
 
 
 module.exports = {
@@ -22,5 +22,6 @@ module.exports = {
     updateIDs,
     emptyCart,
     getCart,
-    saveForLater
+    saveForLater,
+    addToOrders
 };
