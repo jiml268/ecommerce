@@ -20,3 +20,39 @@ export const paymentIntent = createAsyncThunk(
 
   
 );
+
+export const getStripeID = createAsyncThunk(
+  "getStripeID",
+  async (credentials, thunkAPI) => {
+    try {
+    
+      const response = await axios.post(`stripe/getStripeID`, credentials); 
+    
+      return response;
+    } catch (error) {
+           
+
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+
+  
+);
+
+export const CreateStripeAcct = createAsyncThunk(
+  "CreateStripeAcct",
+  async (credentials, thunkAPI) => {
+    try {
+    
+      const response = await axios.post(`stripe/CreateStripeAcct`, credentials); 
+    
+      return response;
+    } catch (error) {
+           
+
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+
+  
+);

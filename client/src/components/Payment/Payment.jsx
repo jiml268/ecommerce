@@ -1,19 +1,35 @@
 import PropTypes from "prop-types"
 import { Button} from '@mui/material';
-import {useStripe, useElements,  CardNumberElement,  } from '@stripe/react-stripe-js';
-
+import {useStripe, useElements,  CardNumberElement, AddressElement, CardCvcElement, CardExpiryElement  } from '@stripe/react-stripe-js';
+import { getStripeID, CreateStripeAcct } from "../../redux/payments/paymentsOperators";
 import CardInput from "../CardInput/CardInput";
 import { useDispatch } from "react-redux";
 import { paymentIntent } from "../../redux/payments/paymentsOperators";
 import { useState } from "react";
+import { useAuth } from "../../hooks/userHooks";
+import { toast } from 'react-toastify';
+
+const toastOptions = {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+
+         }
 
 
 export default function Payment({ buttonClick, cartNun }) {
+  const {getUserEmail,loggedIn } = useAuth()
    const [billAddress, setBillAddress] = useState(null);
   const [shipAddress, setShipAddress] = useState(null);
   const [cardNum, setCardNum] = useState(null);
   const [expires, setexpires] = useState(null);
-   const [cvcCode, setCvcCode] = useState(null);
+  const [cvcCode, setCvcCode] = useState(null);
+  let stripeID = null
 
   const handleChange = (event) => {  
     
@@ -48,10 +64,20 @@ export default function Payment({ buttonClick, cartNun }) {
     const handleSubmit = async () => {
         if (!stripe || !elements) {
             return;
+      }
+      if (loggedIn) {
+        const id = await dispatch(getStripeID({ userEmail: getUserEmail }))
+      
+        if (id.payload.data.stripeID === '') {
+          const newID = await dispatch(CreateStripeAcct({ userEmail: getUserEmail }))
+         
+          stripeID = newID.payload.data.ID
+        } else {
+          stripeID = id.payload.data.stripeID
         }
+      }
   
-const res = await dispatch(paymentIntent({ cartNun}))
-       
+const res = await dispatch(paymentIntent({ cartNun, customer: stripeID,}))
       const clientSecret = res.payload.data.clientSecret;
        const result = await stripe.confirmCardPayment(clientSecret, {
          payment_method: {
@@ -67,14 +93,22 @@ const res = await dispatch(paymentIntent({ cartNun}))
       },
         
     });
+    console.log(result)
+      if (result.error) {
 
-    if (result.error) {
-      console.log(result.error.message);
+       toast.error(result.error.message, 
+            toastOptions);
     } else {
-      console.log(result);
       if (result.paymentIntent.status === 'succeeded') {
         console.log('Money is in the bank!');
-      
+        elements.getElement(CardNumberElement).clear();
+                elements.getElement(CardCvcElement).clear();
+        elements.getElement(CardExpiryElement).clear();
+                elements.getElement(AddressElement, { mode: 'billing' }).clear();
+        elements.getElement(AddressElement, { mode: 'shipping' }).clear();
+         setBillAddress(null);
+        setShipAddress(null);
+
       }
     }
     }
