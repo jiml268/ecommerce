@@ -29,6 +29,7 @@ export default function Payment({ buttonClick, cartNun }) {
   const [cardNum, setCardNum] = useState(null);
   const [expires, setexpires] = useState(null);
   const [cvcCode, setCvcCode] = useState(null);
+  const [saveCard, setSaveCard] = useState(false)
   let stripeID = null
 
   const handleChange = (event) => {  
@@ -54,7 +55,10 @@ export default function Payment({ buttonClick, cartNun }) {
 }
    
   }
-  
+  const saveChanged = (event) => {
+    console.log(event.target.value)
+     setSaveCard(!saveCard)
+   }
 
 
     const dispatch = useDispatch()
@@ -65,8 +69,9 @@ export default function Payment({ buttonClick, cartNun }) {
         if (!stripe || !elements) {
             return;
       }
+
       if (loggedIn) {
-        const id = await dispatch(getStripeID({ userEmail: getUserEmail }))
+        const id = await dispatch(getStripeID({ userEmail: getUserEmail, saveCard: saveCard }))
       
         if (id.payload.data.stripeID === '') {
           const newID = await dispatch(CreateStripeAcct({ userEmail: getUserEmail }))
@@ -77,7 +82,7 @@ export default function Payment({ buttonClick, cartNun }) {
         }
       }
   
-const res = await dispatch(paymentIntent({ cartNun, customer: stripeID,}))
+const res = await dispatch(paymentIntent({ cartNun, customer: stripeID, saveCard: saveCard}))
       const clientSecret = res.payload.data.clientSecret;
        const result = await stripe.confirmCardPayment(clientSecret, {
          payment_method: {
@@ -116,7 +121,7 @@ const res = await dispatch(paymentIntent({ cartNun, customer: stripeID,}))
     return (
       <form>
        
-      <CardInput handleChange= {handleChange}  />
+      <CardInput handleChange= {handleChange} saveChanged= {saveChanged} saveCard={saveCard}  />
      
         <div >
       

@@ -1,10 +1,12 @@
 import { CardCvcElement, CardExpiryElement, CardNumberElement, AddressElement} from '@stripe/react-stripe-js';
 import PropTypes from "prop-types"
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { useAuth } from '../../hooks/userHooks';
 
+export default function CardInput({handleChange, saveChanged, saveCard }) {
 
-export default function CardInput({handleChange }) {
-
- 
+ const {loggedIn} = useAuth()
 
   return (
     <>
@@ -20,13 +22,21 @@ export default function CardInput({handleChange }) {
        <h3>Expiration date</h3>
       <CardExpiryElement onChange={handleChange}/>
        <h3>cvc code</h3>
-      <CardCvcElement onChange={handleChange}/>
+      <CardCvcElement onChange={handleChange} />
+      {loggedIn &&
+        <FormControlLabel control={<Checkbox
+          checked={saveCard}
+        onChange={saveChanged}
+        value={saveCard}
+          inputProps={{ 'aria-label': 'controlled' }}
+        />} label="save Card for future use" />
+      }
     </>
   );
 }
 
 CardInput.propTypes = {
     handleChange: PropTypes.func,
-   
-   
+   saveChanged: PropTypes.func,
+   saveCard: PropTypes.bool,
 };
