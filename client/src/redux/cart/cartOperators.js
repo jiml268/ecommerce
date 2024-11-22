@@ -148,3 +148,21 @@ export const emptyCart = createAsyncThunk(
 
   
 );
+
+export const addToOrders = createAsyncThunk(
+  "addToOrders",
+  async (credentials, thunkAPI) => {
+    try {
+    
+      const response = await axios.post(`/cart/addToOrders`, credentials); 
+      
+      return response;
+    } catch (error) {
+           
+
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+
+  
+);

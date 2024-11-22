@@ -7,7 +7,9 @@ import { useDispatch } from "react-redux";
 import { paymentIntent } from "../../redux/payments/paymentsOperators";
 import { useState } from "react";
 import { useAuth } from "../../hooks/userHooks";
+import { useCart } from "../../hooks/cartHooks";
 import { toast } from 'react-toastify';
+import { addToOrders } from "../../redux/cart/cartOperators";
 
 const toastOptions = {
             position: "top-center",
@@ -23,7 +25,8 @@ const toastOptions = {
 
 
 export default function Payment({ buttonClick, cartNun }) {
-  const {getUserEmail,loggedIn } = useAuth()
+  const { getUserEmail, getUserId, loggedIn } = useAuth()
+  const {getCartID} = useCart()
    const [billAddress, setBillAddress] = useState(null);
   const [shipAddress, setShipAddress] = useState(null);
   const [cardNum, setCardNum] = useState(null);
@@ -113,7 +116,7 @@ const res = await dispatch(paymentIntent({ cartNun, customer: stripeID, saveCard
         elements.getElement(AddressElement, { mode: 'shipping' }).clear();
          setBillAddress(null);
         setShipAddress(null);
-
+dispatch(addToOrders({cartID: getCartID , custID: getUserId}))
       }
     }
     }
