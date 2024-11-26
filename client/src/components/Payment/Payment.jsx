@@ -10,6 +10,8 @@ import { useAuth } from "../../hooks/userHooks";
 import { useCart } from "../../hooks/cartHooks";
 import { toast } from 'react-toastify';
 import { addToOrders } from "../../redux/cart/cartOperators";
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
 
 const toastOptions = {
             position: "top-center",
@@ -121,7 +123,9 @@ dispatch(addToOrders({cartID: getCartID , custID: getUserId, stripeID:result.pay
     }
     }
 
-    return (
+  return (
+       <Container component="main" maxWidth="xs">
+        <CssBaseline />
       <form>
        
       <CardInput handleChange= {handleChange} saveChanged= {saveChanged} saveCard={saveCard}  />
@@ -137,7 +141,9 @@ dispatch(addToOrders({cartID: getCartID , custID: getUserId, stripeID:result.pay
            
                  <button type="button" onClick={buttonClick} value="cart">Return to cart</button>
                  
-    </form>
+      </form>
+            </Container>
+
   );
             
     
