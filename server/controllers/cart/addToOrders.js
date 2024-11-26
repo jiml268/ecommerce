@@ -2,9 +2,9 @@ const pool = require('../../config/db')
 
 const addToOrders = async (req, res) => {
          let orderID = 0
- try { const { cartID, custID } = req.body
-     const sql = "insert into orders (ordernum, id) value (?,?)";
-     const newOrder = await pool.query(sql, [cartID,custID])
+ try { const { cartID, custID, stripeID } = req.body
+     const sql = "insert into orders (ordernum, id, stripe_id) value (?,?,?)";
+     const newOrder = await pool.query(sql, [cartID,custID, stripeID])
      orderID = newOrder[0].insertId    
 
      try {

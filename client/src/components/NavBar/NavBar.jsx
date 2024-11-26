@@ -51,6 +51,7 @@ switch(myValue) {
     break;
   case "Sign Out":
     dispatch(LoggedOut(false))
+    nav("/")
     break
   case "Cart":
     {

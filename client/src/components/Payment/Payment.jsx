@@ -116,7 +116,7 @@ const res = await dispatch(paymentIntent({ cartNun, customer: stripeID, saveCard
         elements.getElement(AddressElement, { mode: 'shipping' }).clear();
          setBillAddress(null);
         setShipAddress(null);
-dispatch(addToOrders({cartID: getCartID , custID: getUserId}))
+dispatch(addToOrders({cartID: getCartID , custID: getUserId, stripeID:result.paymentIntent.id }))
       }
     }
     }
