@@ -28,7 +28,7 @@ function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const pages = !loggedIn?['Sign In', 'Register', 'Cart']:['Sign Out', 'Cart'];
+  const pages = !loggedIn?['Sign In', 'Register', 'Cart']:['Sign Out', 'Cart', "Orders"];
 const settings = ['Update Profile', 'Change Password', 'Delete Account'];
 
   const handleOpenNavMenu = (event) => {
@@ -59,6 +59,9 @@ switch(myValue) {
         nav("/cart") :
         nav("/emptyCart") 
     } 
+    break
+   case "Orders":
+    nav("/allorders")
     break
  default:
     nav("/")

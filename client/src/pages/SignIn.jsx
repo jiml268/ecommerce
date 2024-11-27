@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../hooks/cartHooks';
 import { updateIDs } from '../redux/cart/cartOperators';
 import { getCartByID } from '../redux/cart/cartOperators'
+import { useAuth } from '../hooks/userHooks';
 
 function SignIn() {
     const dispatch = useDispatch();
@@ -106,7 +107,8 @@ const toastOptions = {
 
   return (
     <Container component="main" maxWidth="xs">
-        <CssBaseline />
+      <CssBaseline />
+      {console.log(useAuth())}
         <Box
           sx={{
             marginTop: 8,
