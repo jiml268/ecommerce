@@ -19,7 +19,7 @@ const Product = lazy(() => import('./pages/Product/Product'))
 const Cart = lazy(()=> import('./pages/GetCart/GetCart'))
 const EmptyCart = lazy(()=> import('./pages/EmptyCart/EmptyCart'))
 const CkeckOut = lazy(()=> import('./pages/CkeckOut/CkeckOut'))
-const Allorders = lazy(()=> import('./pages/AllOrders'))
+const Allorders = lazy(()=> import('./pages/AllOrders/AllOrders'))
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';

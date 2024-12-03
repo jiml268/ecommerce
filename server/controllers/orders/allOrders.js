@@ -1,12 +1,10 @@
 const pool = require('../../config/db')
 
 const allOrders = async (req, res) => {
-    console.log(req.body)
-    const { id, } = req.body  
-        console.log(id)
-
+    
+const { id, } = req.body 
  try {
-         const sql = "select * from orders where id = ? order by orderdate desc; ";
+         const sql = "SELECT t1.*, SUM(t2.sales_price) AS total_sum FROM orders t1 LEFT JOIN orderitems t2 ON t1.orderId = t2.orderId where t1.id = ? GROUP BY t1.orderId   ; ";
      const ordersList = await pool.query(sql, [id]);
 
 

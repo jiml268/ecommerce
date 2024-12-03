@@ -13,13 +13,13 @@ const sql2 = "select orderitems.sku,images.imageName from orderitems left join p
 let stripeInfo = null
      if (orderInfo.length > 0) {
          const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-         console.log(orderInfo)
+         
          const stripeID = orderInfo[0][0].stripe_id
          stripeInfo = await stripe.paymentIntents.retrieve(
   stripeID
          );
          
-         console.log(stripeInfo)
+        
 
 }
 
@@ -35,7 +35,7 @@ let stripeInfo = null
      
      
  } catch (err) {
-    console.log(err)
+    
             return res.status(400).json({
                 code: 400,
                 Massage: err,

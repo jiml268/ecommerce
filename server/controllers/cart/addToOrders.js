@@ -17,8 +17,7 @@ const addToOrders = async (req, res) => {
             }
         }
      } catch (err) {
-               console.log('line 20')
-         console.log(err)
+            
             return res.status(400).json({
                 code: 400,
                 Massage: err,
@@ -29,9 +28,7 @@ const addToOrders = async (req, res) => {
          const sql2 = "delete from cart where cartNun = ?";
      await pool.query(sql2, [cartID])
      } catch (err) {
-               console.log('line 32')
-
-          console.log(err)
+          
             return res.status(400).json({
                 code: 400,
                 Massage: err,
@@ -43,8 +40,7 @@ const addToOrders = async (req, res) => {
                 code: 200,
             });          
  } catch (err) {
-      console.log('line 46')
-      console.log(err)
+    
             return res.status(400).json({
                 code: 400,
                 Massage: err,

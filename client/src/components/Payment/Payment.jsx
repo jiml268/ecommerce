@@ -60,8 +60,7 @@ export default function Payment({ buttonClick, cartNun }) {
 }
    
   }
-  const saveChanged = (event) => {
-    console.log(event.target.value)
+  const saveChanged = () => {
      setSaveCard(!saveCard)
    }
 
@@ -103,7 +102,6 @@ const res = await dispatch(paymentIntent({ cartNun, customer: stripeID, saveCard
       },
         
     });
-    console.log(result)
       if (result.error) {
 
        toast.error(result.error.message, 
