@@ -28,6 +28,8 @@ margin: 0 auto;
 .ordersection{
     display: flex;
     flex-direction: column;
+    border: 2px solid;
+    margin:  5px 0;
 }
 
 .showImage{

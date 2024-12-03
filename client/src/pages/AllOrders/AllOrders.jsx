@@ -70,6 +70,7 @@ console.log(value)
       {listOrders &&
         
         <div className={css.container}>
+          <h2> Order History</h2>
           {listOrders.map((item, index) => (
            <div className={css.ordersection} key= {`ordersection${index}`}>
               <div className={css.header}>
