@@ -1,0 +1,37 @@
+
+
+.ordersection{
+    max-width: 1080px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 20px ;
+   margin: 15px;
+   border: 1px solid blue;
+}
+
+.detailSection{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.totalSection{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.showImage{
+    width: 80px;
+    height: 80px;
+}
+
+.totalBox{
+    display: flex;
+    flex-direction: column;
+align-items: flex-end;
+}
+
+.showTotals{
+    display: flex;
+        justify-content: center;
+}

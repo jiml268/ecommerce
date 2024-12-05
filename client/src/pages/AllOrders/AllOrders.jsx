@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { allOrders } from '../../redux/orders/ordersOperators';
 import css from "./allOrders.module.css"
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 function ConvertDate({ orderdate }) {
   const formattedDate = new Date(orderdate).toLocaleDateString();
@@ -21,6 +22,7 @@ function ConvertDate({ orderdate }) {
 
 
 function AllOrders() {
+  const nav = useNavigate()
     const dispatch = useDispatch()
     const { getUserId } = useAuth()
     const [listOrders, setListOrders] = useState(null)
@@ -37,26 +39,24 @@ function AllOrders() {
     }, [dispatch, getUserId])
 
   const showDetails = (value) => {
-console.log(value)
+    nav(`/orderdetails`, { state: { orderId: value } });
   }
   
-  const  ShowImage =({ orderId, ordernum}) => {
-    const screenWidth = window.innerWidth;
-    console.log(screenWidth)
+  const  ShowImage =({ orderId,}) => {
+    const screenWidth = window.innerWidth>1080?1080:window.innerWidth;
     const numOfImages = Math.floor((screenWidth * .8) / 100)-1
-    console.log(numOfImages)
     return (
       <>
         {listImages.filter((image) => orderId === image.orderId).map((images, index) => (
           index < numOfImages &&
           <div key={index} className={css.showImage}>
-            <img className={css.productImage} src={window.location.origin + `/images/${images.imageName}`} onClick={() => showDetails(images.ordernum)} key={`${images.imageName}${index}`} />
+            <img className={css.productImage} src={window.location.origin + `/images/${images.imageName}`} onClick={() => showDetails(images.orderId)} key={`${images.imageName}${index}`} />
                    
           </div>
         ))
         } 
         {listImages.filter((image) => orderId === image.orderId).length > numOfImages &&
-          <button type="buttn" onClick={() => showDetails(ordernum)} > 
+          <button type="buttn" onClick={() => showDetails(orderId)} > 
             +{listImages.filter((image) => orderId === image.orderId).length -numOfImages }
         </button>
          }
@@ -77,7 +77,7 @@ console.log(value)
               <p>
                 Order Number:  {item.ordernum}
                 </p>
-                <button type = "button" onClick={() =>showDetails(item.ordernum)} className={css.detailButton}> Show details</button>
+                <button type = "button" onClick={() =>showDetails(item.orderId)} className={css.detailButton}> Show details</button>
                 </div>
               
                  <ConvertDate orderdate={item.orderdate} />
@@ -86,7 +86,7 @@ console.log(value)
                 
               </p>
               <div className={css.showImages}>
-                <ShowImage orderId={item.orderId} ordernum={item.ordernum} />
+                <ShowImage orderId={item.orderId}  />
                 
                 </div>
             </div>
@@ -106,7 +106,6 @@ ConvertDate.propTypes = {
 
 AllOrders.propTypes = {
   orderId: PropTypes.string,
-  ordernum: PropTypes.string,
 
 };
 

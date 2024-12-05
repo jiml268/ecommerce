@@ -20,6 +20,7 @@ const Cart = lazy(()=> import('./pages/GetCart/GetCart'))
 const EmptyCart = lazy(()=> import('./pages/EmptyCart/EmptyCart'))
 const CkeckOut = lazy(()=> import('./pages/CkeckOut/CkeckOut'))
 const Allorders = lazy(()=> import('./pages/AllOrders/AllOrders'))
+const OrderDatails = lazy(()=> import('./pages/OrderDatails/OrderDatails'))
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -49,6 +50,7 @@ function App() {
            <Route path="/cart" element={<Cart />} />
             <Route path="/emptyCart" element={<EmptyCart />} />
             <Route path="/allorders" element={<Allorders />} />
+            <Route path="/orderdetails" element={<OrderDatails />} />
 
          <Route path="*" element={<Page404 />} />
      

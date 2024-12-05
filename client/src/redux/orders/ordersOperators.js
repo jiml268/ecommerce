@@ -20,3 +20,21 @@ export const allOrders = createAsyncThunk(
 
   
 );
+
+export const getdetails = createAsyncThunk(
+  "getdetails",
+  async (credentials, thunkAPI) => {
+    try {
+    
+      const response = await axios.post(`/orders/orderDatails`, credentials); 
+      
+      return response;
+    } catch (error) {
+           
+
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+
+  
+);

@@ -26,7 +26,7 @@ message.push({sku: item.sku, quantity: item.quantity, instock: item.Stock, itemN
         }
         amount = amount.toFixed(2)
         try {
-            // if (customer) {
+            
                 const paymentIntent = await stripe.paymentIntents.create({
                     amount: Math.round(+amount * 100),
                     currency: "USD",
@@ -41,22 +41,6 @@ message.push({sku: item.sku, quantity: item.quantity, instock: item.Stock, itemN
                  amount: amount
                 
             });
-            // } else {
-            //     const paymentIntent = await stripe.paymentIntents.create({
-            //         amount: Math.round(+amount * 100),
-            //         currency: "USD",
-            //         payment_method_types: ['card'],
-            //         metadata: { integration_check: 'accept_a_payment' },
-            //     });
-            //      return res.status(200).json({
-            //      clientSecret: paymentIntent.client_secret,
-            //      message: message,
-            //      amount: amount
-                
-            // });
-            // }
-
-            
 
         } catch (error) {
             console.error(error);
