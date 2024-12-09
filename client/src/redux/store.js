@@ -4,6 +4,7 @@ import { procuctReducer } from './products/productsSlice';
 import { cartReducer } from './cart/cartSlice';
 import { paymentReducer } from './payments/paymentsSlice';
 import { orderReducer } from './orders/ordersSlice';
+import { reviewReducer } from './review/reviewSlice';
 
 export const store = configureStore({
     reducer: { 
@@ -11,7 +12,8 @@ export const store = configureStore({
     product: procuctReducer,
     cart: cartReducer,
     payment: paymentReducer,
-    order: orderReducer
+    order: orderReducer,
+     review: reviewReducer
     },
  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
       

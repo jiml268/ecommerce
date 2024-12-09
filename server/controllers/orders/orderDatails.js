@@ -14,7 +14,7 @@ const orderDatails = async (req, res) => {
        const orderDetails = await pool.query(sql2, [orderId]);
 let stripeInfo = null
    if (orderInfo.length > 0) {
-       console.log(process.env.STRIPE_SECRET_KEY)
+     
          const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
          
          const stripeID = orderInfo[0][0].stripe_id

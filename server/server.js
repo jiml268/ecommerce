@@ -7,6 +7,7 @@ const productsRoutes = require("./routes/productsRoutes");
 const cartRoutes = require('./routes/cartRoutes')
 const stripeRoutes = require('./routes/stripeRoutes')
 const orderRoutes = require('./routes/orderRoutes')
+const reviewRoutes = require('./routes/reviewRoutes')
 
 
 app.use(cors());
@@ -16,6 +17,7 @@ app.use("/api", productsRoutes);
 app.use("/api", cartRoutes);
 app.use("/api", stripeRoutes);
 app.use("/api", orderRoutes);
+app.use("/api", reviewRoutes);
 
 
 const port = process.env.PORT || 3030;

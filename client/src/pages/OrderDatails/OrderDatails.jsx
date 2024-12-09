@@ -3,9 +3,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch, } from 'react-redux';
 import { useCallback } from 'react';
 import { getdetails } from '../../redux/orders/ordersOperators';
+import { useNavigate } from 'react-router-dom';
 import css from "./orderDatails.module.css"
 
 export default function OrderDatails() {
+    const nav = useNavigate()
     const location = useLocation();
     const dispatch = useDispatch()
   
@@ -54,12 +56,16 @@ setStripeInfo(response.payload.data.stripeInfo)
         </div>)
 };
 
+    const reviewClicked = e => {
+       
+         nav('/addReviews',{ state: { sku: e.target.value, orderId: location.state?.orderId} })
+    }
     return (
         <>
             <h1>Order details</h1>
             {orderInfo && <div>
                 <div>
-                    {console.log(stripeInfo)}
+                 
                     <h3> Purchase date: {new Date(orderInfo[0].orderdate).toLocaleDateString()}</h3>
                     <p>Order #: {orderInfo[0].ordernum}</p>
                     <p> {orderDetails.length}  items</p>
@@ -77,7 +83,8 @@ setStripeInfo(response.payload.data.stripeInfo)
                 {orderDetails.length > 0 &&
                     <div>
                         {orderDetails.map((details, index) => (
-                            <div key={`order${index}`} className={css.ordersection}> 
+                            <div key= {`order${index}`} className={css.ordersection}>
+                            <div key={`showOrder${index}`} className={css.showOrder}> 
                                 <div key={`imageholder${index}`}>
 <img className={css.showImage} src={window.location.origin + `/images/${details.imageName}`} key={`${details.imageName}${index}`} />
                                 </div>
@@ -94,6 +101,11 @@ setStripeInfo(response.payload.data.stripeInfo)
                                         <p>Sales Price: ${(details.sales_price * details.quantity).toFixed(2).toLocaleString('en-US')}</p>}
                                     <p>savings: ${((details.origian_price-details.sales_price)*details.quantity).toFixed(2).toLocaleString('en-US')}</p>
                                 </div>
+</div>
+                                <div>
+                                    <button type= "button" value={details.sku} onClick={reviewClicked}>Wrtie a review</button>
+                                   
+                                 </div>   
                             
 
                             </div>
@@ -113,3 +125,8 @@ setStripeInfo(response.payload.data.stripeInfo)
         </>
     )
 }
+
+
+
+
+
