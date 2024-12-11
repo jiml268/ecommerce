@@ -29,7 +29,6 @@ const AddReviews = () => {
       const handleSubmit = async(e) => {
           e.preventDefault();
           const reviewInfo = { sku: sku, starValue: value, productReview: productReview, userID: getUserId }
-          console.log(reviewInfo)
           await displatch(createReview(reviewInfo))
    
 

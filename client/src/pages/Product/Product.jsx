@@ -9,6 +9,7 @@ import css from './Product.module.css'
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
 import { setCurrentColor, setCurrentSize } from '../../redux/products/productsSlice';
 import { useProduct } from '../../hooks/productHooks';
+import ShowReviews from '../../components/ShowReviews/ShowReviews';
 
 export default function Product() {
     const dispatch = useDispatch()
@@ -55,7 +56,8 @@ const [arraySize, setArraySize] = useState(0)
         
 
           <Carousel images={currentImages.filter((image) => image.colorID === getCurrentColor)} />
-          < ProductInfo currentItem={currentItem}  />
+          < ProductInfo currentItem={currentItem} productID={productID} />
+          < ShowReviews productID={productID} />
  {/* < ProductDetail currentItem={currentItem} />  */}
         </>
       }

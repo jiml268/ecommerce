@@ -12,7 +12,7 @@ import { setCartID } from '../../redux/cart/cartSlice';
 import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
 
-export default function ProductInfo({ currentItem, }) {
+export default function ProductInfo({ currentItem,  }) {
   const toastOptions = {
     position: "top-center",
     autoClose: 5000,
@@ -284,8 +284,11 @@ const getSKU = e.target.value
           {createSizeButtons()}
 
 
-         </div>
-          }            
+        </div>
+          
+          
+        }     
+        
       </>
       }
     </div>
@@ -298,7 +301,7 @@ ProductInfo.propTypes = {
   currentItem: PropTypes.array,
     uniqueColor: PropTypes.array,
     uniqueSize: PropTypes.array,
-    arraySize: PropTypes.number
-
+    arraySize: PropTypes.number,
+   
 };
 

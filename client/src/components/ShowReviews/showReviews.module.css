@@ -1,0 +1,28 @@
+.lineSection{
+    display: flex;
+    flex-direction: row;
+    align-items: center
+}
+
+.starRating{margin: 0 10px;}
+
+.percent{width: 100px;
+text-align: right;}
+
+.numbers{width: 75px;
+text-align: right;}
+
+.progress{display: flex;}
+
+.rateSection{display: flex;
+    flex-direction: column;
+    align-items: center;}
+
+        .rateButton{
+            border: none;
+
+        }
+
+                .rateButton:hover{
+                    cursor: pointer;
+                }
