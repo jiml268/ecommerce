@@ -22,6 +22,7 @@ const CkeckOut = lazy(()=> import('./pages/CkeckOut/CkeckOut'))
 const Allorders = lazy(()=> import('./pages/AllOrders/AllOrders'))
 const OrderDatails = lazy(()=> import('./pages/OrderDatails/OrderDatails'))
 const AddReviews = lazy(()=> import('./pages/AddReviews/AddReviews'))
+const ShowReviews = lazy(()=> import('./pages/ShowReviews/ShowReviews'))
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -53,6 +54,7 @@ function App() {
             <Route path="/allorders" element={<Allorders />} />
             <Route path="/orderdetails" element={<OrderDatails />} />
             <Route path="/addReviews" element={<AddReviews />} />
+            <Route path="/showReviews" element={<ShowReviews />} />
 
          <Route path="*" element={<Page404 />} />
      

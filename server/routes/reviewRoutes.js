@@ -1,13 +1,13 @@
 const reviewRouter = require("express").Router();
 const {
    createReview,
-   getReviews,
+   getReviewsStats,
  
 } = require("../controllers/reviews");
 
 reviewRouter;
 reviewRouter.route("/reviews/createReview").post(createReview);
-reviewRouter.route("/reviews/getReviews").post(getReviews);
+reviewRouter.route("/reviews/getReviewsStats").post(getReviewsStats);
 
 
 

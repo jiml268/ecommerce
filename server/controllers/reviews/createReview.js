@@ -9,8 +9,10 @@ const createReview = async (req, res) => {
         const currentProduct = getProduct[0][0].ProductID
         const sql1 = "INSERT INTO ratings (productID, rating, userid) VALUE(?,?,?);"
         const newRating = await pool.query(sql1, [currentProduct, starValue, userID])
-             const sql2 = "INSERT INTO reviews (id, review, title,name) VALUE(?,?,?,?);"
-await pool.query(sql2, [newRating[0].insertId, productReview.review, productReview.title,productReview.name])
+        if (productReview.review !== "") {
+            const sql2 = "INSERT INTO reviews (id, review, title,name) VALUE(?,?,?,?);"
+            await pool.query(sql2, [newRating[0].insertId, productReview.review, productReview.title, productReview.name])
+        }
           return res.status(200).json({
                 code: 200,
                 Message: "review created",

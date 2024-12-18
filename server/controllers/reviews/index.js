@@ -1,9 +1,9 @@
 const createReview = require("./createReview");
-const getReviews = require('./getReviews')
+const getReviewsStats = require('./getReviewsStats')
 
 
 
 module.exports = {
     createReview,
-   getReviews
+   getReviewsStats
 };

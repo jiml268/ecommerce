@@ -17,13 +17,13 @@ export const createReview = createAsyncThunk(
   }
 );
 
-export const getReviews = createAsyncThunk(
+export const getReviewsStats = createAsyncThunk(
   
-  "getReviews",
+  "getReviewsStats",
   async (credentials, thunkAPI) => {
    
     try {
-        const response = await axios.post(`/reviews/getReviews`, credentials);
+        const response = await axios.post(`/reviews/getReviewsStats`, credentials);
        
     return response;
     } catch (error) {

@@ -1,0 +1,33 @@
+.optionSection{
+    max-width: 1080px;
+    margin: 0 50px;
+        display: grid;
+        grid-template-columns: 1fr;
+        column-gap: 20px
+}
+
+.optionGroup{
+display: flex;
+flex-direction: column;
+}
+
+@media screen and (min-width:825px)  {
+    .optionSection {
+        grid-template-columns: 2fr 1fr;
+    }
+}
+
+.reviewSection{
+    max-width: 1080px;
+        margin: 0 50px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 10px;
+        margin: 10px;
+        padding: 15px;
+        border: 1px solid grey
+}
+
+.leftAlign{
+    text-align: left;
+}

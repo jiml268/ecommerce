@@ -85,7 +85,7 @@ const WriteReview = ({ setReview, productReview,handleSubmit }) => {
             </Grid>
             <Button
               type="submit"
-              disabled= {!(productReview.review!== ""&& productReview.title !== "" && productReview.name !== "")}
+             
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
