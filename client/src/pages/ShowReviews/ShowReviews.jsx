@@ -45,47 +45,57 @@ const ShowReviews = ({ starNum, productReviews }) => {
   const handleChange = (selected) => {
     
  setshowRating(selected)
-   
+   let matchReviews = []
     
     if (selected.length === 0) {
-      setReviewToShow(productReviews.filter((num) => num.review !== null))
+      matchReviews = productReviews.filter((num) => num.review !== null)
+      // setReviewToShow(productReviews.filter((num) => num.review !== null))
     } else {
-      setReviewToShow([])
+      
+      // setReviewToShow([])
       selected.map((star) => (
-        setReviewToShow(prev =>  [...prev, ... productReviews.filter((num) => num.rating === star.value && num.review !== null)])
+        // setReviewToShow(prev =>  [...prev, ... productReviews.filter((num) => num.rating === star.value && num.review !== null)])
+        matchReviews = [...matchReviews, ... productReviews.filter((num) => num.rating === star.value && num.review !== null)]
       ));
 
     }
-    
+    console.log(matchReviews)
+    console.log(sortBy)
+
+    sortItems(matchReviews,sortBy)
 
   };
   
   const handleSort = (selected) => {
+    setSortBy(selected)
+    sortItems(reviewToShow, selected)
+  } 
    
-    
-setSortBy(selected)
-    if (selected.value === 'datenew') {
-      const sortedItems = [...reviewToShow].sort((a, b) => b.createDate - a.createDate);
+   
+  const sortItems = ( matchReviews, sortBy ) => {
+    console.log(matchReviews)
+        console.log(sortBy)
+
+    if (sortBy.value === 'datenew') {
+      const sortedItems = [...matchReviews].sort((a, b) => b.createDate - a.createDate);
       setReviewToShow(sortedItems);
      
     }
-    if (selected.value === 'dateold') {
- const sortedItems = [...reviewToShow].sort((a, b) => a.createDate - b.createDate);
+    if (sortBy.value === 'dateold') {
+ const sortedItems = [...matchReviews].sort((a, b) => a.createDate - b.createDate);
       setReviewToShow(sortedItems);
     
     }
     
-    if (selected.value === 'ratinghigh') {
-      const sortedItems = [...reviewToShow].sort((a, b) => b.rating - a.rating);
+    if (sortBy.value === 'ratinghigh') {
+      const sortedItems = [...matchReviews].sort((a, b) => b.rating - a.rating);
       setReviewToShow(sortedItems);
      
     }
 
-    if (selected.value === 'ratinglow') {
-      const sortedItems = [...reviewToShow].sort((a, b) => a.rating - b.rating);
+    if (sortBy.value === 'ratinglow') {
+      const sortedItems = [...matchReviews].sort((a, b) => a.rating - b.rating);
       setReviewToShow(sortedItems);
-     
-
     }
 
 
@@ -99,7 +109,8 @@ setSortBy(selected)
 
   }
     return (
-        <>
+      <>
+       
         <div className={css.optionSection}>  
           <div className={css.optionGroup}>
             <h4>Ratings:</h4>
