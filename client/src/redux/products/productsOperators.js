@@ -43,3 +43,14 @@ export const singleProduct = createAsyncThunk(
   }
 );
 
+export const searchProduct = createAsyncThunk(
+  "searchProduct",
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`/products/productSearch`, credentials);
+    return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

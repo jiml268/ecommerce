@@ -4,6 +4,7 @@ const productsByCat_Subcat = require("./productsByCat_Subcat");
 const getSingleProduct = require("./getSingleProduct");
 const  getCat_Subcat = require("./getCat_Subcat");
 const  newProducts = require("./newProducts");
+const  productSearch = require("./productSearch");
 
 
 
@@ -13,5 +14,6 @@ module.exports = {
     productsByCat_Subcat,
     getSingleProduct,
     getCat_Subcat,
-    newProducts
+    newProducts,
+    productSearch
 };

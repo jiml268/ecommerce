@@ -6,6 +6,7 @@ import NavBar from './components/NavBar/NavBar';
 import { lazy, Suspense } from 'react';
 import Loader from './components/Loader/Loader';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import SearchProducts from './components/SearchProducts/SearchProducts';
 const Home = lazy(() => import('./pages/Home'));
 const Registration = lazy(() => import('./pages/Registration'));
 const VarifyUser = lazy(() => import('./pages/VarifyUser'));
@@ -22,7 +23,8 @@ const CkeckOut = lazy(()=> import('./pages/CkeckOut/CkeckOut'))
 const Allorders = lazy(()=> import('./pages/AllOrders/AllOrders'))
 const OrderDatails = lazy(()=> import('./pages/OrderDatails/OrderDatails'))
 const AddReviews = lazy(()=> import('./pages/AddReviews/AddReviews'))
-const ShowReviews = lazy(()=> import('./pages/ShowReviews/ShowReviews'))
+const ShowReviews = lazy(() => import('./pages/ShowReviews/ShowReviews'))
+
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -34,8 +36,11 @@ function App() {
       <Elements stripe={stripePromise}>
     <div className="App">
        <ToastContainer position="top-center" autoClose={3000} hideProgressBar />
-         < NavBar />
-         <CategoryMenu />
+        < NavBar />
+        <div style={{display: 'flex',     justifyContent: "space-evenly", backgroundColor: "#1976d2"}}>
+          <CategoryMenu />
+          <SearchProducts />
+          </div>
          <Suspense fallback={<Loader />}>
       <Routes>
                <Route path="/" element={<Home />} />
