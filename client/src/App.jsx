@@ -24,6 +24,7 @@ const Allorders = lazy(()=> import('./pages/AllOrders/AllOrders'))
 const OrderDatails = lazy(()=> import('./pages/OrderDatails/OrderDatails'))
 const AddReviews = lazy(()=> import('./pages/AddReviews/AddReviews'))
 const ShowReviews = lazy(() => import('./pages/ShowReviews/ShowReviews'))
+const CardList = lazy(() => import('./pages/CardList/CardList'))
 
 
 import { Elements } from '@stripe/react-stripe-js';
@@ -60,7 +61,7 @@ function App() {
             <Route path="/orderdetails" element={<OrderDatails />} />
             <Route path="/addReviews" element={<AddReviews />} />
             <Route path="/showReviews" element={<ShowReviews />} />
-
+            <Route path="/cardList" element={<PrivateRoute><CardList /></PrivateRoute>} />
          <Route path="*" element={<Page404 />} />
      
          </Routes>   

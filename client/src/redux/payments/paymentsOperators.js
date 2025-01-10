@@ -56,3 +56,21 @@ export const CreateStripeAcct = createAsyncThunk(
 
   
 );
+
+export const getallCards = createAsyncThunk(
+  "getallCards",
+  async (credentials, thunkAPI) => {
+    try {
+    
+      const response = await axios.post(`stripe/getAllCards`, credentials); 
+    
+      return response;
+    } catch (error) {
+           
+
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+
+  
+);

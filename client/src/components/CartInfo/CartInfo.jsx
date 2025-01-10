@@ -72,9 +72,13 @@ return (<>
                                     {item.sizeName && <p className={css.infoText}>Size: {item.sizeName}</p>}
                                 </div>
                                 <div className={css.priceSection}>
+                                    {console.log(item)}
+                                    {console.log(typeof item.salepercent)}
+                                     {console.log(typeof item.price)}
+
                                     <h4>${!item.salepercent ? (item.price * item.quantity).toFixed(2).toLocaleString('en-US') : ((item.price - (item.price * item.salepercent).toFixed(2)) * item.quantity).toLocaleString('en-US')}</h4>
                                     {item.quantity > 1 && <p> ${(item.price - (item.price * item.salepercent).toFixed(2).toLocaleString('en-US'))} each </p>}
-                                    {item.salepercent && <p className={css.sale}>${item.price.toFixed(2).toLocaleString('en-US')} each</p>}
+                                    {item.salepercent && <p className={css.sale}>${item.price} each</p>}
 
                                     {item.salepercent && <p><span className={css.saveText}>You save:  </span>${((item.price * item.salepercent).toFixed(2) * item.quantity).toFixed(2).toLocaleString('en-US')}</p>}
                                     <div>
