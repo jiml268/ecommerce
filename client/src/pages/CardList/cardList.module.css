@@ -1,0 +1,29 @@
+.cardSwction{
+    max-width: 350px;
+    width: 80%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card{
+    border: 1px solid grey;
+    margin: 10px 0;
+}
+.buttonsection{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around
+}
+
+.button{
+    padding: 10px;
+        border-radius: 180px;
+            background-color: #82f4df;
+            color: #767070;
+}
+
+.button:hover{
+    background-color: rgb(204, 204, 234);
+}

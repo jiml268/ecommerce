@@ -38,7 +38,7 @@ function App() {
     <div className="App">
        <ToastContainer position="top-center" autoClose={3000} hideProgressBar />
         < NavBar />
-        <div style={{display: 'flex',     justifyContent: "space-evenly", backgroundColor: "#1976d2"}}>
+        <div style={{display: 'flex', flexWrap: "wrap", justifyContent: "space-evenly", backgroundColor: "#1976d2"}}>
           <CategoryMenu />
           <SearchProducts />
           </div>

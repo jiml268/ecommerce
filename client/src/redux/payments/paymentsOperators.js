@@ -74,3 +74,21 @@ export const getallCards = createAsyncThunk(
 
   
 );
+
+export const updateDefault = createAsyncThunk(
+  "updateDefault",
+  async (credentials, thunkAPI) => {
+    try {
+    
+      const response = await axios.post(`stripe/updateDefault`, credentials); 
+    
+      return response;
+    } catch (error) {
+           
+
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+
+  
+)
