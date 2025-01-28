@@ -17,6 +17,7 @@ import Address from "../../components/Address/Address";
 import { useAuth } from "../../hooks/userHooks";
 import { useDispatch } from "react-redux";
 import { updateCard } from "../../redux/payments/paymentsOperators";
+import { removeCard } from "../../redux/payments/paymentsOperators";
 
 export default function EditCard() {
   const location = useLocation();
@@ -95,6 +96,13 @@ export default function EditCard() {
   const cancUpdate = () => {
      nav("/cardList")
   }
+
+    const deleteCard = e => {
+      e.preventDefault();
+      dispatch(removeCard({currectInfo:currectInfo }))
+    console.log("submit")
+}
+  
 
     return (
  <Container component="main" maxWidth="xs">
@@ -180,6 +188,7 @@ export default function EditCard() {
                         </Grid>
                          <Grid> 
                 <Button type="submit" >Update</Button>
+                 <Button type="button"onClick={deleteCard} >Delete card</Button>
                  <Button type="button" onClick={cancUpdate} >cancel</Button>
                                 </Grid>
                         

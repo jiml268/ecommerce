@@ -110,3 +110,22 @@ export const updateCard = createAsyncThunk(
 
   
 )
+
+
+export const removeCard = createAsyncThunk(
+  "removeCard",
+  async (credentials, thunkAPI) => {
+    try {
+    
+      const response = await axios.post(`stripe/removeCard`, credentials); 
+    
+      return response;
+    } catch (error) {
+           
+
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+
+  
+)

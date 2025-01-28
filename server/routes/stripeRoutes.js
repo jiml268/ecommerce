@@ -6,7 +6,8 @@ const {
   createStripeAcct,
   getAllCards,
   updateDefault,
-    updateCard
+  updateCard,
+    removeCard
  
 } = require("../controllers/stripe");
 
@@ -17,6 +18,8 @@ stripeRouter.route("/stripe/createStripeAcct").post(createStripeAcct);
 stripeRouter.route("/stripe/getAllCards").post(getAllCards);
 stripeRouter.route("/stripe/updateDefault").post(updateDefault);
 stripeRouter.route("/stripe/updateCard").post(updateCard);
+stripeRouter.route("/stripe/removeCard").post(removeCard);
+
 
 
 module.exports = stripeRouter;

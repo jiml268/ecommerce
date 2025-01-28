@@ -6,7 +6,7 @@ export default function Address({ currectInfo, infochange }) {
 
     return (
         <>
-        <form >
+        <div >
           <Typography variant="h5">Billing Address</Typography>
           <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -60,7 +60,7 @@ export default function Address({ currectInfo, infochange }) {
         </Grid>
 
       </Grid>
-    </form>
+    </div>
         </>
     )
 }

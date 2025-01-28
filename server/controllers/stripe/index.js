@@ -4,6 +4,7 @@ const createStripeAcct = require("./createStripeAcct");
 const getAllCards = require("./getAllCards");
 const updateDefault = require("./updateDefault");
 const updateCard = require("./updateCard");
+const removeCard = require("./removeCard");
 
 
 module.exports = {
@@ -12,5 +13,6 @@ module.exports = {
     createStripeAcct,
     getAllCards,
     updateDefault,
-updateCard
+    updateCard,
+removeCard
 };
