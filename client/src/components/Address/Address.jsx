@@ -1,41 +1,22 @@
 import PropTypes from "prop-types"
-import { TextField, Grid, Button,  Typography, Checkbox, FormControlLabel} from '@mui/material';
+import { TextField, Grid,  Typography,} from '@mui/material';
 
 
-export default function Address({ shippingAddress, billingAddress, updateAddress, page, buttonClick }) {
+export default function Address({ currectInfo, infochange }) {
 
     return (
         <>
         <form >
-          <Typography variant="h3">{page === 'ship' ? "Shipping Address" : "Billing Address"}</Typography>
+          <Typography variant="h5">Billing Address</Typography>
           <Grid container spacing={2}>
-             {page === 'bill' && 
-              <Grid item xs={12}>
- <FormControlLabel control={<Checkbox checked={billingAddress.sameAddress}
-                onChange={updateAddress}
-                  name="sameAddress"
-                 
-                 inputProps={{ 'aria-label': 'controlled' }}/>} label="Use Shipping address as the Billing Address" />
-              </Grid> 
-             }
-        <Grid item xs={12}>
-          <TextField
-                fullWidth
-                required
-            label="Full Name"
-            name="name"
-            value={page === 'ship'?shippingAddress.name:billingAddress.name}
-            onChange={updateAddress}
-          />
-        </Grid>
         <Grid item xs={12}>
           <TextField
                 fullWidth
                 required
             label="Address Line 1"
             name="line1"
-            value={page === 'ship'?shippingAddress.line1:billingAddress.line1}
-            onChange={updateAddress}
+            value={currectInfo.line1}
+            onChange={infochange}
           />
         </Grid>
         <Grid item xs={12}>
@@ -43,8 +24,8 @@ export default function Address({ shippingAddress, billingAddress, updateAddress
             fullWidth
             label="Address Line 2"
             name="line2"
-            value={page === 'ship'?shippingAddress.line2:billingAddress.line2}
-            onChange={updateAddress}
+            value={currectInfo.line2}
+            onChange={infochange}
           />
         </Grid>
         <Grid item xs={6}>
@@ -53,8 +34,8 @@ export default function Address({ shippingAddress, billingAddress, updateAddress
                 required
             label="City"
             name="city"
-            value={page === 'ship'?shippingAddress.city:billingAddress.city}
-            onChange={updateAddress}
+            value={currectInfo.city}
+            onChange={infochange}
           />
         </Grid>
         <Grid item xs={6}>
@@ -63,8 +44,8 @@ export default function Address({ shippingAddress, billingAddress, updateAddress
                 required
             label="State/Province"
             name="state"
-            value={page === 'ship'?shippingAddress.state:billingAddress.state}
-            onChange={updateAddress}
+            value={currectInfo.state}
+            onChange={infochange}
           />
         </Grid>
         <Grid item xs={6}>
@@ -73,23 +54,11 @@ export default function Address({ shippingAddress, billingAddress, updateAddress
                 required
             label="Zip/Postal Code"
             name="zip"
-            value={page === 'ship'?shippingAddress.zip:billingAddress.zip}
-            onChange={updateAddress}
+            value={currectInfo.postal_code}
+            onChange={infochange}
           />
         </Grid>
-        <Grid item xs={12}>
-          <Button type="button" variant="contained"  value="cart" onClick={buttonClick}>
-            Return to cart
-              </Button>
-              {page === "ship" ?
-                <Button type="button" variant="contained" value="bill" onClick={buttonClick} > Billing Address</Button> :
-                <>
-                    <Button  type="button" variant="contained" value="ship" onClick={buttonClick}> Return to shipping Address</Button>
-                     <Button type="button" variant="contained"  value="pay" onClick={buttonClick}> Payment</Button>
-                </>
-            }
-              
-        </Grid>
+
       </Grid>
     </form>
         </>
@@ -97,10 +66,8 @@ export default function Address({ shippingAddress, billingAddress, updateAddress
 }
 
 Address.propTypes = {
-    shippingAddress: PropTypes.object,
-    billingAddress: PropTypes.object,
-    updateAddress: PropTypes.func,
-    page: PropTypes.string,
-    buttonClick: PropTypes.func,
+    currectInfo: PropTypes.object,
+    infochange: PropTypes.func,
 
 };
+

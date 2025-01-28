@@ -4,11 +4,14 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateDefault } from "../../redux/payments/paymentsOperators";
+import { useNavigate } from 'react-router-dom';
+
 import cardLogos from '../../svg/cardLogos.svg'
 import css from './cardList.module.css'
 
 export default function Payment() {
     const dispatch = useDispatch()
+    const nav = useNavigate()
     const { getUserEmail } = useAuth();
     const [retrieveCards, setRetrieveCards] = useState(null)
         const [ defaultCard, setDefaultCard ] = useState(null)
@@ -75,8 +78,7 @@ export default function Payment() {
     }
 
     const editClick = (e) => {
-        console.log(e.target.value)
-
+        nav('/editCard',{state:{cardInfo: retrieveCards.filter((card) => card.id ===e.target.value )}})
 
 
     }
