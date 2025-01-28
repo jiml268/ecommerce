@@ -13,6 +13,11 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import FormControl from '@mui/material/FormControl';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import Address from "../../components/Address/Address";
 import { useAuth } from "../../hooks/userHooks";
 import { useDispatch } from "react-redux";
@@ -25,7 +30,8 @@ export default function EditCard() {
     const dispatch = useDispatch()
 
     const [currectInfo, setCurrentInfo] = useState(null)
-    const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+  const [open, setOpen] = useState(false)
    const nav = useNavigate()
   console.log(location.state.cardInfo[0])
     console.log(location.state.cardInfo[0].id)
@@ -97,10 +103,18 @@ export default function EditCard() {
      nav("/cardList")
   }
 
+  const handleClose = e => {
+    console.log(e.target.value)
+    if (e.target.value === 'yes') {
+ dispatch(removeCard({currectInfo:currectInfo }))
+    }
+      setOpen(false)
+  }
+
+
     const deleteCard = e => {
       e.preventDefault();
-      dispatch(removeCard({currectInfo:currectInfo }))
-    console.log("submit")
+      setOpen(true)
 }
   
 
@@ -195,8 +209,29 @@ export default function EditCard() {
              </Box>
             }
              </Box>
-      
+       <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Delete credit card?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+           Are you sure you want to delete this card?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} value="yes" autoFocus>yes</Button>
+          <Button onClick={handleClose}  value="canc">
+            cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
       </Container>
+     
     )
 }
 
