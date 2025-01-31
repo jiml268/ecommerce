@@ -31,6 +31,12 @@ const productSlice = createSlice({
       state.searchResults = actions.payload;
 
       },
+         
+      clearColorSize: (state) => {
+        state.currentColor = null
+        state.currentSize = null
+
+        }
     },
   extraReducers: (builder) =>
     builder
@@ -43,7 +49,7 @@ const productSlice = createSlice({
     )
      });
      
-export const { setCurrentColor, setCurrentSize, setSearchResults } = productSlice.actions;
+export const { setCurrentColor, setCurrentSize, setSearchResults, clearColorSize } = productSlice.actions;
 
 
 export const procuctReducer = productSlice.reducer;

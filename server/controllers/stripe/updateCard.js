@@ -8,8 +8,7 @@ const updateCard = async (req, res) => {
         const ID = await pool.query(sql, [userEmail])
         const stripeID = ID[0][0].stripe_acct
 
-        console.log('stripeID', stripeID)
-        console.log("currectInfo.id", currectInfo.id)
+        
 
       const customerSource = await stripe.paymentMethods.update(
       currectInfo.id,
@@ -32,7 +31,7 @@ const updateCard = async (req, res) => {
   }
     );
   
-        console.log(customerSource)
+      
          return res.status(200).json({
           message: "card updated"
             });

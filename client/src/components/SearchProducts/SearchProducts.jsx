@@ -16,8 +16,8 @@ const SearchProducts = () => {
     };
     
     const handleSubmit = async() => {
-        const result = await dispatch(searchProduct({ searchInfo: `%${seachTerm}%` }))
-        console.log(result)
+        await dispatch(searchProduct({ searchInfo: `%${seachTerm}%` }))
+        
     }
     const clearSearch = () => {
     setSeachTerm('')

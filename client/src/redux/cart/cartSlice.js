@@ -33,7 +33,9 @@ const cartSlice = createSlice({
              state.cartID = action.payload.data.cart[0].cartNun
              state.currentCart = action.payload.data.cart
 
-           }
+           } 
+             
+             
       })
      .addCase(getCartByCartID.fulfilled, (state, action) => { 
            if (action.payload.data.cart.length > 0) {
@@ -43,11 +45,20 @@ const cartSlice = createSlice({
            
      })
          
-          .addCase(getCart.fulfilled, (state, action) => { 
+         .addCase(getCart.fulfilled, (state, action) => { 
+           console.log('action.payload.data.cart', action.payload.data.cart)
+           console.log('action.payload.data.cart.length', action.payload.data.cart.length)
            if (action.payload.data.cart.length > 0) {
            state.allCartItems = action.payload.data.cart
 state.allCartImages =action.payload.data.images
+           } else {
+           state.allCartItems = null
+             state.allCartImages = null  
+              state.cartID = ""
+             state.currentCart = null
+           
            }
+            console.log('state.allCartItems', state.allCartItems)
            
      })
      .addCase(decreasequantity.fulfilled, (state, action) => { 

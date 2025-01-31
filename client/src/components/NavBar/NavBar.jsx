@@ -66,6 +66,9 @@ switch(myValue) {
     case "All cards":
     nav("/cardList")
     break
+  case "home":
+    nav("/")
+    break
  default:
     nav("/")
 }
@@ -113,6 +116,8 @@ switch(myValue) {
               color: 'inherit',
               textDecoration: 'none',
             }}
+            data-my-value='home'
+            onClick={handleCloseNavMenu}
           >
             LOGO
           </Typography>
@@ -169,6 +174,8 @@ switch(myValue) {
               color: 'inherit',
               textDecoration: 'none',
             }}
+            data-my-value='home'
+            onClick={handleCloseNavMenu}
           >
             LOGO
           </Typography>

@@ -59,9 +59,6 @@ const ShowReviews = ({ starNum, productReviews }) => {
       ));
 
     }
-    console.log(matchReviews)
-    console.log(sortBy)
-
     sortItems(matchReviews,sortBy)
 
   };
@@ -73,8 +70,6 @@ const ShowReviews = ({ starNum, productReviews }) => {
    
    
   const sortItems = ( matchReviews, sortBy ) => {
-    console.log(matchReviews)
-        console.log(sortBy)
 
     if (sortBy.value === 'datenew') {
       const sortedItems = [...matchReviews].sort((a, b) => b.createDate - a.createDate);

@@ -33,8 +33,7 @@ export default function EditCard() {
   const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
   const [open, setOpen] = useState(false)
    const nav = useNavigate()
-  console.log(location.state.cardInfo[0])
-    console.log(location.state.cardInfo[0].id)
+
 
     useEffect(() => {
     if (location.state.cardInfo)   {  
@@ -64,7 +63,6 @@ export default function EditCard() {
         }
 
      const mthchange = (e) => {
-        console.log(e.target.value)
     setCurrentInfo({
       ...currectInfo,
       exp_month: e.target.value,
@@ -72,7 +70,6 @@ export default function EditCard() {
     }
 
       const yrchange = (e) => {
-        console.log(e.target.value)
     setCurrentInfo({
       ...currectInfo,
       exp_year: e.target.value,
@@ -80,14 +77,8 @@ export default function EditCard() {
     }
     
     const infochange = (e) => {
-        console.log(e.target)
-                console.log(e.target.name)
-
         const { name, value } = e.target;
-                        console.log(name)
-                console.log(value)
-
-    setCurrentInfo({
+      setCurrentInfo({
       ...currectInfo,
       [name]: value,
     });
@@ -96,7 +87,7 @@ export default function EditCard() {
     const handleSubmit = e => {
       e.preventDefault();
       dispatch(updateCard({userEmail:getUserEmail , currectInfo:currectInfo }))
-    console.log("submit")
+   
 }
     
   const cancUpdate = () => {
@@ -104,7 +95,7 @@ export default function EditCard() {
   }
 
   const handleClose = e => {
-    console.log(e.target.value)
+    
     if (e.target.value === 'yes') {
  dispatch(removeCard({currectInfo:currectInfo }))
     }
@@ -132,7 +123,7 @@ export default function EditCard() {
                 
                 {currectInfo &&
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-              {console.log(currectInfo)}
+              
                          <Typography component="h1" variant="h5">
             ....{currectInfo.last4}
           </Typography>      

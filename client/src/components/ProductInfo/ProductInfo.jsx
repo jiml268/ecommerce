@@ -28,6 +28,7 @@ export default function ProductInfo({ currentItem,  }) {
   const { getCurrentColor, getCurrentSize } = useProduct();
   const { getUserId } = useAuth();
   const { getCartID, getCurrentCart } = useCart()  
+  console.log("getCurrentCart line 31", getCurrentCart)
 const [uniqueColors, setUniqueColors] = useState(null)
   const [uniqueSizes, setUniqueSizes] = useState(null)
   const [uniqueSpecs, setUniqueSpecs] = useState(null)
@@ -164,8 +165,8 @@ const getSKU = e.target.value
   await dispatch(addtocart(additem))
   await dispatch(setCartID(holdCartID)) 
     await dispatch(getCartByCartID(additem))
-    await dispatch(setCurrentSize(null))
-    await dispatch(setCurrentColor(null))
+    // await dispatch(setCurrentSize(null))
+    // await dispatch(setCurrentColor(null))
   }
 
   const changeClicked = async e => {
@@ -190,10 +191,14 @@ const getSKU = e.target.value
     let cartQnt = 0
     let getsku = null
           
+    console.log('currentItem', currentItem)
+    console.log('getCurrentSize', getCurrentSize)
+console.log('getCurrentColor', getCurrentColor)
 
 
     getsku = currentItem.findIndex(iteminfo => iteminfo.sizeName === getCurrentSize && iteminfo.colorID === getCurrentColor)
-   
+   console.log('getsku', getsku)
+
 
     if (getsku >= 0) {
       sku = currentItem[getsku].sku
@@ -203,7 +208,12 @@ const getSKU = e.target.value
       inStock = currentItem[0].stock
     }
     if (getCurrentCart) {
+            console.log('getCurrentCart ran')
+
+      console.log('getCurrentCart', getCurrentCart)
       const inCart = getCurrentCart.findIndex(iteminfo => iteminfo.sku === sku)
+            console.log('inCart', inCart)
+
       if (inCart >= 0) {
         cartQnt = getCurrentCart[inCart].quantity
       }

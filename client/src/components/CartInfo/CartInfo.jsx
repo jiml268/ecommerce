@@ -2,22 +2,21 @@ import css from './CartInfo.module.css';
 import { useAuth } from '../../hooks/userHooks';
 import { useCart } from '../../hooks/cartHooks';
 import CartButtons from '../CartButtons/CartButtons';
-
 import { useDispatch } from 'react-redux';
 import { deleteItem, getCart, saveForLater, addquantity, decreasequantity } from '../../redux/cart/cartOperators';
-
 
 export default function CartInfo() {
      const dispatch = useDispatch()
     const { loggedIn, getUserId } = useAuth();
         const { getCartID,  getAllCartItems, getAllCartImages } = useCart();
-
     
 
    
     
     const SaveClicked = async e => {
- const saveInfo = { sku: e.target.value, userID: getUserId, cartID: getCartID }
+
+const index = getAllCartItems.findIndex(item => item.sku === e.target.value);
+const saveInfo = { sku: e.target.value, userID: getUserId, cartID: getCartID, quantity: getAllCartItems[index].quantity  }
         await dispatch(saveForLater(saveInfo))
         await dispatch(deleteItem(saveInfo))
        await dispatch(getCart(saveInfo))
@@ -46,11 +45,16 @@ const removeClicked = async e => {
         await dispatch(getCart(info))
         
     }
+
+
     
-return (<>
+    return (<>
+        {console.log('getAllCartItems', getAllCartItems)}
+       
    
     {getAllCartItems &&
-        <div className={css.produceSection}>
+            <div className={css.produceSection}>
+                <p>cart item</p>
              <div className={css.cartOption}>
               <CartButtons />
             </div>
@@ -72,9 +76,7 @@ return (<>
                                     {item.sizeName && <p className={css.infoText}>Size: {item.sizeName}</p>}
                                 </div>
                                 <div className={css.priceSection}>
-                                    {console.log(item)}
-                                    {console.log(typeof item.salepercent)}
-                                     {console.log(typeof item.price)}
+                                    
 
                                     <h4>${!item.salepercent ? (item.price * item.quantity).toFixed(2).toLocaleString('en-US') : ((item.price - (item.price * item.salepercent).toFixed(2)) * item.quantity).toLocaleString('en-US')}</h4>
                                     {item.quantity > 1 && <p> ${(item.price - (item.price * item.salepercent).toFixed(2).toLocaleString('en-US'))} each </p>}
@@ -109,7 +111,7 @@ return (<>
                 )
             })
             }
-        </div>
+            </div> 
     }
      
 </>

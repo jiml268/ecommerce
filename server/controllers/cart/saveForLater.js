@@ -3,11 +3,11 @@ const pool = require('../../config/db')
 const saveForLater = async (req, res) => {
         
     try {
-        const { sku, userID } = req.body
+        const { sku, userID, quantity } = req.body
 
 
-     const sql = "insert into saveitem (userID, sku) value (?,?);";
-     await pool.query(sql, [userID, sku])
+     const sql = "insert into saveitem (userID, sku, quantity) value (?,?,?);";
+     await pool.query(sql, [userID, sku, quantity ])
           return res.status(200).json({
                 code: 200,
               message: "Item saved"

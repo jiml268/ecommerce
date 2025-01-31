@@ -9,7 +9,7 @@ const message = []
  try {
 const sql = "select stripe_acct from users where email = ?;"
      const ID = await pool.query(sql, [email])
-     console.log()
+     
      const stripeID = ID[0][0].stripe_acct
      await stripe.customers.update(stripeID, {
       invoice_settings: {
