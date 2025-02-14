@@ -48,10 +48,7 @@ const removeClicked = async e => {
 
 
     
-    return (<>
-        {console.log('getAllCartItems', getAllCartItems)}
-       
-   
+    return (<>   
     {getAllCartItems &&
             <div className={css.produceSection}>
                 <p>cart item</p>

@@ -9,6 +9,7 @@ const emptyCart = require("./emptyCart");
 const getCart = require("./getCart");
 const saveForLater = require("./saveForLater");
 const addToOrders = require("./addToOrders");
+const showSaved = require("./showSaved");
 
 
 
@@ -23,5 +24,6 @@ module.exports = {
     emptyCart,
     getCart,
     saveForLater,
-    addToOrders
+    addToOrders,
+    showSaved
 };

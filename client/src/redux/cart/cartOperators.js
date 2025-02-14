@@ -166,3 +166,20 @@ export const addToOrders = createAsyncThunk(
 
   
 );
+
+
+export const showSaved = createAsyncThunk(
+  "showSaved",
+  async (credentials, thunkAPI) => {
+    try {
+    
+      const response = await axios.post(`/cart/showSaved`, credentials); 
+      
+      return response;
+    } catch (error) {
+           
+
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+)

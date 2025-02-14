@@ -46,8 +46,7 @@ const cartSlice = createSlice({
      })
          
          .addCase(getCart.fulfilled, (state, action) => { 
-           console.log('action.payload.data.cart', action.payload.data.cart)
-           console.log('action.payload.data.cart.length', action.payload.data.cart.length)
+         
            if (action.payload.data.cart.length > 0) {
            state.allCartItems = action.payload.data.cart
 state.allCartImages =action.payload.data.images
@@ -58,7 +57,6 @@ state.allCartImages =action.payload.data.images
              state.currentCart = null
            
            }
-            console.log('state.allCartItems', state.allCartItems)
            
      })
      .addCase(decreasequantity.fulfilled, (state, action) => { 

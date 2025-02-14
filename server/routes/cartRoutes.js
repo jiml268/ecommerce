@@ -10,7 +10,8 @@ const {
    emptyCart,
    getCart,
    saveForLater,
-   addToOrders
+   addToOrders,
+   showSaved
  
 } = require("../controllers/cart");
 
@@ -26,6 +27,7 @@ cartRouter.route("/cart/emptyCart").post(emptyCart);
 cartRouter.route("/cart/getCart").post(getCart);
 cartRouter.route("/cart/saveForLater").post(saveForLater);
 cartRouter.route("/cart/addToOrders").post(addToOrders);
+cartRouter.route("/cart/showSaved").post(showSaved);
 
 
 
