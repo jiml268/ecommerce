@@ -1,18 +1,19 @@
 const cartRouter = require("express").Router();
 const {
-   addToCart,
-   quantityIncrease,
-   quantityDecrease,
-   deleteItem,
-   getCartByID,
-   getCartByCartID,
-   updateIDs,
-   emptyCart,
-   getCart,
-   saveForLater,
-   addToOrders,
-   showSaved
- 
+  addToCart,
+  quantityIncrease,
+  quantityDecrease,
+  deleteItem,
+  getCartByID,
+  getCartByCartID,
+  updateIDs,
+  emptyCart,
+  getCart,
+  saveForLater,
+  addToOrders,
+  showSaved,
+  removedItem,
+  addFromSaved,
 } = require("../controllers/cart");
 
 cartRouter;
@@ -28,7 +29,7 @@ cartRouter.route("/cart/getCart").post(getCart);
 cartRouter.route("/cart/saveForLater").post(saveForLater);
 cartRouter.route("/cart/addToOrders").post(addToOrders);
 cartRouter.route("/cart/showSaved").post(showSaved);
-
-
+cartRouter.route("/cart/removedItem").post(removedItem);
+cartRouter.route("/cart/addFromSaved").post(addFromSaved);
 
 module.exports = cartRouter;

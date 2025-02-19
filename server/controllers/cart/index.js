@@ -10,20 +10,22 @@ const getCart = require("./getCart");
 const saveForLater = require("./saveForLater");
 const addToOrders = require("./addToOrders");
 const showSaved = require("./showSaved");
-
-
+const removedItem = require("./removedItem");
+const addFromSaved = require("./addFromSaved");
 
 module.exports = {
-    addToCart,
-    quantityIncrease,
-    quantityDecrease,
-    deleteItem,
-    getCartByID,
-    getCartByCartID,
-    updateIDs,
-    emptyCart,
-    getCart,
-    saveForLater,
-    addToOrders,
-    showSaved
+  addToCart,
+  quantityIncrease,
+  quantityDecrease,
+  deleteItem,
+  getCartByID,
+  getCartByCartID,
+  updateIDs,
+  emptyCart,
+  getCart,
+  saveForLater,
+  addToOrders,
+  showSaved,
+  removedItem,
+  addFromSaved,
 };
