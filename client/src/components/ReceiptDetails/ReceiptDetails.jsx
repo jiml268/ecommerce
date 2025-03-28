@@ -28,7 +28,9 @@ const ReceiptDetails = ({ cart }) => {
                   <p className={css.parformat}> Size: {product.sizeName}</p>
                 )}
                 <p className={css.parformat}>Qty: {product.quantity} </p>
-                <p className={css.parformat}>Price: ${product.price} each</p>
+                <p className={css.parformat}>
+                  Price: ${product.price * 1 - product.discount * 1} each
+                </p>
               </div>
               <div className={css.totalSection}>
                 <p className={css.parformat}>${product.totalAmt} </p>

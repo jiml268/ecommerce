@@ -1,0 +1,25 @@
+.totals {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.totalsection {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  max-width: 1080px;
+  text-align: left;
+}
+
+.totalBox {
+  margin-left: 5px;
+  padding: 10px;
+  border: 1px solid blue;
+  margin-top: 10px;
+}
+
+.textSpace {
+  padding-left: 4px;
+}
